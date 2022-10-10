@@ -1,8 +1,12 @@
 from tkinter import Tk
 from InterfaceGameBoardSetter import InterfaceGameBoardSetter
 from GameImageHandler import GameImageHandler
+from tkinter import messagebox
+from tkinter import simpledialog
+from dog.dog_interface import DogPlayerInterface
+from dog.dog_actor import DogActor
 
-class GameInterface:
+class GameInterface(DogPlayerInterface):
     def __init__(self) -> None:
         self.__window = Tk()
         self.__window.title("Trilha Alemã")
@@ -14,4 +18,11 @@ class GameInterface:
         self.__window.resizable(False, False)
 
     def start(self) -> None:
+        self.__connect_to_dog()
         self.__window.mainloop()
+
+    def __connect_to_dog(self) -> None:
+        player_name = simpledialog.askstring(title="Player identification", prompt="Qual o seu nome?")
+        self.dog_server_interface = DogActor()
+        message = self.dog_server_interface.initialize(player_name, self)
+        messagebox.showinfo(message=message)
