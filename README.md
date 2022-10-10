@@ -7,5 +7,7 @@ João Victor Volpato: https://youtu.be/erFXX5uUB50
 Rodrigo Santos de Carvalho: https://www.youtube.com/watch?v=DzBjoSjj7z0&ab_channel=RodrigoSantosdeCarvalho
 
 .vpp da Primeira Entraga ok!
+
 Interface da Prmeira Entrega ok!
+
 Interface da Segunda Entrega ok!
