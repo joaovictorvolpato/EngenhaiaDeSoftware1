@@ -4,7 +4,7 @@ python -m venv venv
 venv\Scripts\activate or cd venv\Scripts\activate
 
 1. Execute pip 'install -r requirements.txt';
-cd ..\..
+(go to src folder)
 pip install -r requirements.txt
 1. To run the game:  <name_of_your_game>.py.
 cd src
