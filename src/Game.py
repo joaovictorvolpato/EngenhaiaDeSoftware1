@@ -1,5 +1,5 @@
-from GameInterface import GameInterface
+from PlayerInterface import PlayerInterface
 
 class Game:
     def __init__(self) -> None:
-        self.game_interface = GameInterface()
+        self.player_interface = PlayerInterface()

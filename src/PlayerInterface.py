@@ -6,7 +6,7 @@ from tkinter import simpledialog
 from dog.dog_interface import DogPlayerInterface
 from dog.dog_actor import DogActor
 
-class GameInterface(DogPlayerInterface):
+class PlayerInterface(DogPlayerInterface):
     def __init__(self) -> None:
         self.__window = self.__create_window()
         GameImageHandler.set_game_images()
