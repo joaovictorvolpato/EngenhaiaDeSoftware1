@@ -1,10 +1,10 @@
 # EngenhaiaDeSoftware1
-Repositorio para organizar os arquivos do trabalho de engenharia de software do quarto semestre da ufsc
+Repositório para organizar os arquivos do trabalho de Engenharia de Software do 4º semestre de Ciências da Computação da UFSC.
 
-Links da entrega 1:
-João Paulo Bonomo: https://youtu.be/CweXsZcP2ho
-João Victor Volpato: https://youtu.be/erFXX5uUB50
-Rodrigo Santos de Carvalho: https://www.youtube.com/watch?v=DzBjoSjj7z0&ab_channel=RodrigoSantosdeCarvalho
+Links da entrega 1: <br>
+João Paulo Bonomo: https://youtu.be/CweXsZcP2ho <br>
+João Victor Volpato: https://youtu.be/erFXX5uUB50 <br>
+Rodrigo Santos de Carvalho: https://www.youtube.com/watch?v=DzBjoSjj7z0&ab_channel=RodrigoSantosdeCarvalho <br>
 
 .vpp da Primeira Entraga ok!
 
