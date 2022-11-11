@@ -1,26 +1,46 @@
 # EngenhaiaDeSoftware1
-Repositório para organizar os arquivos do trabalho de Engenharia de Software do 4º semestre de Ciências da Computação da UFSC.
+Repositório referente ao trabalho de Engenharia de Software I, do 4º semestre do curso de Ciências da Computação da UFSC.
 
-Links da entrega 1: <br>
+ENTREGA 1
+
+Links da vídeos referente à entrega 1: <br>
 João Paulo Bonomo: https://youtu.be/CweXsZcP2ho <br>
 João Victor Volpato: https://youtu.be/erFXX5uUB50 <br>
-Rodrigo Santos de Carvalho: https://www.youtube.com/watch?v=DzBjoSjj7z0&ab_channel=RodrigoSantosdeCarvalho <br>
+Rodrigo Santos de Carvalho: https://youtu.be/DzBjoSjj7z0 <br>
 
-.vpp da Primeira Entraga ok!
-
-Interface da Prmeira Entrega ok!
-
+NOTAS da entrega 1:
+Requisitos: 6,0 <br>
+Implementação: 10,0 <br>
+Modelagem: 7,0 <br>
+Apresentações: 7,0 <br>
+FINAL: 7,2 <br>
 
 -------------------------------------------------------------------------------------------------------------------
+ENTREGA 2
 
-Relatório de Especificação de Requisitos ok!
-
-.vpp da Segunda Entrega ok!
-
-Interface da Segunda Entrega ok!
-
-
-Link video entrega 2: <br>
+Links da vídeos referente à entrega 2: <br>
 João Victor Volpato: https://youtu.be/r-8xwkFunqM <br>
 João Paulo Bonomo: https://youtu.be/jM9rOKdbkuk <br>
 Rodrigo Santos de Carvalho: https://youtu.be/-Y1bPD-RbUM <br>
+
+NOTAS da entrega 2:
+Requisitos: 7,0 <br>
+Implementação: 10,0 <br>
+Modelagem: 6,0 <br>
+Apresentações: 7,0 <br>
+FINAL: 7,0 <br>
+
+-------------------------------------------------------------------------------------------------------------------
+ENTREGA 3
+
+Links da vídeos referente à entrega 3: <br>
+João Paulo Bonomo: <br>
+João Victor Volpato: <br>
+Rodrigo Santos de Carvalho: <br>
+
+NOTAS da entrega 3:
+Requisitos: <br>
+Implementação: <br>
+Modelagem: <br>
+Apresentações: <br>
+FINAL: <br>
