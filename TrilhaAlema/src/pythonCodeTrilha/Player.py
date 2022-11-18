@@ -5,6 +5,7 @@ import Piece
 import Position
 import Board
 
+# I have to do a commit
 class Player(object):
 	def getTurn(self):
 		"""@ReturnType boolean"""
