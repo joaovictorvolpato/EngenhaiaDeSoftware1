@@ -5,82 +5,108 @@ import Piece
 import Position
 import Board
 
-# I have to do a commit
+
 class Player(object):
-	def getTurn(self):
-		"""@ReturnType boolean"""
-		return self.___turn
+	def __init__(self, number: int, team: Team, pieces_start_number: int = 12, turn: bool = False) -> None:
+		self.__player_number: int = number
+		self.__team: Team = team
+		self.__winner: bool = False
+		self.__pieces_in_hand: int = pieces_start_number
+		self.__pieces_on_board: int = 0
+		self.__removed_pieces: int = 0
+		self.__turn: bool = turn
 
-	def changeTurn(self):
+# START OF GETTERS AND SETTERS 
+
+	@property
+	def player_number(self) -> int:
+		return self.__player_number
+
+	@player_number.setter
+	def player_number(self, number: int) -> None:
+		self.__player_number = number
+	
+	@property
+	def team(self) -> Team:
+		return self.__team
+
+	@team.setter
+	def team(self, new_team: Team) -> None:
+		self.__team = new_team
+	
+	@property
+	def winner(self) -> bool:
+		return self.__winner
+
+	@winner.setter
+	def winner(self, is_winner: bool) -> None:
+		self.__winner = is_winner
+
+	@property
+	def pieces_in_hand(self) -> int:
+		return self.__pieces_in_hand
+	
+	@pieces_in_hand.setter
+	def pieces_in_hand(self, pieces_number) -> None:
+		self.__pieces_in_hand = pieces_number
+	
+	@property
+	def pieces_on_board(self) -> int:
+		return self.__pieces_on_board
+	
+	@pieces_on_board.setter
+	def pieces_on_board(self, pieces_number) -> None:
+		self.__pieces_on_board = pieces_number
+
+	@property
+	def removed_pieces(self) -> int:
+		return self.__removed_pieces
+	
+	@removed_pieces.setter
+	def removed_pieces(self, pieces_removed_number) -> None:
+		self.__removed_pieces = pieces_removed_number
+	
+	@property
+	def turn(self) -> bool:
+		return self.__turn
+
+	@turn.setter
+	def turn(self, new_turn) -> None:
+		self.__turn = new_turn
+
+# END OF GETTERS AND SETTERS
+
+	def get_turn(self) -> bool:
+		return self.__turn
+	
+	def change_turn(self) -> None:
+		self.__turn = not self.__turn
+
+	def reset(self) -> None:
 		pass
 
-	def reset(self):
+	def initialize(self) -> None:
 		pass
 
-	def initialize(self):
+	def select_position(self):
 		pass
 
-	def selectPosition(self):
-		pass
+	def increment_pieces_on_board(self) -> None:
+		self.__pieces_on_board += 1
 
-	def getPiecesOnBoardNumber(self):
-		pass
+	def decrement_pieces_in_hand(self) -> None:
+		self.__pieces_on_board -= 1
 
-	def decrementPiecesInBoard(self):
-		pass
+	def decrement_pieces_in_hand(self) -> None:
+		self.__pieces_in_hand -= 1
 
-	def incrementRemovedPieces(self):
-		pass
+	def increment_removed_pieces(self) -> None:
+		self.__removed_pieces += 1
 
-	def verify_blocked(self):
-		"""@ReturnType boolean"""
-		pass
-
-	def get_player_number(self):
-		pass
-
-	def decrementPiecesInHand(self):
-		pass
-
-	def incrementPiecesOnBoard(self):
-		pass
-
-	def getPiecesInHand(self):
-		"""@ReturnType int"""
-		pass
-
-	def canDoFly(self):
-		"""@ReturnType boolean"""
-		pass
-
-	def setWinner(self):
-		pass
-
-	def __init__(self):
-		self.___player_number = None
-		"""@AttributeType int"""
-		self.___team = None
-		"""@AttributeType Team"""
-		self.___pieces_in_hand = None
-		"""@AttributeType int"""
-		self.___turn = None
-		"""@AttributeType boolean"""
-		self.___winner = None
-		"""@AttributeType boolean"""
-		self.___pieces_on_board = None
-		"""@AttributeType int"""
-		self._unnamed_Piece_ = []
-		"""@AttributeType Piece*
-		# @AssociationType Piece[]
-		# @AssociationMultiplicity 12"""
-		self._unnamed_Position_ = None
-		"""@AttributeType Position
-		# @AssociationType Position"""
-		self._unnamed_Board_ = None
-		"""@AttributeType Board
-		# @AssociationType Board"""
-		self._unnamed_Team_ = None
-		"""@AttributeType Team
-		# @AssociationType Team
-		# @AssociationKind Aggregation"""
-
+	def can_do_fly(self) -> bool:
+		pieces_number: int = self.__pieces_on_board
+		return (pieces_number == 3)
+	
+	def verify_suficient_pieces_number(self) -> bool:
+		pieces_number: int = self.__pieces_on_board
+		return (pieces_number > 2)
