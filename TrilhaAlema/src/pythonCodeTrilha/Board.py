@@ -1,6 +1,6 @@
 #!/usr/bin/python
 # -*- coding: UTF-8 -*-
-import Player
+from Player import Player
 import Position
 import Move
 import Piece
@@ -8,6 +8,50 @@ import InterfaceUpdater
 import PlayerInterface
 
 class Board(object):
+	def __init__(self):
+		self.__total_positions = None
+		"""@AttributeType int"""
+		self.__occupied_positions = None
+		"""@AttributeType int"""
+		self.__board_design = None
+		"""@AttributeType void"""
+		self.__local_player = None
+		"""@AttributeType Player"""
+		self.__remote_player = None
+		"""@AttributeType Player"""
+		self.__selected_position = None
+		"""@AttributeType Position"""
+		self.__position_matrix = None
+		"""@AttributeType Position*"""
+		self.__move_type = None
+		"""@AttributeType Move"""
+		self.__selected_piece = None
+		"""@AttributeType Piece"""
+		self.__gamePhase = None
+		"""@AttributeType string"""
+		self.__withdrawed = None
+		"""@AttributeType boolean"""
+		self.__draw = None
+		"""@AttributeType boolean"""
+		self.__Player = []
+		"""@AttributeType Player*
+		# @AssociationType Player[]
+		# @AssociationMultiplicity 2"""
+		self.__InterfaceUpdater_ = None
+		"""@AttributeType InterfaceUpdater
+		# @AssociationType InterfaceUpdater"""
+		self.__Move = None
+		"""@AttributeType Move
+		# @AssociationType Move"""
+		self.__Position_ = []
+		"""@AttributeType Position*
+		# @AssociationType Position[]
+		# @AssociationMultiplicity 32
+		# @AssociationKind Composition"""
+		self.__PlayerInterface_ = None
+		"""@AttributeType PlayerInterface
+		# @AssociationType PlayerInterface"""
+
 	def colocarPeca(self, aLinha, aColuna):
 		"""@ParamType aLinha int
 		@ParamType aColuna int"""
@@ -32,10 +76,6 @@ class Board(object):
 		@ParamType aLocal_player_id string"""
 		pass
 
-	def get_status(self):
-		"""@ReturnType InterfaceImage"""
-		pass
-
 	def executeMove(self, aMove):
 		"""@ParamType aMove Move"""
 		pass
@@ -47,9 +87,6 @@ class Board(object):
 		pass
 
 	def setBoardPositionMatrix(self):
-		pass
-
-	def getMatchStatus(self):
 		pass
 
 	def registerInvalidMove(self):
@@ -85,6 +122,15 @@ class Board(object):
 	def operation(self):
 		pass
 
+	@property
+	def Game_phase(self) -> str:
+		return self.__gamePhase
+
+	@Game_phase.setter
+	def Game_phase(self, phase : str):
+		self.__gamePhase = phase
+
+			
 	def getGamePhase(self):
 		"""@ReturnType string"""
 		return self.___gamePhase
@@ -142,52 +188,10 @@ class Board(object):
 
 	def getDraw(self):
 		"""@ReturnType boolean"""
-		return self.___draw
+		return self.__draw
 
 	def clickedProposeDraw(self):
 		pass
 
-	def __init__(self):
-		self.___total_positions = None
-		"""@AttributeType int"""
-		self.___occupied_positions = None
-		"""@AttributeType int"""
-		self.___board_design = None
-		"""@AttributeType void"""
-		self.___local_player = None
-		"""@AttributeType Player"""
-		self.___remote_player = None
-		"""@AttributeType Player"""
-		self.___selected_position = None
-		"""@AttributeType Position"""
-		self.___position_matrix = None
-		"""@AttributeType Position*"""
-		self.___move_type = None
-		"""@AttributeType Move"""
-		self.___selected_piece = None
-		"""@AttributeType Piece"""
-		self.___gamePhase = None
-		"""@AttributeType string"""
-		self.___withdrawed = None
-		"""@AttributeType boolean"""
-		self.___draw = None
-		"""@AttributeType boolean"""
-		self._unnamed_Player_ = []
-		"""@AttributeType Player*
-		# @AssociationType Player[]
-		# @AssociationMultiplicity 2"""
-		self._unnamed_InterfaceUpdater_ = None
-		"""@AttributeType InterfaceUpdater
-		# @AssociationType InterfaceUpdater"""
-		self._unnamed_Move_ = None
-		"""@AttributeType Move
-		# @AssociationType Move"""
-		self._unnamed_Position_ = []
-		"""@AttributeType Position*
-		# @AssociationType Position[]
-		# @AssociationMultiplicity 32
-		# @AssociationKind Composition"""
-		self._unnamed_PlayerInterface_ = None
-		"""@AttributeType PlayerInterface
-		# @AssociationType PlayerInterface"""
+
 

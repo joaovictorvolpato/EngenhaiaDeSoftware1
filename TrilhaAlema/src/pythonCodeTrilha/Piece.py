@@ -5,61 +5,58 @@ import Position
 import Move
 
 class Piece(object):
-	def getPiecePosition(self, aSelf):
-		"""@ParamType aSelf Piece
-		@ReturnType Position"""
-		pass
-
-	def getPiece(self):
-		pass
-
-	def getPieceOwner(self):
-		"""@ReturnType Player"""
-		pass
-
-	def getPieceInMoinho(self):
-		"""@ReturnType boolean"""
-		pass
-
-	def selectPiece(self):
-		"""@ReturnType Piece"""
-		pass
-
-	def GetIsOccupied(self):
-		"""@ReturnType boolean"""
-		pass
-
-	def setPieceNotInMoinho(self):
-		pass
-
-	def setPieceInMoinho(self):
-		pass
-
-	def setPieceCaptured(self):
-		pass
-
 	def __init__(self):
-		self.___number_in_board = None
+		self.__number_in_board = None
 		"""@AttributeType int"""
-		self.___number_in_player_hand = None
+		self.__number_in_player_hand = None
 		"""@AttributeType int"""
-		self.___owner_player = None
+		self.__owner_player = None
 		"""@AttributeType Player"""
-		self.___styles = None
+		self.__styles = None
 		"""@AttributeType void"""
-		self.___position = None
+		self.__position = None
 		"""@AttributeType Position"""
-		self.___captured = None
+		self.__captured = None
 		"""@AttributeType boolean"""
-		self.___in_moinho = None
+		self.__in_moinho = None
 		"""@AttributeType boolean"""
-		self._unnamed_Move_ = None
+		self.__Move = None
 		"""@AttributeType Move
 		# @AssociationType Move"""
-		self._unnamed_Player_ = None
+		self.__Player = None
 		"""@AttributeType Player
 		# @AssociationType Player"""
-		self._unnamed_Position_ = None
+		self.__Position = None
 		"""@AttributeType Position
 		# @AssociationType Position"""
+
+	@property
+	def in_moinho(self):
+		return self.__in_moinho
+
+	@in_moinho.setter
+	def in_moinho(self, bool):
+		self.__in_moinho = bool
+
+	@property
+	def Position(self) -> Position: 
+		return self.__Position
+
+	@property
+	def Player(self) -> Player:
+		return self.__Player
+
+	@property
+	def Position(self) -> Position:
+		return self.__Position
+
+	@property
+	def captured(self):
+		return self.__captured
+
+	@captured.setter
+	def captured(self, bool):
+		self.__captured = bool
+	
+
 
