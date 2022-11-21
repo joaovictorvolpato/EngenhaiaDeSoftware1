@@ -1,32 +1,35 @@
 #!/usr/bin/python
 # -*- coding: UTF-8 -*-
-import Position
+from Position import Position
 
-class Connection(object):
-	def getId(self):
-		pass
+class Connection():
+	def __init__(self, id: int, positions: list[Position], ):
+		self.__id = id
+		self.__positions_list = positions
+		self.__is_moinho = False
 
-	def getPositionsList(self):
-		pass
+	# START GETTERS AND SETTERS
 
-	def getIsMoinho(self):
-		"""@ReturnType boolean"""
-		pass
+	@property
+	def id(self) -> int:
+		return self.__id
 
-	def setIsMoinho(self, aIs_moinho):
-		"""@ParamType aIs_moinho boolean
-		@ReturnType void"""
-		pass
+	@property
+	def positions_list(self) -> list[Position]:
+		return self.__positions_list
 
-	def __init__(self):
-		self.___id = None
-		"""@AttributeType int"""
-		self.___positions_list = None
-		"""@AttributeType list"""
-		self.___is_moinho = None
-		"""@AttributeType boolean"""
-		self._unnamed_Position_ = None
-		"""@AttributeType Position
-		# @AssociationType Position
-		# @AssociationKind Composition"""
+	@property
+	def is_moinho(self) -> bool:
+		return self.__is_moinho
 
+	@is_moinho.setter
+	def is_moinho(self, moinho) -> None:
+		self.__is_moinho = moinho
+
+	# END GETTERS AND SETTERS
+
+	def set_is_moinho(self) -> None:
+		self.__is_moinho = True
+	
+	def set_is_not_moinho(self) -> None:
+		self.__is_moinho = False

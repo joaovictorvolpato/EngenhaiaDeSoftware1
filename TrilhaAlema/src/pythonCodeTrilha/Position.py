@@ -1,91 +1,91 @@
 #!/usr/bin/python
 # -*- coding: UTF-8 -*-
-import Player
+from Player import Player
 import Piece
-import Board
-import Move
-import Connection
+from Board import Board
+from Move import Move
+from Connection import Connection
+from Position import Position
 
-class Position(object):
-	def placePiece(self, aSelectedPosition, aPlayer):
-		"""@ParamType aSelectedPosition Position
-		@ParamType aPlayer Player"""
-		pass
+class Position():
+	def __init__(self, matrix: tuple, neighborhoods: list[Position], connections: list[Connection]):
+		self.__matrix_position: tuple = matrix
+		self.__neighborhoods: list[Position] = neighborhoods
+		self.__is_occupied: bool = False
+		self.__line: int = matrix[0]
+		self.__column: int = matrix[1]
+		self.__player_on_pos: Player = None
+		self.__piece = None
+		self.__connections: list[Connection] = connections
 
-	def getPositon(self, aLine, aColumn):
-		"""@ParamType aLine int
-		@ParamType aColumn int
-		@ReturnType Position"""
-		pass
+	# START GETTERS AND SETTERS
 
-	def removePiece(self, aPositiontoremove):
-		"""@ParamType aPositiontoremove Position"""
-		pass
+	@property
+	def matrix_position(self) -> tuple:
+		return self.__matrix_position
+	
+	@property
+	def neighborhoods(self) -> list[Position]:
+		return self.__neighborhoods
+	
+	@property
+	def is_occupied(self) -> bool:
+		return self.__is_occupied
+	
+	@is_occupied.setter
+	def is_occupied(self, occupied) -> None:
+		self.__is_occupied = occupied
+	
+	@property
+	def line(self) -> int:
+		return self.__line
+	
+	@property
+	def column(self) -> int:
+		return self.__column
+	
+	@property
+	def player_on_pos(self) -> Player:
+		return self.__player_on_pos
+	
+	@player_on_pos.setter
+	def player_on_pos(self, player: Player) -> None:
+		self.__player_on_pos = player
 
-	def getPositionType(self):
-		pass
+	@property
+	def piece(self) -> Piece:
+		return self.__piece
+	
+	@piece.setter
+	def piece(self, piece: Piece) -> None:
+		self.__piece = piece
+	
+	@property
+	def connections(self) -> list[Connection]:
+		return self.__connections
 
-	def setPositionFree(self, aPosition):
-		"""@ParamType aPosition Position"""
-		pass
 
-	def isOccupied(self, aPosition):
-		"""@ParamType aPosition Position"""
-		pass
+	# END GETTERS AND SETTERS
+
+	def place_piece(self, piece_put: Piece) -> None:
+		self.__piece = piece_put
+		self.set_is_occupied()
+		self.set_player_on_pos(piece_put.owner_player)
+		# LOGICA DE INCREMENTO E DECREMENTO FALTANDO
+
+	def remove_piece(self) -> None:
+		self.__piece = None
+
+
+	def set_position_free(self) -> None:
+		self.__is_occupied = False
+		self.__player_on_pos = None
+
+	def set_is_occupied(self) -> None:
+		self.__is_occupied = True
+
+	def set_player_on_pos(self, player: Player) -> None:
+		self.__player_on_pos = player
 
 	def operation(self):
 		pass
-
-	def getPieceOnPosition(self, aPosition):
-		"""@ParamType aPosition Position
-		@ReturnType Piece"""
-		pass
-
-	def setIsOccupied(self):
-		pass
-
-	def setPlayerOnPos(self, aPlayer):
-		"""@ParamType aPlayer Player"""
-		pass
-
-	def get_conections(self):
-		"""@ReturnType list"""
-		pass
-
-	def getPlayerOnPosition(self):
-		"""@ReturnType Player"""
-		pass
-
-	def __init__(self):
-		self.___matrix_position = None
-		"""@AttributeType tuple"""
-		self.___neighborhoods = None
-		"""@AttributeType Postion"""
-		self.___is_occupied = None
-		"""@AttributeType boolean"""
-		self.___line = None
-		"""@AttributeType int"""
-		self.___column = None
-		"""@AttributeType int"""
-		self.___player_on_pos = None
-		"""@AttributeType Player"""
-		self.___piece = None
-		"""@AttributeType Piece"""
-		self.___connections = None
-		"""@AttributeType list"""
-		self._unnamed_Board_ = None
-		"""@AttributeType Board
-		# @AssociationType Board"""
-		self._unnamed_Piece_ = None
-		"""@AttributeType Piece
-		# @AssociationType Piece"""
-		self._unnamed_Move_ = None
-		"""@AttributeType Move
-		# @AssociationType Move"""
-		self._unnamed_Connection_1 = None
-		"""@AttributeType Connection
-		# @AssociationType Connection"""
-		self._unnamed_Player_ = None
-		"""@AttributeType Player
-		# @AssociationType Player"""
-
