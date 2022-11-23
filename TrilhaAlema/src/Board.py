@@ -10,57 +10,24 @@ from PlayerInterface import PlayerInterface
 
 class Board(object):
 	def __init__(self):
+		self.__player_interface: PlayerInterface = None
+		self.__interface_updater = None
+		self.__position_matrix = self.set_board_position_matrix() #Check how its modelled.
+		self.__occupied_positions: list[Position] = None
 		self.__total_positions = None
-		self.__occupied_positions = None
-		self.__board_design = None
-		self.__local_player = None
-		self.__remote_player = None
-		self.__selected_position = None
-		self.__position_matrix = None
-		self.__move_type = None
-		self.__selected_piece = None
-		self.__gamePhase = None
-		self.__withdrawed = None
+		self.__selected_position: Position = None
+		self.__selected_piece: Piece = None
+		self.__local_player: Player = None
+		self.__remote_player: Player = None
 		self.__draw = None
-		self.__Player = []
-		self.__InterfaceUpdater_ = None
-		self.__Move = None
-		self.__Position_ = []
-		self.__PlayerInterface_ = None
+		self.__withdrawed = None
+		self.__Player: Player = []
+		self.__gamePhase: str = None
+		self.__move_type: str = None
+		self.__Move: Move = None
+		self.__Position = []
+		self.__board_design = None
 
-	def colocarPeca(self, aLinha, aColuna):
-		"""@ParamType aLinha int
-		@ParamType aColuna int"""
-		pass
-
-	def doPlacePiece(self):
-		pass
-
-	def evaluateMoinho(self):
-		pass
-
-	def executeMovePiece(self, aPiece, aDestination):
-		"""@ParamType aPiece Piece
-		@ParamType aDestination Position"""
-		pass
-
-	def ProposeDraw(self):
-		pass
-
-	def start_match(self, *aPlayers, aLocal_player_id):
-		"""@ParamType aPlayers string*
-		@ParamType aLocal_player_id string"""
-		pass
-
-	def executeMove(self, aMove):
-		"""@ParamType aMove Move"""
-		pass
-
-	def endGame(self):
-		pass
-
-	def restartMove(self):
-		pass
 
 	def set_board_position_matrix(self):
 		#Instatiating the positions of the board, based on 7x7 matrix
@@ -201,7 +168,65 @@ class Board(object):
 			[None, None, None, position_30, position_31, position_32, None]
 		]
 
-		self.__position_matrix = position_matrix
+		return position_matrix
+
+
+	def doPlacePiece(self):
+		pass
+
+
+	def evaluate_moinho(self):
+		num_of_moinhos = self.get_num_of_moinhos(self.__selected_position)
+		piece_put_on_position: Piece = self.__selected_position.piece
+  
+		if num_of_moinhos == 0:
+			self.finish_turn()
+			piece_put_on_position.in_moinho = False
+			self.__player_interface.se
+
+
+	def get_num_of_moinhos(self, selected_position: Position) -> int: #Change argument's name in modelling
+		position_connections: list[Connection] = selected_position.connections
+		player_on_selected_position: Player = selected_position.player_on_pos
+  
+		moinhos_count = 0
+		for connection in position_connections:
+			positions_in_connection = connection.positions
+
+			same_player = 0
+			for position in positions_in_connection and position != selected_position:
+				if position.player_on_pos == player_on_selected_position:
+					same_player += 1
+
+			if same_player == 2:
+				moinhos_count += 1
+		
+		return moinhos_count
+
+
+	def executeMovePiece(self, aPiece, aDestination):
+		"""@ParamType aPiece Piece
+		@ParamType aDestination Position"""
+		pass
+
+	def ProposeDraw(self):
+		pass
+
+	def start_match(self, *aPlayers, aLocal_player_id):
+		"""@ParamType aPlayers string*
+		@ParamType aLocal_player_id string"""
+		pass
+
+	def executeMove(self, aMove):
+		"""@ParamType aMove Move"""
+		pass
+
+	def endGame(self):
+		pass
+
+	def restartMove(self):
+		pass
+
   
 	def registerInvalidMove(self):
 		pass
@@ -216,7 +241,7 @@ class Board(object):
 		"""@ParamType aLocal_player Player"""
 		pass
 
-	def finishTurn(self):
+	def finish_turn(self):
 		pass
 
 	def reset_match(self):
@@ -231,9 +256,6 @@ class Board(object):
 
 	def getSelectedPosition(self):
 		"""@ReturnType Position"""
-		pass
-
-	def operation(self):
 		pass
 
 	@property
@@ -265,9 +287,6 @@ class Board(object):
 		"""@ParamType aPhase string"""
 		pass
 
-	def getNumOfMoinhos(self):
-		"""@ReturnType int"""
-		pass
 
 	def getInterfaceChanges(self):
 		"""@ReturnType tuple"""
