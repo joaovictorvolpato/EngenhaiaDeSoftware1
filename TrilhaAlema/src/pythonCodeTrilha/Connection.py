@@ -8,8 +8,6 @@ class Connection():
 		self.__positions_list = positions
 		self.__is_moinho = False
 
-	# START GETTERS AND SETTERS
-
 	@property
 	def id(self) -> int:
 		return self.__id
@@ -25,8 +23,6 @@ class Connection():
 	@is_moinho.setter
 	def is_moinho(self, moinho) -> None:
 		self.__is_moinho = moinho
-
-	# END GETTERS AND SETTERS
 
 	def set_is_moinho(self) -> None:
 		self.__is_moinho = True
