@@ -8,9 +8,9 @@ from Connection import Connection
 from Position import Position
 
 class Position():
-	def __init__(self, matrix: tuple, neighborhoods: list[Position], connections: list[Connection]):
+	def __init__(self, matrix: tuple, neighborhood: list[Position] = [], connections: list[Connection] = []):
 		self.__matrix_position: tuple = matrix
-		self.__neighborhoods: list[Position] = neighborhoods
+		self.__neighborhood: list[Position] = neighborhood
 		self.__is_occupied: bool = False
 		self.__line: int = matrix[0]
 		self.__column: int = matrix[1]
@@ -18,15 +18,17 @@ class Position():
 		self.__piece = None
 		self.__connections: list[Connection] = connections
 
-	# START GETTERS AND SETTERS
-
 	@property
 	def matrix_position(self) -> tuple:
 		return self.__matrix_position
 	
 	@property
-	def neighborhoods(self) -> list[Position]:
-		return self.__neighborhoods
+	def neighborhood(self) -> list[Position]:
+		return self.__neighborhood
+
+	@neighborhood.setter
+	def neighborhood(self, neighborhood: list[Position]) -> None:
+		self.__neighborhood = neighborhood
 	
 	@property
 	def is_occupied(self) -> bool:
@@ -64,8 +66,9 @@ class Position():
 	def connections(self) -> list[Connection]:
 		return self.__connections
 
-
-	# END GETTERS AND SETTERS
+	@connections.setter
+	def connections(self, connections: list[Connection]) -> None:
+		self.__connections = connections
 
 	def place_piece(self, piece_put: Piece) -> None:
 		self.__piece = piece_put
