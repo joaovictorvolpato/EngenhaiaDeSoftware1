@@ -61,7 +61,7 @@ class Position():
 	@piece.setter
 	def piece(self, piece: Piece) -> None:
 		self.__piece = piece
-	
+
 	@property
 	def connections(self) -> list[Connection]:
 		return self.__connections
