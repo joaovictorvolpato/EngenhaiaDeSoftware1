@@ -5,6 +5,7 @@ from tkinter import messagebox
 from tkinter import simpledialog
 from dog.dog_interface import DogPlayerInterface
 from dog.dog_actor import DogActor
+from Move import Move
 
 class PlayerInterface(DogPlayerInterface):
     def __init__(self) -> None:
@@ -16,7 +17,7 @@ class PlayerInterface(DogPlayerInterface):
         self.__menubar = self.__create_menubar()
         self.__menu_file = self.__create_menu_file()
         self.__add_menu_commands()
-        self.__connect_to_dog()
+        self.__dog_server_interface: DogActor = self.__connect_to_dog()
         self.__window.mainloop()
 
     def __create_window(self) -> Tk:
@@ -44,20 +45,28 @@ class PlayerInterface(DogPlayerInterface):
         self.__menu_file.add_command(label='Iniciar jogo', command=self.start_match)
         self.__menu_file.add_command(label='restaurar estado inicial', command=self.start_game)
 
-    def __connect_to_dog(self) -> None:
+    def __connect_to_dog(self) -> DogActor:
         player_name = simpledialog.askstring(title="Player identification", prompt="Qual o seu nome?")
-        self.dog_server_interface = DogActor()
+        dog_server_interface = DogActor()
         message = self.dog_server_interface.initialize(player_name, self)
         messagebox.showinfo(message=message)
 
-    def start_match(self):
+        return dog_server_interface
+
+    def start_match(self) -> None:
             start_status = self.dog_server_interface.start_match(2)
             message = start_status.get_message()
             messagebox.showinfo(message=message)
 
-    def start_game(self):
+    def start_game(self) -> None:
             print('start_game')
 
-    def receive_start(self, start_status):
+    def receive_start(self, start_status) -> None:
             message = start_status.get_message()   
             messagebox.showinfo(message=message)
+
+    def send_move(self, move: Move) -> None:
+        self.__dog_server_interface.send_move(move)
+    
+    def receive_move(self, move: Move) -> None:
+        pass
