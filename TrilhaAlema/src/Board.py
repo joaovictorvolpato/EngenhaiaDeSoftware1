@@ -12,24 +12,120 @@ class Board(object):
 	def __init__(self):
 		self.__player_interface: PlayerInterface = None
 		self.__interface_updater = None
-		self.__position_matrix = self.set_board_position_matrix() #Check how its modelled.
-		self.__occupied_positions: list[Position] = None
-		self.__total_positions = None
+		self.__position_matrix: list = self.set_board_position_matrix() # Check how its modelled.
+		self.__occupied_positions: list[Position] = []
+		self.__total_positions: int = 32
 		self.__selected_position: Position = None
 		self.__selected_piece: Piece = None
 		self.__local_player: Player = None
 		self.__remote_player: Player = None
 		self.__draw = None
 		self.__withdrawed = None
-		self.__Player: Player = []
-		self.__gamePhase: str = None
+		self.__game_phase: str = None
 		self.__move_type: str = None
 		self.__move: Move = None
-		self.__Position = []
-		self.__board_design = None
 
+	# GETTERS AND SETTERS
 
-	def set_board_position_matrix(self):
+	@property
+	def player_interface(self) -> PlayerInterface:
+		return self.__player_interface
+	
+	@property
+	def interface_updater(self):
+		return self.__interface_updater
+	
+	@property
+	def position_matrix(self) -> list:
+		return self.__position_matrix
+	
+	@property
+	def occupied_positions(self) -> list[Position]:
+		return self.__occupied_positions
+	
+	@occupied_positions.setter
+	def occupied_positions(self, occupied__positions_list: list[Position]):
+		self.__occupied_positions = occupied__positions_list
+	
+	@property
+	def total_positions(self):
+		return self.__total_positions
+	
+	@property
+	def selected_position(self) -> Position:
+		return self.__selected_position
+	
+	@selected_position.setter
+	def selected_position(self, selected_position: Position):
+		self.__selected_position = selected_position
+	
+	@property
+	def selected_piece(self) -> Piece:
+		return self.__selected_piece
+	
+	@selected_piece.setter
+	def selected_piece(self, selected_piece: Piece):
+		self.__selected_piece = selected_piece
+	
+	@property
+	def local_player(self) -> Player:
+		return self.__local_player
+	
+	@local_player.setter
+	def local_player(self, local_player: Player):
+		self.__local_player = local_player
+	
+	@property
+	def remote_player(self) -> Player:
+		return self.__remote_player
+	
+	@remote_player.setter
+	def remote_player(self, remote_player: Player):
+		self.__remote_player = remote_player
+
+	@property
+	def draw(self):
+		return self.__draw
+	
+	@draw.setter
+	def draw(self, draw):
+		self.__draw = draw
+
+	@property
+	def withdrawed(self):
+		return self.__withdrawed
+	
+	@withdrawed.setter
+	def withdrawed(self, withdrawed):
+		self.__withdrawed = withdrawed
+
+	@property
+	def game_phase(self) -> str:
+		return self.__game_phase
+
+	@game_phase.setter
+	def game_phase(self, phase : str):
+		self.__game_phase = phase
+
+	@property
+	def move_type(self) -> str:
+		return self.__move_type
+
+	@move_type.setter
+	def move_type(self, move_type: str):
+		self.__move_type = move_type
+
+	@property
+	def move(self) -> Move:
+		return self.__move
+
+	@move.setter
+	def move(self, move: Move):
+		self.move = move
+
+	# END OF GETTERS AND SETTERS
+
+	def set_board_position_matrix(self) -> list:
 		#Instatiating the positions of the board, based on 7x7 matrix
 		position_1 = Position((0, 1))
 		position_2 = Position((0, 2))
@@ -171,7 +267,7 @@ class Board(object):
 		return position_matrix
 
 
-	def doPlacePiece(self):
+	def do_place_piece(self):
 		pass
 
 
@@ -208,12 +304,12 @@ class Board(object):
 		return moinhos_count
 
 
-	def executeMovePiece(self, aPiece, aDestination):
+	def execute_move_piece(self, aPiece, aDestination):
 		"""@ParamType aPiece Piece
 		@ParamType aDestination Position"""
 		pass
 
-	def ProposeDraw(self):
+	def propose_draw(self):
 		pass
 
 	def start_match(self, *aPlayers, aLocal_player_id):
@@ -221,24 +317,23 @@ class Board(object):
 		@ParamType aLocal_player_id string"""
 		pass
 
-	def executeMove(self, aMove):
+	def execute_move(self, aMove):
 		"""@ParamType aMove Move"""
 		pass
 
-	def endGame(self):
+	def end_game(self):
 		pass
 
-	def restartMove(self):
+	def restart_move(self):
 		pass
 
-  
-	def registerInvalidMove(self):
+	def register_invalid_move(self):
 		pass
 
-	def notifyPlayerNotTurn(self):
+	def notify_player_not_turn(self):
 		pass
 
-	def receiveWithdrawalNotification(self):
+	def receive_withdrawal_notification(self):
 		pass
 
 	def set_winner(self, aLocal_player):
@@ -251,35 +346,12 @@ class Board(object):
 	def reset_match(self):
 		pass
 
-	def executeRemovePiece(self):
+	def execute_remove_piece(self):
 		pass
 
-	def getSelectedPiece(self):
-		"""@ReturnType Piece"""
-		pass
-
-	def getSelectedPosition(self):
-		"""@ReturnType Position"""
-		pass
-
-	@property
-	def Game_phase(self) -> str:
-		return self.__gamePhase
-
-	@Game_phase.setter
-	def Game_phase(self, phase : str):
-		self.__gamePhase = phase
-
-	def setSelectedPosition(self, aPosition):
-		"""@ParamType aPosition Position"""
-		pass
-
-	def clickedPosition(self, aLine, aColumn):
+	def clicked_position(self, aLine, aColumn):
 		"""@ParamType aLine int
 		@ParamType aColumn int"""
-		pass
-
-	def setSelectedPiece(self):
 		pass
 
 	def verify_blocked(self, aRemote_player):
@@ -287,40 +359,29 @@ class Board(object):
 		@ReturnType boolean"""
 		pass
 
-	def setGamePhase(self, aPhase = "colocação"):
-		"""@ParamType aPhase string"""
-		pass
-
-
-	def getInterfaceChanges(self):
+	def get_interface_changes(self):
 		"""@ReturnType tuple"""
 		pass
 
-	def getPositionsOnBoard(self):
+	def get_positions_on_board(self):
 		"""@ReturnType list"""
 		pass
 
-	def getPiecesInHand(self):
+	def get_pieces_in_hand(self):
 		"""@ReturnType int"""
 		pass
 
-	def getWinner(self):
+	def get_winner(self):
 		"""@ReturnType Player"""
 		pass
 
-	def checkIfMatchWasAbandoned(self):
+	def check_if_match_was_abandoned(self):
 		"""@ReturnType boolean"""
 		pass
 
-	def setAbandoned(self):
+	def set_abandoned(self):
 		pass
 
-	def setDraw(self):
-		pass
 
-	def getDraw(self):
-		"""@ReturnType boolean"""
-		return self.__draw
-
-	def clickedProposeDraw(self):
+	def clicked_propose_draw(self):
 		pass
