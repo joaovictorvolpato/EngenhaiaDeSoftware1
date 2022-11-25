@@ -3,7 +3,7 @@
 from Position import Position
 
 class Connection():
-	def __init__(self, id: int, positions: list[Position], ):
+	def __init__(self, id: int, positions: list[Position]):
 		self.__id = id
 		self.__positions_list = positions
 		self.__is_moinho = False

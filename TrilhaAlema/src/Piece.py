@@ -1,62 +1,56 @@
 #!/usr/bin/python
 # -*- coding: UTF-8 -*-
-import Player
-import Position
-import Move
+from Player import Player
+from Position import Position
+from Move import Move
 
-class Piece(object):
-	def __init__(self):
-		self.__number_in_board = None
-		"""@AttributeType int"""
-		self.__number_in_player_hand = None
-		"""@AttributeType int"""
-		self.__owner_player = None
-		"""@AttributeType Player"""
-		self.__styles = None
-		"""@AttributeType void"""
-		self.__position = None
-		"""@AttributeType Position"""
-		self.__captured = None
-		"""@AttributeType boolean"""
-		self.__in_moinho = None
-		"""@AttributeType boolean"""
-		self.__Move = None
-		"""@AttributeType Move
-		# @AssociationType Move"""
-		self.__Player = None
-		"""@AttributeType Player
-		# @AssociationType Player"""
-		self.__Position = None
-		"""@AttributeType Position
-		# @AssociationType Position"""
+
+class Piece():
+	def __init__(self, owner_player: Player, styles):
+		self.__owner_player: Player = owner_player
+		self.__styles = styles
+		self.__position: Position = None
+		self.__captured: bool = False
+		self.__in_moinho: bool = False
+		self.__move: Move = None
+
+	# GETTERS AND SETTERS
+	@property
+	def owner_player(self) -> Player:
+		return self.__owner_player
 
 	@property
-	def in_moinho(self):
-		return self.__in_moinho
-
-	@in_moinho.setter
-	def in_moinho(self, bool):
-		self.__in_moinho = bool
+	def styles(self):
+		return self.__styles
 
 	@property
-	def Position(self) -> Position: 
-		return self.__Position
+	def position(self) -> Position: 
+		return self.__position
+
+	@position.setter
+	def position(self, new_position):
+		self.__position = new_position
 
 	@property
-	def Player(self) -> Player:
-		return self.__Player
-
-	@property
-	def Position(self) -> Position:
-		return self.__Position
-
-	@property
-	def captured(self):
+	def captured(self) -> bool:
 		return self.__captured
 
 	@captured.setter
-	def captured(self, bool):
-		self.__captured = bool
-	
+	def captured(self, captured: bool):
+		self.__captured = captured
 
+	@property
+	def in_moinho(self) -> bool:
+		return self.__in_moinho
 
+	@in_moinho.setter
+	def in_moinho(self, in_moinho_value):
+		self.__in_moinho = in_moinho_value
+
+	@property
+	def move(self) -> Move:
+		return self.__move
+
+	@move.setter
+	def move(self, new_move):
+		self.__move = new_move
