@@ -32,7 +32,7 @@ class Board(object):
 		return self.__player_interface
 	
 	@property
-	def interface_updater(self):
+	def interface_updater(self) -> None:
 		return self.__interface_updater
 	
 	@property
@@ -48,7 +48,7 @@ class Board(object):
 		self.__occupied_positions = occupied__positions_list
 	
 	@property
-	def total_positions(self):
+	def total_positions(self) -> int:
 		return self.__total_positions
 	
 	@property
@@ -84,7 +84,7 @@ class Board(object):
 		self.__remote_player = remote_player
 
 	@property
-	def draw(self):
+	def draw(self) -> None:
 		return self.__draw
 	
 	@draw.setter
@@ -92,7 +92,7 @@ class Board(object):
 		self.__draw = draw
 
 	@property
-	def withdrawed(self):
+	def withdrawed(self) -> None:
 		return self.__withdrawed
 	
 	@withdrawed.setter
@@ -267,11 +267,11 @@ class Board(object):
 		return position_matrix
 
 
-	def do_place_piece(self):
+	def do_place_piece(self) -> None:
 		pass
 
 
-	def evaluate_moinho(self):
+	def evaluate_moinho(self) -> None:
 		num_of_moinhos = self.get_num_of_moinhos(self.__selected_position)
 		piece_put_on_position: Piece = self.__selected_position.piece
   
@@ -304,74 +304,67 @@ class Board(object):
 		return moinhos_count
 
 
-	def execute_move_piece(self, aPiece, aDestination):
+	def execute_move_piece(self, aPiece, aDestination) -> None:
 		"""@ParamType aPiece Piece
 		@ParamType aDestination Position"""
 		pass
 
-	def propose_draw(self):
+	def propose_draw(self) -> None:
 		pass
 
-	def start_match(self, *aPlayers, aLocal_player_id):
+	def start_match(self, *aPlayers, aLocal_player_id) -> None:
 		"""@ParamType aPlayers string*
 		@ParamType aLocal_player_id string"""
 		pass
 
-	def execute_move(self, aMove):
+	def execute_move(self, aMove) -> None:
 		"""@ParamType aMove Move"""
 		pass
 
-	def end_game(self):
+	def end_game(self) -> None:
 		pass
 
-	def restart_move(self):
+	def restart_move(self) -> None:
 		pass
 
-	def register_invalid_move(self):
+	def register_invalid_move(self) -> None:
 		pass
 
-	def notify_player_not_turn(self):
+	def notify_player_not_turn(self) -> None:
 		pass
 
-	def receive_withdrawal_notification(self):
+	def receive_withdrawal_notification(self) -> None:
 		pass
 
-	def finish_turn(self):
+	def finish_turn(self) -> None:
+		self.__local_player.change_turn()
+		self.__remote_player.change_turn()
+
+	def reset_match(self) -> None:
 		pass
 
-	def reset_match(self):
+	def execute_remove_piece(self) -> None:
 		pass
 
-	def execute_remove_piece(self):
-		pass
-
-	def clicked_position(self, aLine, aColumn):
+	def clicked_position(self, aLine, aColumn) -> None:
 		"""@ParamType aLine int
 		@ParamType aColumn int"""
 		pass
 
-	def get_interface_changes(self):
+	def get_interface_changes(self) -> tuple:
 		"""@ReturnType tuple"""
-		pass
-
-	def get_positions_on_board(self):
-		"""@ReturnType list"""
-		pass
-
-	def get_pieces_in_hand(self):
-		"""@ReturnType int"""
 		pass
 
 	def check_if_match_was_abandoned(self) -> bool:
 		pass
 
-	def set_abandoned(self):
+	def set_abandoned(self) -> None:
 		pass
 
-	def clicked_propose_draw(self):
+	def clicked_propose_draw(self) -> None:
 		pass
 
-	def set_winner(self, winner_player: Player):
+	def set_winner(self, winner_player: Player) -> None:
 		winner_player.winner = True
 
 	def verify_blocked(self, player: Player) -> bool:
@@ -391,7 +384,7 @@ class Board(object):
 		is_player_blocked: bool = (player_pieces_number == blocked_pieces_count)
 		return is_player_blocked
 
-	def evaluate_winner(self):
+	def evaluate_winner(self) -> None:
 		local_player = self.__local_player
 		remote_player = self.__remote_player
 
