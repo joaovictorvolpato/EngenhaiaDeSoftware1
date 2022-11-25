@@ -24,7 +24,7 @@ class Board(object):
 		self.__Player: Player = []
 		self.__gamePhase: str = None
 		self.__move_type: str = None
-		self.__Move: Move = None
+		self.__move: Move = None
 		self.__Position = []
 		self.__board_design = None
 
@@ -182,7 +182,11 @@ class Board(object):
 		if num_of_moinhos == 0:
 			self.finish_turn()
 			piece_put_on_position.in_moinho = False
-			self.__player_interface.se
+			self.__move.moinho = num_of_moinhos
+			self.__player_interface.send_move(self.__move)
+		
+		elif num_of_moinhos > 0:
+			pass #Implementar o resto.
 
 
 	def get_num_of_moinhos(self, selected_position: Position) -> int: #Change argument's name in modelling

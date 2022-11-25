@@ -5,7 +5,7 @@ from Position import Position
 from Piece import Piece
 import Board
 from enum import Enum
-
+#Change numbers to strings
 class MoveType(Enum):
 	PLACE_PIECE = 1
 	MOVE_PIECE = 2
