@@ -1,15 +1,13 @@
 #!/usr/bin/python
 # -*- coding: UTF-8 -*-
-import Team
 import Piece
 import Position
 import Board
 
 
 class Player(object):
-	def __init__(self, number: int, team: Team, pieces_start_number: int = 12, turn: bool = False) -> None:
+	def __init__(self, number: int, pieces_start_number: int = 12, turn: bool = False) -> None:
 		self.__player_number: int = number
-		self.__team: Team = team
 		self.__winner: bool = False
 		self.__pieces_in_hand: int = pieces_start_number
 		self.__pieces_on_board: int = 0
@@ -25,15 +23,7 @@ class Player(object):
 	@player_number.setter
 	def player_number(self, number: int) -> None:
 		self.__player_number = number
-	
-	@property
-	def team(self) -> Team:
-		return self.__team
 
-	@team.setter
-	def team(self, new_team: Team) -> None:
-		self.__team = new_team
-	
 	@property
 	def winner(self) -> bool:
 		return self.__winner
