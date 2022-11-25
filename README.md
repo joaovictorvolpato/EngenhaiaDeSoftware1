@@ -1,4 +1,5 @@
 # EngenhaiaDeSoftware1
+
 Repositório referente ao trabalho de Engenharia de Software I, do 4º semestre do curso de Ciências da Computação da UFSC.
 
 ENTREGA 1
@@ -15,7 +16,8 @@ Modelagem: 7,0 <br>
 Apresentações: 7,0 <br>
 FINAL: 7,2 <br>
 
--------------------------------------------------------------------------------------------------------------------
+---
+
 ENTREGA 2
 
 Links da vídeos referente à entrega 2: <br>
@@ -30,17 +32,16 @@ Modelagem: 6,0 <br>
 Apresentações: 7,0 <br>
 FINAL: 7,0 <br>
 
--------------------------------------------------------------------------------------------------------------------
+---
+
 ENTREGA 3
 
 Links da vídeos referente à entrega 3: <br>
-João Paulo Bonomo: <br>
+João Paulo Bonomo: https://youtu.be/SBQfwHsEubo<br>
 João Victor Volpato: <br>
 Rodrigo Santos de Carvalho: <br>
 
 NOTAS da entrega 3:
-Requisitos: <br>
-Implementação: <br>
-Modelagem: <br>
-Apresentações: <br>
-FINAL: <br>
+Modelagem: 5,0<br>
+Apresentações: 7,0<br>
+FINAL: 6,0<br>
