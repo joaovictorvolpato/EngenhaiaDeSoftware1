@@ -97,6 +97,6 @@ class Player(object):
 		pieces_number: int = self.__pieces_on_board
 		return (pieces_number == 3)
 	
-	def verify_suficient_pieces_number(self) -> bool:
+	def verify_sufficient_pieces_number(self) -> bool:
 		pieces_number: int = self.__pieces_on_board
 		return (pieces_number > 2)

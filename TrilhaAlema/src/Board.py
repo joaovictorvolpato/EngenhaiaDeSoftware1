@@ -336,10 +336,6 @@ class Board(object):
 	def receive_withdrawal_notification(self):
 		pass
 
-	def set_winner(self, aLocal_player):
-		"""@ParamType aLocal_player Player"""
-		pass
-
 	def finish_turn(self):
 		pass
 
@@ -354,11 +350,6 @@ class Board(object):
 		@ParamType aColumn int"""
 		pass
 
-	def verify_blocked(self, aRemote_player):
-		"""@ParamType aRemote_player Player
-		@ReturnType boolean"""
-		pass
-
 	def get_interface_changes(self):
 		"""@ReturnType tuple"""
 		pass
@@ -371,17 +362,45 @@ class Board(object):
 		"""@ReturnType int"""
 		pass
 
-	def get_winner(self):
-		"""@ReturnType Player"""
-		pass
-
-	def check_if_match_was_abandoned(self):
-		"""@ReturnType boolean"""
+	def check_if_match_was_abandoned(self) -> bool:
 		pass
 
 	def set_abandoned(self):
 		pass
 
-
 	def clicked_propose_draw(self):
 		pass
+
+	def set_winner(self, winner_player: Player):
+		winner_player.winner = True
+
+	def verify_blocked(self, player: Player) -> bool:
+		blocked_pieces_count: int = 0
+		player_pieces_number: int = player.pieces_on_board
+
+		for position in self.__position_matrix:
+			if (position is not None) and (position.player_on_pos == player):
+				position_neighborhood: list[Position] = position.neighborhood
+				occupied_neighbors = 0
+				for neighbor in position_neighborhood:
+					if neighbor.is_occupied:
+						occupied_neighbors += 1
+				if occupied_neighbors == len(position_neighborhood):
+					blocked_pieces_count += 1
+		
+		is_player_blocked: bool = (player_pieces_number == blocked_pieces_count)
+		return is_player_blocked
+
+	def evaluate_winner(self):
+		local_player = self.__local_player
+		remote_player = self.__remote_player
+
+		remote_player_has_sufficient_pieces: bool = remote_player.verify_sufficient_pieces_number()
+		if not remote_player_has_sufficient_pieces:
+			self.set_winner(local_player)
+			self.end_game()
+		else:
+			remote_player_blocked: bool = self.verify_blocked(self.remote_player)
+			if remote_player_blocked:
+				self.set_winner(local_player)
+				self.end_game()
