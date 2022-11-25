@@ -15,7 +15,7 @@ class Position():
 		self.__line: int = matrix[0]
 		self.__column: int = matrix[1]
 		self.__player_on_pos: Player = None
-		self.__piece = None
+		self.__piece: Piece = None
 		self.__connections: list[Connection] = connections
 
 	@property
@@ -74,7 +74,7 @@ class Position():
 		self.__piece = piece_put
 		self.set_is_occupied()
 		self.set_player_on_pos(piece_put.owner_player)
-		# LOGICA DE INCREMENTO E DECREMENTO FALTANDO
+		# LOGICA DE INCREMENTO E DECREMENTO FALTANTE
 
 	def remove_piece(self) -> None:
 		self.__piece = None
