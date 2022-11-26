@@ -6,13 +6,14 @@ import Board
 
 
 class Player(object):
-	def __init__(self, number: int, pieces_start_number: int = 12, turn: bool = False) -> None:
+	def __init__(self, number: int, style: str, pieces_start_number: int = 12, turn: bool = False) -> None:
 		self.__player_number: int = number
 		self.__winner: bool = False
 		self.__pieces_in_hand: int = pieces_start_number
 		self.__pieces_on_board: int = 0
 		self.__removed_pieces: int = 0
 		self.__turn: bool = turn
+		self.__style: str = style
 
 # START OF GETTERS AND SETTERS 
 
@@ -64,6 +65,10 @@ class Player(object):
 	def turn(self, new_turn) -> None:
 		self.__turn = new_turn
 
+	@property
+	def style(self) -> str:
+		return self.__style
+
 # END OF GETTERS AND SETTERS
 
 	def get_turn(self) -> bool:
@@ -87,10 +92,8 @@ class Player(object):
 	def decrement_pieces_on_board(self) -> None:
 		self.__pieces_on_board -= 1
 
-	def decrement_pieces_in_hand(self, board: Board) -> None: # Alterar modelagem
+	def decrement_pieces_in_hand(self) -> None: # Alterar modelagem
 		self.__pieces_in_hand -= 1
-		if self.__pieces_in_hand == 0:
-			board.set_game_phase("moving")
 
 	def increment_removed_pieces(self) -> None:
 		self.__removed_pieces += 1

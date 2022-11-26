@@ -6,9 +6,9 @@ from Move import Move
 
 
 class Piece():
-	def __init__(self, owner_player: Player, styles):
+	def __init__(self, owner_player: Player):
 		self.__owner_player: Player = owner_player
-		self.__styles = styles
+		self.__styles = self.__owner_player.style
 		self.__position: Position = None
 		self.__captured: bool = False
 		self.__in_moinho: bool = False

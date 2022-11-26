@@ -266,16 +266,82 @@ class Board():
 
 		return position_matrix
 
+	# So entra aqui em colocacao de peca LOCAL
+	def place_piece(self) -> None: # Atualizar modelagem
+		is_turn = self.__local_player.turn
+		if not is_turn:
+			self.notify_player_not_turn()
+		else:
+			self.__move.set_move_none()
+			self.__move.type = "place_piece"
+			piece_to_place = Piece(self.__local_player)
+			self.execute_place_piece(piece_to_place)
+			if self.__local_player.pieces_in_hand == 0:
+				self.set_game_phase("moving")
+
+			self.evaluate_moinho()
+
+	# So entra aqui em movimentacao de peca LOCAL
+	def move_piece(self) -> None:
+		is_turn = self.__local_player.turn
+		if not is_turn:
+			self.notify_player_not_turn()
+		else:
+			piece_to_move = self.__selected_piece
+			piece_owner = piece_to_move.owner_player
+
+			if piece_owner != self.__local_player:
+				self.__player_interface.notify_invalid_move()
+			else:
+				self.__move.set_move_none()
+				if not self.__selected_position.is_occupied:
+					if (self.__selected_position in piece_to_move.position.neighborhood) or piece_owner.can_do_fly(): # Alterar modelagem
+						self.__move.type = "move_piece"
+						self.execute_move_piece()
+						self.evaluate_moinho()
+				else:
+					self.__player_interface.notify_invalid_move()
+
+	# So entra aqui em retirada de peca feita pelo player LOCAL
+	def remove_piece(self) -> None: # ALTERAR MODELAGEM
+		piece_to_remove: Piece = self.__selected_piece
+		piece_owner: Player = piece_to_remove.owner_player
+
+		if piece_owner == self.__remote_player:
+			in_moinho = piece_to_remove.in_moinho
+
+			if in_moinho:
+				can_remove: bool = (self.__remote_player.pieces_on_board == 3)
+			else:
+				can_remove: bool = True
+
+			if can_remove:
+				self.execute_remove_piece(self.__selected_piece.position, self.__selected_piece.owner_player)	
+				self.finish_turn()
+				move_type = self.__move.type
+				if move_type == "place_piece":
+					self.__move.type = "place_piece_and_remove_piece"
+				elif move_type == "move_piece":
+					self.__move.type = "move_piece_and_remove_piece"
+				
+				self.__player_interface.send_move(self.__move)
+
+			else:
+				self.__player_interface.notify_invalid_move()
+
+		else:
+			self.__player_interface.notify_invalid_move()
+
 	# So entra aqui em colocacao
 	def execute_place_piece(self, piece_put: Piece) -> None: # Alterar modelagem
 		owner_player_of_piece: Player = piece_put.owner_player
-		owner_player_of_piece.decrement_pieces_in_hand(self) # Alterar modelagem
+		owner_player_of_piece.decrement_pieces_in_hand() # Alterar modelagem
 		owner_player_of_piece.increment_pieces_on_board() # Alterar modelagem
 
 		self.__selected_position.place_piece(piece_put)
 	
 	# So entra aqui em movimentacao
-	def execute_move_piece(self, destiny_position: Position) -> None: # Alterar modelagem
+	def execute_move_piece(self) -> None: # Alterar modelagem
 		piece_to_move = self.__selected_piece
 		destiny_position = self.__selected_position
 		origin_position = piece_to_move.position
