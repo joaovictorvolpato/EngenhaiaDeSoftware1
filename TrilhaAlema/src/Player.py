@@ -84,7 +84,7 @@ class Player(object):
 	def increment_pieces_on_board(self) -> None:
 		self.__pieces_on_board += 1
 
-	def decrement_pieces_in_hand(self) -> None:
+	def decrement_pieces_on_board(self) -> None:
 		self.__pieces_on_board -= 1
 
 	def decrement_pieces_in_hand(self) -> None:

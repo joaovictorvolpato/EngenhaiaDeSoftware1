@@ -8,7 +8,7 @@ from Piece import Piece
 from InterfaceUpdater import InterfaceUpdater
 from PlayerInterface import PlayerInterface
 
-class Board(object):
+class Board():
 	def __init__(self):
 		self.__player_interface: PlayerInterface = None
 		self.__interface_updater = None
@@ -84,19 +84,19 @@ class Board(object):
 		self.__remote_player = remote_player
 
 	@property
-	def draw(self) -> None:
+	def draw(self) -> bool:
 		return self.__draw
 	
 	@draw.setter
-	def draw(self, draw):
+	def draw(self, draw: bool):
 		self.__draw = draw
 
 	@property
-	def withdrawed(self) -> None:
+	def withdrawed(self) -> bool:
 		return self.__withdrawed
 	
 	@withdrawed.setter
-	def withdrawed(self, withdrawed):
+	def withdrawed(self, withdrawed: bool) -> None:
 		self.__withdrawed = withdrawed
 
 	@property
@@ -285,6 +285,11 @@ class Board(object):
 
 	# So entra aqui em remocao de peca
 	def execute_remove_piece(self, position_to_remove_piece: Position) -> None: # Alterar modelagem
+		piece_to_remove = position_to_remove_piece.piece
+		player_to_decrement_pieces_in_board = position_to_remove_piece.player_on_pos
+		
+		piece_to_remove.set_piece_captured()
+		player_to_decrement_pieces_in_board.decrement_pieces_on_board() # Logica de incrementar pecas retiras pelo adversario faltante
 		position_to_remove_piece.remove_piece()
 
 	def notify_player_to_remove_piece(number_of_moinhos: int) -> None: # Alterar modelagem
@@ -392,7 +397,7 @@ class Board(object):
 				if occupied_neighbors == len(position_neighborhood):
 					blocked_pieces_count += 1
 		
-		is_player_blocked: bool = (player_pieces_number == blocked_pieces_count)
+		is_player_blocked = (player_pieces_number == blocked_pieces_count)
 		return is_player_blocked
 
 	def evaluate_winner(self) -> None:

@@ -54,3 +54,6 @@ class Piece():
 	@move.setter
 	def move(self, new_move):
 		self.__move = new_move
+
+	def set_piece_captured(self) -> None:
+		self.__captured = True

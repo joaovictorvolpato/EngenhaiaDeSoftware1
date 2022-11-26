@@ -3,8 +3,9 @@
 import Position
 from Position import Position
 from Piece import Piece
-import Board
+from Board import Board
 from enum import Enum
+
 #Change numbers to strings
 class MoveType(Enum):
 	PLACE_PIECE = 1
@@ -16,64 +17,59 @@ class MoveType(Enum):
 	DECLINE_DRAW_PROPOSE = 7
 
 
-class Move(object):
+class Move():
 	class_move_type = MoveType()
 
-	def __init__(self):
-		self.__type = None
-		"""@AttributeType MoveType"""
-		self.__moinho = None
-		"""@AttributeType int"""
-		self.__final_position = None
-		"""@AttributeType Position"""
-		self.__start_position = None
-		"""@AttributeType Position"""
-		self.__piece = None
-		"""@AttributeType Piece"""
+	def __init__(self, class_move_type: MoveType):
+		self.__type = class_move_type
+		self.__moinhos = 0
+		self.__final_position: Position = None
+		self.__start_position: Position = None
+		self.__piece: Piece = None
 
 	@property
 	def type(self) -> MoveType:
 		return self.__type
 
 	@type.setter
-	def type(self, MoveType):
-		self.__type = MoveType
+	def type(self, move_type: MoveType) -> None:
+		self.__type = move_type
 
 	@property
-	def moinho(self):
-		return self.__moinho
+	def moinhos(self) -> int:
+		return self.__moinhos
 
-	@moinho.setter
-	def moinho(self, num_of_moinhos: int):
-		self.__moinho = num_of_moinhos
+	@moinhos.setter
+	def moinhos(self, num_of_moinhos: int) -> None:
+		self.__moinhos = num_of_moinhos
 
 	@property
-	def final_position(self):
+	def final_position(self) -> Position:
 		return self.__final_position
 
 	@final_position.setter
-	def final_position(self, position: Position):
-		self.__final_position = position
+	def final_position(self, final_position: Position) -> None:
+		self.__final_position = final_position
 
 	@property
-	def start_position(self):
+	def start_position(self) -> Position:
 		return self.__start_position
 
 	@start_position.setter
-	def start_position(self, position: Position):
-		self.__start_position = position
+	def start_position(self, start_position: Position) -> None:
+		self.__start_position = start_position
 
 	@property
-	def piece(self):
+	def piece(self) -> Piece:
 		return self.__piece
 
 	@piece.setter
-	def piece(self, piece : Piece):
+	def piece(self, piece : Piece) -> None:
 		self.__piece = piece
 
-	def setMoveNone(self):
+	def set_move_none(self):
 		self.__type = None
-		self.__moinho = None
+		self.__moinhos = 0
 		self.__final_position = None
 		self.__start_position = None
 		self.__piece = None
