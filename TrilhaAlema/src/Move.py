@@ -6,33 +6,20 @@ from Piece import Piece
 from Board import Board
 from enum import Enum
 
-#Change numbers to strings
-class MoveType(Enum):
-	PLACE_PIECE = 1
-	MOVE_PIECE = 2
-	PLACE_AND_REMOVE_PIECE = 3
-	MOVE_AND_REMOVE_PIECE = 4
-	DRAW_PROPOSE = 5
-	ACCEPT_DRAW_PROPOSE = 6
-	DECLINE_DRAW_PROPOSE = 7
-
-
 class Move():
-	class_move_type = MoveType()
-
-	def __init__(self, class_move_type: MoveType):
-		self.__type = class_move_type
+	def __init__(self):
+		self.__type: str = None
 		self.__moinhos = 0
 		self.__final_position: Position = None
 		self.__start_position: Position = None
 		self.__piece: Piece = None
 
 	@property
-	def type(self) -> MoveType:
+	def type(self) -> str:
 		return self.__type
 
 	@type.setter
-	def type(self, move_type: MoveType) -> None:
+	def type(self, move_type: str) -> None:
 		self.__type = move_type
 
 	@property
@@ -66,6 +53,15 @@ class Move():
 	@piece.setter
 	def piece(self, piece : Piece) -> None:
 		self.__piece = piece
+
+	def get_move_dict(self):
+		move_dict = {}
+		move_dict['type'] = self.__type
+		move_dict['moinhos'] = self.__moinhos
+		move_dict['final_position'] = self.__final_position.__dict__()
+		move_dict['start_position'] = self.__start_position.__dict__()
+		move_dict['piece'] = self.__piece.__dict__()
+		return move_dict
 
 	def set_move_none(self):
 		self.__type = None
