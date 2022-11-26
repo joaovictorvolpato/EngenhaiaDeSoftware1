@@ -24,7 +24,6 @@ class InterfaceGameBoardSetter:
             highlightthickness = 0,
             relief = "ridge"
         )
-        
         canvas.place(x = 0, y = 0)
 
         board_image = canvas.create_image(
