@@ -6,12 +6,14 @@ from tkinter import simpledialog
 from dog.dog_interface import DogPlayerInterface
 from dog.dog_actor import DogActor
 from Move import Move
+from Board import Board
 
 class PlayerInterface(DogPlayerInterface):
     def __init__(self) -> None:
         self.__window = self.__create_window()
         GameImageHandler.set_game_images()
-        self.__interface_game_board_setter = InterfaceGameBoardSetter(self.__window)
+        self.__board: Board = Board() #Start program in modelling
+        self.__interface_game_board_setter = InterfaceGameBoardSetter(self.__window, self.__board)
         self.__interface_game_board_setter.set_game_board()
         self.__window.resizable(False, False)
         self.__menubar = self.__create_menubar()
@@ -27,7 +29,7 @@ class PlayerInterface(DogPlayerInterface):
         window.configure(bg = "#327421")
         
         return window
-    
+
     def __create_menubar(self) -> Menu:
         menubar = Menu(self.__window)
         menubar.option_add('*tearOff', FALSE)
