@@ -1,11 +1,13 @@
 from ChangePieceSwitch import ChangePieceSwitch
 from PieceSwitch import PieceSwitch
 from GameImageHandler import GameImageHandler
-from tkinter import Canvas
+from tkinter import Canvas, Tk
+from Board import Board
 
 class InterfaceGameBoardSetter:
-    def __init__(self, window) -> None:
+    def __init__(self, window:Tk, board:Board) -> None:
         self.__window = window
+        self.__board = board
 
     def set_game_board(self) -> None:
         self.__setup_canvas()
@@ -82,13 +84,14 @@ class InterfaceGameBoardSetter:
             fill="#327421",
             outline="")
 
-    def __setup_change_piece_switch(self) -> None:
+    def __setup_change_piece_switch(self, board:Board) -> None:
         change_piece_switch = ChangePieceSwitch(
             image=GameImageHandler.VASCO_piece_image,
             borderwidth=0,
             highlightthickness=0,
             command=lambda: change_piece_switch.on_click(),
-            relief="flat"
+            relief="flat",
+            board=board
         )
         change_piece_switch.place(
             x=287.0,
@@ -97,14 +100,15 @@ class InterfaceGameBoardSetter:
             height=60.0
         )
 
-    def __setup_piece_switches(self) -> None: #Change piece switches names to match the board places sequence. Code on click to return the button number
+    def __setup_piece_switches(self, board:Board) -> None: #Change piece switches names to match the board places sequence. Code on click to return the button number
         piece_switch_32 = PieceSwitch(
             id = 32,
             image=GameImageHandler.button_image,
             borderwidth=0,
             highlightthickness=0,
             command=lambda: piece_switch_32.on_click(),
-            relief="flat"
+            relief="flat",
+            board=board
         )
         piece_switch_32.place(
             x=662.0,
@@ -119,7 +123,8 @@ class InterfaceGameBoardSetter:
             borderwidth=0,
             highlightthickness=0,
             command=lambda: piece_switch_20.on_click(),
-            relief="flat"
+            relief="flat",
+            board=board
         )
         piece_switch_20.place(
             x=162.0,
@@ -134,7 +139,8 @@ class InterfaceGameBoardSetter:
             borderwidth=0,
             highlightthickness=0,
             command=lambda: piece_switch_26.on_click(),
-            relief="flat"
+            relief="flat",
+            board=board
         )
         piece_switch_26.place(
             x=162.0,
@@ -149,7 +155,8 @@ class InterfaceGameBoardSetter:
             borderwidth=0,
             highlightthickness=0,
             command=lambda: piece_switch_9.on_click(),
-            relief="flat"
+            relief="flat",
+            board=board
         )
         piece_switch_9.place(
             x=362.0,
@@ -164,7 +171,8 @@ class InterfaceGameBoardSetter:
             borderwidth=0,
             highlightthickness=0,
             command=lambda: piece_switch_4.on_click(),
-            relief="flat"
+            relief="flat",
+            board=board
         )
         piece_switch_4.place(
             x=362.0,
@@ -179,7 +187,8 @@ class InterfaceGameBoardSetter:
             borderwidth=0,
             highlightthickness=0,
             command=lambda:piece_switch_1.on_click(),
-            relief="flat"
+            relief="flat",
+            board=board
         )
         piece_switch_1.place(
             x=262.0,
@@ -194,7 +203,8 @@ class InterfaceGameBoardSetter:
             borderwidth=0,
             highlightthickness=0,
             command=lambda: piece_switch_8.on_click(),
-            relief="flat"
+            relief="flat",
+            board=board
         )
         piece_switch_8.place(
             x=262.0,
@@ -209,7 +219,8 @@ class InterfaceGameBoardSetter:
             borderwidth=0,
             highlightthickness=0,
             command=lambda: piece_switch_15.on_click(),
-            relief="flat"
+            relief="flat",
+            board=board
         )
         piece_switch_15.place(
             x=262.0,
@@ -224,7 +235,8 @@ class InterfaceGameBoardSetter:
             borderwidth=0,
             highlightthickness=0,
             command=lambda: piece_switch_21.on_click(),
-            relief="flat"
+            relief="flat",
+            board=board
         )
         piece_switch_21.place(
             x=262.0,
@@ -239,7 +251,8 @@ class InterfaceGameBoardSetter:
             borderwidth=0,
             highlightthickness=0,
             command=lambda: piece_switch_31.on_click(),
-            relief="flat"
+            relief="flat",
+            board=board
         )
         piece_switch_31.place(
             x=562.0,
@@ -254,7 +267,8 @@ class InterfaceGameBoardSetter:
             borderwidth=0,
             highlightthickness=0,
             command=lambda: piece_switch_14.on_click(),
-            relief="flat"
+            relief="flat",
+            board=board
         )
         piece_switch_14.place(
             x=162.0,
@@ -269,7 +283,8 @@ class InterfaceGameBoardSetter:
             borderwidth=0,
             highlightthickness=0,
             command=lambda: piece_switch_30.on_click(),
-            relief="flat"
+            relief="flat",
+            board=board
         )
         piece_switch_30.place(
             x=462.0,
@@ -284,7 +299,8 @@ class InterfaceGameBoardSetter:
             borderwidth=0,
             highlightthickness=0,
             command=lambda: piece_switch_16.on_click(),
-            relief="flat"
+            relief="flat",
+            board=board
         )
         piece_switch_16.place(
             x=362.0,
@@ -299,7 +315,8 @@ class InterfaceGameBoardSetter:
             borderwidth=0,
             highlightthickness=0,
             command=lambda: piece_switch_23.on_click(),
-            relief="flat"
+            relief="flat",
+            board=board
         )
         piece_switch_23.place(
             x=462.0,
@@ -314,7 +331,8 @@ class InterfaceGameBoardSetter:
             borderwidth=0,
             highlightthickness=0,
             command=lambda: piece_switch_29.on_click(),
-            relief="flat"
+            relief="flat",
+            board=board
         )
         piece_switch_29.place(
             x=562.0,
@@ -329,7 +347,8 @@ class InterfaceGameBoardSetter:
             borderwidth=0,
             highlightthickness=0,
             command=lambda: piece_switch_12.on_click(),
-            relief="flat"
+            relief="flat",
+            board=board
         )
         piece_switch_12.place(
             x=662.0,
@@ -344,7 +363,8 @@ class InterfaceGameBoardSetter:
             borderwidth=0,
             highlightthickness=0,
             command=lambda: piece_switch_13.on_click(),
-            relief="flat"
+            relief="flat",
+            board=board
         )
         piece_switch_13.place(
             x=762.0,
@@ -359,7 +379,8 @@ class InterfaceGameBoardSetter:
             borderwidth=0,
             highlightthickness=0,
             command=lambda: piece_switch_7.on_click(),
-            relief="flat"
+            relief="flat",
+            board=board
         )
         piece_switch_7.place(
             x=762.0,
@@ -374,7 +395,8 @@ class InterfaceGameBoardSetter:
             borderwidth=0,
             highlightthickness=0,
             command=lambda: piece_switch_19.on_click(),
-            relief="flat"
+            relief="flat",
+            board=board
         )
         piece_switch_19.place(
             x=762.0,
@@ -389,7 +411,8 @@ class InterfaceGameBoardSetter:
             borderwidth=0,
             highlightthickness=0,
             command=lambda: piece_switch_28.on_click(),
-            relief="flat"
+            relief="flat",
+            board=board
         )
         piece_switch_28.place(
             x=462.0,
@@ -404,7 +427,8 @@ class InterfaceGameBoardSetter:
             borderwidth=0,
             highlightthickness=0,
             command=lambda: piece_switch_25.on_click(),
-            relief="flat"
+            relief="flat",
+            board=board
         )
         piece_switch_25.place(
             x=662.0,
@@ -419,7 +443,8 @@ class InterfaceGameBoardSetter:
             borderwidth=0,
             highlightthickness=0,
             command=lambda: piece_switch_18.on_click(),
-            relief="flat"
+            relief="flat",
+            board=board
         )
         piece_switch_18.place(
             x=662.0,
@@ -434,7 +459,8 @@ class InterfaceGameBoardSetter:
             borderwidth=0,
             highlightthickness=0,
             command=lambda: piece_switch_24.on_click(),
-            relief="flat"
+            relief="flat",
+            board=board
         )
         piece_switch_24.place(
             x=562.0,
@@ -449,7 +475,8 @@ class InterfaceGameBoardSetter:
             borderwidth=0,
             highlightthickness=0,
             command=lambda: piece_switch_10.on_click(),
-            relief="flat"
+            relief="flat",
+            board=board
         )
         piece_switch_10.place(
             x=462.0,
@@ -464,7 +491,8 @@ class InterfaceGameBoardSetter:
             borderwidth=0,
             highlightthickness=0,
             command=lambda: piece_switch_5.on_click(),
-            relief="flat"
+            relief="flat",
+            board=board
         )
         piece_switch_5.place(
             x=462.0,
@@ -479,7 +507,8 @@ class InterfaceGameBoardSetter:
             borderwidth=0,
             highlightthickness=0,
             command=lambda: piece_switch_3.on_click(),
-            relief="flat"
+            relief="flat",
+            board=board
         )
         piece_switch_3.place(
             x=461.0,
@@ -494,7 +523,8 @@ class InterfaceGameBoardSetter:
             borderwidth=0,
             highlightthickness=0,
             command=lambda: piece_switch_2.on_click(),
-            relief="flat"
+            relief="flat",
+            board=board
         )
         piece_switch_2.place(
             x=362.0,
@@ -509,7 +539,8 @@ class InterfaceGameBoardSetter:
             borderwidth=0,
             highlightthickness=0,
             command=lambda: piece_switch_11.on_click(),
-            relief="flat"
+            relief="flat",
+            board=board
         )
         piece_switch_11.place(
             x=562.0,
@@ -524,7 +555,8 @@ class InterfaceGameBoardSetter:
             borderwidth=0,
             highlightthickness=0,
             command=lambda: piece_switch_6.on_click(),
-            relief="flat"
+            relief="flat",
+            board=board
         )
         piece_switch_6.place(
             x=562.0,
@@ -539,7 +571,8 @@ class InterfaceGameBoardSetter:
             borderwidth=0,
             highlightthickness=0,
             command=lambda: piece_switch_17.on_click(),
-            relief="flat"
+            relief="flat",
+            board=board
         )
         piece_switch_17.place(
             x=562.0,
@@ -554,7 +587,8 @@ class InterfaceGameBoardSetter:
             borderwidth=0,
             highlightthickness=0,
             command=lambda: piece_switch_22.on_click(),
-            relief="flat"
+            relief="flat",
+            board=board
         )
         piece_switch_22.place(
             x=362.0,
@@ -569,7 +603,8 @@ class InterfaceGameBoardSetter:
             borderwidth=0,
             highlightthickness=0,
             command=lambda: piece_switch_27.on_click(),
-            relief="flat"
+            relief="flat",
+            board=board
         )
         piece_switch_27.place(
             x=362.0,
