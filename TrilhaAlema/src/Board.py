@@ -430,8 +430,10 @@ class Board():
 		pass
 
 	def clicked_position(self, aLine, aColumn) -> None:
-		"""@ParamType aLine int
-		@ParamType aColumn int"""
+		#To properly implement a piece movement, two clicks are needed.
+		#Hence, if game_phase == "move_piece":
+		#Check if piece to move has already been set, if piece_to_move_already_set:
+		#Save second click as selected_position (which is the destiny). Then, do the movement as already modelled.
 		pass
 
 	def get_interface_changes(self) -> tuple:
