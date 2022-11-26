@@ -429,12 +429,29 @@ class Board():
 	def reset_match(self) -> None:
 		pass
 
-	def clicked_position(self, aLine, aColumn) -> None:
+	def clicked_position(self, line:int, column:int) -> None:
 		#To properly implement a piece movement, two clicks are needed.
-		#Hence, if game_phase == "move_piece":
+		#Hence, if game_phase == "moving":
 		#Check if piece to move has already been set, if piece_to_move_already_set:
 		#Save second click as selected_position (which is the destiny). Then, do the movement as already modelled.
-		pass
+		game_phase: str = self.__game_phase
+		position : Position = self.__position_matrix[line][column]
+		occupied: bool = position.occupied
+		there_is_moinho: bool = self.__move.moinho > 0
+		if game_phase == "placing" and not occupied and not there_is_moinho:
+			self.__selected_position = position
+			self.place_piece(self.__selected_piece)
+			
+		if game_phase == "moving" and occupied and not there_is_moinho:
+			if self.__selected_piece == None:
+				self.__selected_piece = position.piece
+			else:
+				self.__selected_position = position
+				self.move_piece()
+
+		if there_is_moinho:
+			self.selected_piece = position.piece
+			self.remove_piece()
 
 	def get_interface_changes(self) -> tuple:
 		"""@ReturnType tuple"""
