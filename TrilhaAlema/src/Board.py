@@ -19,8 +19,8 @@ class Board(object):
 		self.__selected_piece: Piece = None
 		self.__local_player: Player = None
 		self.__remote_player: Player = None
-		self.__draw = None
-		self.__withdrawed = None
+		self.__draw: bool = False
+		self.__withdrawed: bool = False
 		self.__game_phase: str = None
 		self.__move_type: str = None
 		self.__move: Move = None
@@ -266,26 +266,46 @@ class Board(object):
 
 		return position_matrix
 
+	# So entra aqui em colocacao
+	def execute_place_piece(self, piece_put: Piece) -> None: # Alterar modelagem
+		owner_player_of_piece: Player = piece_put.owner_player
+		owner_player_of_piece.decrement_pieces_in_hand() # Alterar modelagem
+		owner_player_of_piece.increment_pieces_on_board() # Alterar modelagem
 
-	def do_place_piece(self) -> None:
-		pass
+		self.__selected_position.place_piece(piece_put)
+	
+	# So entra aqui em movimentacao
+	def execute_move_piece(self, destiny_position: Position) -> None: # Alterar modelagem
+		piece_to_move = self.__selected_piece
+		destiny_position = self.__selected_position
+		origin_position = piece_to_move.position
 
+		origin_position.remove_piece()
+		destiny_position.place_piece(piece_to_move)
 
+	# So entra aqui em remocao de peca
+	def execute_remove_piece(self, position_to_remove_piece: Position) -> None: # Alterar modelagem
+		position_to_remove_piece.remove_piece()
+
+	def notify_player_to_remove_piece(number_of_moinhos: int) -> None: # Alterar modelagem
+		for n in range(number_of_moinhos):
+			# Implementar logica do jogador remover peca
+			pass
+	
 	def evaluate_moinho(self) -> None:
-		num_of_moinhos = self.get_num_of_moinhos(self.__selected_position)
+		num_of_moinhos: int = self.get_num_of_moinhos(self.__selected_position)
 		piece_put_on_position: Piece = self.__selected_position.piece
   
 		if num_of_moinhos == 0:
 			self.finish_turn()
-			piece_put_on_position.in_moinho = False
-			self.__move.moinho = num_of_moinhos
+			piece_put_on_position.in_moinho: bool = False
+			self.__move.moinho: int = num_of_moinhos
 			self.__player_interface.send_move(self.__move)
 		
 		elif num_of_moinhos > 0:
-			pass #Implementar o resto.
+			self.notify_player_to_remove_piece(num_of_moinhos)
 
-
-	def get_num_of_moinhos(self, selected_position: Position) -> int: #Change argument's name in modelling
+	def get_num_of_moinhos(self, selected_position: Position) -> int: # Change argument's name in modelling
 		position_connections: list[Connection] = selected_position.connections
 		player_on_selected_position: Player = selected_position.player_on_pos
   
@@ -294,20 +314,14 @@ class Board(object):
 			positions_in_connection = connection.positions
 
 			same_player = 0
-			for position in positions_in_connection and position != selected_position:
+			for position in positions_in_connection:
 				if position.player_on_pos == player_on_selected_position:
 					same_player += 1
 
-			if same_player == 2:
+			if same_player == 3:
 				moinhos_count += 1
 		
 		return moinhos_count
-
-
-	def execute_move_piece(self, aPiece, aDestination) -> None:
-		"""@ParamType aPiece Piece
-		@ParamType aDestination Position"""
-		pass
 
 	def propose_draw(self) -> None:
 		pass
@@ -341,9 +355,6 @@ class Board(object):
 		self.__remote_player.change_turn()
 
 	def reset_match(self) -> None:
-		pass
-
-	def execute_remove_piece(self) -> None:
 		pass
 
 	def clicked_position(self, aLine, aColumn) -> None:
@@ -389,11 +400,10 @@ class Board(object):
 		remote_player = self.__remote_player
 
 		remote_player_has_sufficient_pieces: bool = remote_player.verify_sufficient_pieces_number()
-		if not remote_player_has_sufficient_pieces:
+		remote_player_blocked: bool = self.verify_blocked(self.remote_player)
+
+		if remote_player_blocked or not remote_player_has_sufficient_pieces: # Alterar diagrama de algoritmo
 			self.set_winner(local_player)
 			self.end_game()
 		else:
-			remote_player_blocked: bool = self.verify_blocked(self.remote_player)
-			if remote_player_blocked:
-				self.set_winner(local_player)
-				self.end_game()
+			pass

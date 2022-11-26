@@ -1,7 +1,7 @@
 #!/usr/bin/python
 # -*- coding: UTF-8 -*-
 from Player import Player
-import Piece
+from Piece import Piece
 from Board import Board
 from Move import Move
 from Connection import Connection
@@ -70,25 +70,21 @@ class Position():
 	def connections(self, connections: list[Connection]) -> None:
 		self.__connections = connections
 
-	def place_piece(self, piece_put: Piece) -> None:
+	def place_piece(self, piece_put: Piece) -> None: # Arrumar parametros na modelagem
 		self.__piece = piece_put
 		self.set_is_occupied()
-		self.set_player_on_pos(piece_put.owner_player)
-		# LOGICA DE INCREMENTO E DECREMENTO FALTANTE
+		self.__player_on_pos = piece_put.owner_player
 
 	def remove_piece(self) -> None:
+		self.set_position_free()
 		self.__piece = None
-
+		self.__player_on_pos = None
 
 	def set_position_free(self) -> None:
 		self.__is_occupied = False
-		self.__player_on_pos = None
 
 	def set_is_occupied(self) -> None:
 		self.__is_occupied = True
-
-	def set_player_on_pos(self, player: Player) -> None:
-		self.__player_on_pos = player
 
 	def operation(self):
 		pass
