@@ -21,7 +21,7 @@ class Board():
 		self.__remote_player: Player = None
 		self.__draw: bool = False
 		self.__withdrawed: bool = False
-		self.__game_phase: str = None
+		self.__game_phase: str = "placing"
 		self.__move_type: str = None
 		self.__move: Move = None
 
@@ -269,7 +269,7 @@ class Board():
 	# So entra aqui em colocacao
 	def execute_place_piece(self, piece_put: Piece) -> None: # Alterar modelagem
 		owner_player_of_piece: Player = piece_put.owner_player
-		owner_player_of_piece.decrement_pieces_in_hand() # Alterar modelagem
+		owner_player_of_piece.decrement_pieces_in_hand(self) # Alterar modelagem
 		owner_player_of_piece.increment_pieces_on_board() # Alterar modelagem
 
 		self.__selected_position.place_piece(piece_put)
@@ -284,12 +284,13 @@ class Board():
 		destiny_position.place_piece(piece_to_move)
 
 	# So entra aqui em remocao de peca
-	def execute_remove_piece(self, position_to_remove_piece: Position) -> None: # Alterar modelagem
+	def execute_remove_piece(self, position_to_remove_piece: Position, player_who_removed_piece: Player) -> None: # Alterar modelagem
 		piece_to_remove = position_to_remove_piece.piece
 		player_to_decrement_pieces_in_board = position_to_remove_piece.player_on_pos
 		
 		piece_to_remove.set_piece_captured()
-		player_to_decrement_pieces_in_board.decrement_pieces_on_board() # Logica de incrementar pecas retiras pelo adversario faltante
+		player_to_decrement_pieces_in_board.decrement_pieces_on_board()
+		player_who_removed_piece.increment_removed_pieces()
 		position_to_remove_piece.remove_piece()
 
 	def notify_player_to_remove_piece(number_of_moinhos: int) -> None: # Alterar modelagem

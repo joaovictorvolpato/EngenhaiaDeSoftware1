@@ -87,8 +87,10 @@ class Player(object):
 	def decrement_pieces_on_board(self) -> None:
 		self.__pieces_on_board -= 1
 
-	def decrement_pieces_in_hand(self) -> None:
+	def decrement_pieces_in_hand(self, board: Board) -> None: # Alterar modelagem
 		self.__pieces_in_hand -= 1
+		if self.__pieces_in_hand == 0:
+			board.set_game_phase("moving")
 
 	def increment_removed_pieces(self) -> None:
 		self.__removed_pieces += 1
