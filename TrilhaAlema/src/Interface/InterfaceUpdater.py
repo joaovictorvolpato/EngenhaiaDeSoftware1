@@ -1,11 +1,11 @@
 # from Game.Position import Position
 # from Game.Piece import Piece
 # from Game.Board import Board
-from Interface.PlayerInterface import PlayerInterface
+from Abstractions.AbstractPlayerInterface import AbstractPlayerInterface 
 # from Game.Player import Player
 
 class InterfaceUpdater:
-	def update_interface_image(self, player_interface: PlayerInterface):
+	def update_interface_image(self, player_interface):
 		pass
 
 	def display_pieces_on_positions(self, aPlayer_interface, aPositions_to_update):
