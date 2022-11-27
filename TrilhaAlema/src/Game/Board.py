@@ -21,7 +21,7 @@ from Game.Position import Position
 class Board:
 	def __init__(self, local_player: AbstractPlayer, remote_player: AbstractPlayer, player_interface: AbstractPlayerInterface) -> None:
 		self.__player_interface: AbstractPlayerInterface = player_interface
-		self.__position_matrix: list = self.set_board_position_matrix() # Check how its modelled. Put it in init
+		self.__position_matrix: list = self.set_board_position_matrix()
 		self.__occupied_positions: list[AbstractPosition] = []
 		self.__total_positions: int = 32
 		self.__selected_position: AbstractPosition = None
@@ -33,8 +33,6 @@ class Board:
 		self.__game_phase: str = "placing"
 		self.__move_type: str = None
 		self.__move: AbstractMove = None
-
-	# GETTERS AND SETTERS
 
 	@property
 	def player_interface(self) -> AbstractPlayerInterface:
@@ -132,10 +130,7 @@ class Board:
 	def move(self, move: AbstractMove):
 		self.move = move
 
-	# END OF GETTERS AND SETTERS
-
 	def set_board_position_matrix(self) -> list:
-		#Instatiating the positions of the board, based on 7x7 matrix
 		position_1 = Position((0, 1))
 		position_2 = Position((0, 2))
 		position_3 = Position((0, 3))
@@ -275,7 +270,7 @@ class Board:
 
 		return position_matrix
 
-	# So entra aqui em colocacao de peca LOCAL
+	# Só entra aqui em colocacao de peca LOCAL
 	def place_piece(self) -> None: # Atualizar modelagem
 		is_turn = self.__local_player.turn
 		if not is_turn:
@@ -290,7 +285,7 @@ class Board:
 
 			self.evaluate_moinho()
 
-	# So entra aqui em movimentacao de peca LOCAL
+	# Só entra aqui em movimentacao de peca LOCAL
 	def move_piece(self) -> None:
 		is_turn = self.__local_player.turn
 		if not is_turn:
@@ -312,7 +307,7 @@ class Board:
 				else:
 					self.__player_interface.notify_player("You're clicking on a occupied position.")
 
-	# So entra aqui em retirada de peca feita pelo player LOCAL
+	# Só entra aqui em retirada de peca feita pelo player LOCAL
 	def remove_piece(self, num_of_moinhos: int) -> None: # ALTERAR MODELAGEM
 		piece_to_remove: AbstractPiece = self.__selected_piece
 		piece_owner: AbstractPlayer = piece_to_remove.owner_player
@@ -346,7 +341,7 @@ class Board:
 		else:
 			self.__player_interface.notify_player("You can't remove your own piece.")
 
-	# So entra aqui em colocacao
+	# Só entra aqui em colocação
 	def execute_place_piece(self, piece_put: AbstractPiece) -> None: # Alterar modelagem
 		owner_player_of_piece: AbstractPlayer = piece_put.owner_player
 		owner_player_of_piece.decrement_pieces_in_hand() # Alterar modelagem
@@ -356,7 +351,7 @@ class Board:
 
 		self.__player_interface.update_interface_image()
 	
-	# So entra aqui em movimentacao
+	# Só entra aqui em movimentação
 	def execute_move_piece(self) -> None: # Alterar modelagem
 		piece_to_move = self.__selected_piece
 		destiny_position = self.__selected_position
@@ -367,7 +362,7 @@ class Board:
 
 		self.__player_interface.update_interface_image()
 
-	# So entra aqui em remocao de peca
+	# Só entra aqui em remoção de peca
 	def execute_remove_piece(self, position_to_remove_piece: AbstractPosition, player_who_removed_piece: AbstractPlayer) -> None: # Alterar modelagem
 		piece_to_remove = position_to_remove_piece.piece
 		player_to_decrement_pieces_in_board = position_to_remove_piece.player_on_pos
@@ -411,7 +406,6 @@ class Board:
 				moinhos_count += 1
 		
 		return moinhos_count
-
 
 	def start_match(self, local_player: AbstractPlayer, remote_player: AbstractPlayer, local_player_id: int) -> None:
 		pass
@@ -510,7 +504,6 @@ class Board:
 			self.__player_interface.notify_player(f"You can remove more {moinhos} pieces.")
 
 	def get_interface_changes(self) -> tuple:
-		"""@ReturnType tuple"""
 		pass
 
 	def check_if_match_was_abandoned(self) -> bool:
