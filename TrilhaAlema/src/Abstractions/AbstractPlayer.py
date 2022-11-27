@@ -19,7 +19,7 @@ class AbstractPlayer(ABC):
 
     @property
     @abstractmethod
-    def pieces_in_hand(self) -> None:
+    def pieces_in_hand(self) -> int:
         pass
 
     @property

@@ -1,5 +1,3 @@
-import os
-import sys
 from Abstractions.AbstractConnection import AbstractConnection
 from Abstractions.AbstractMove import AbstractMove
 from Abstractions.AbstractPiece import AbstractPiece
@@ -393,9 +391,6 @@ class Board:
 		
 		return moinhos_count
 
-	def start_match(self, local_player: AbstractPlayer, remote_player: AbstractPlayer, local_player_id: int) -> None:
-		pass
-
 	def execute_received_move(self, move_to_execute: AbstractMove) -> None:
 		self.__move = move_to_execute
 		move_type = self.__move.type
@@ -459,14 +454,7 @@ class Board:
 		self.__local_player.change_turn()
 		self.__remote_player.change_turn()
 
-	def reset_match(self) -> None:
-		pass
-
 	def clicked_position(self, line:int, column:int) -> None:
-		#To properly implement a piece movement, two clicks are needed.
-		#Hence, if game_phase == "moving":
-		#Check if piece to move has already been set, if piece_to_move_already_set:
-		#Save second click as selected_position (which is the destiny). Then, do the movement as already modelled.
 		print(f"Clicked position: {line}, {column}")
 		game_phase: str = self.__game_phase
 		position : AbstractPosition = self.__position_matrix[line][column]
@@ -489,8 +477,23 @@ class Board:
 			moinhos -= 1
 			self.__player_interface.notify_player(f"You can remove more {moinhos} pieces.")
 
-	def get_interface_changes(self) -> tuple:
-		pass
+	def get_interface_changes(self) -> tuple[list, int, int]:
+		position_to_update = self.verify_occupied_positions_in_matrix()
+		pieces_in_local_player_hand_to_uptdade = self.__local_player.pieces_in_hand
+		pieces_in_remote_player_hand_to_update = self.__remote_player.pieces_in_hand
+
+		return position_to_update, pieces_in_local_player_hand_to_uptdade, pieces_in_remote_player_hand_to_update
+
+	def verify_occupied_positions_in_matrix(self) -> list:
+		occupied_positions_list: list[tuple[bool, int]] = [(False, 0)] # INDEX 0 NOT CONSIDERED
+		for position in self.__position_matrix:
+			if position is not None:
+				if position.is_occupied:
+					occupied_positions_list.append((position.is_occupied, position.player_on_pos.player_id))
+				else:
+					occupied_positions_list.append((position.is_occupied, 0))
+
+		return occupied_positions_list
 
 	def clicked_propose_draw(self) -> None:
 		print("Clicked on propose draw button.")
