@@ -1,33 +1,30 @@
-#!/usr/bin/python
-# -*- coding: UTF-8 -*-
-from Player import Player
-from Piece import Piece
-from Board import Board
-from Move import Move
-from Connection import Connection
-from Position import Position
+from Abstractions.AbstractConnection import AbstractConnection
+from Abstractions.AbstractPiece import AbstractPiece
+from Abstractions.AbstractPlayer import AbstractPlayer
+from Abstractions.AbstractPosition import AbstractPosition
+
 
 class Position():
-	def __init__(self, matrix: tuple, neighborhood: list[Position] = [], connections: list[Connection] = []):
+	def __init__(self, matrix: tuple, neighborhood: list[AbstractPosition] = [], connections: list[AbstractConnection] = []):
 		self.__matrix_position: tuple = matrix
-		self.__neighborhood: list[Position] = neighborhood
+		self.__neighborhood: list[AbstractPosition] = neighborhood
 		self.__is_occupied: bool = False
 		self.__line: int = matrix[0]
 		self.__column: int = matrix[1]
-		self.__player_on_pos: Player = None
-		self.__piece: Piece = None
-		self.__connections: list[Connection] = connections
+		self.__player_on_pos: AbstractPlayer = None
+		self.__piece: AbstractPiece = None
+		self.__connections: list[AbstractConnection] = connections
 
 	@property
 	def matrix_position(self) -> tuple:
 		return self.__matrix_position
 	
 	@property
-	def neighborhood(self) -> list[Position]:
+	def neighborhood(self) -> list[AbstractPosition]:
 		return self.__neighborhood
 
 	@neighborhood.setter
-	def neighborhood(self, neighborhood: list[Position]) -> None:
+	def neighborhood(self, neighborhood: list[AbstractPosition]) -> None:
 		self.__neighborhood = neighborhood
 	
 	@property
@@ -47,30 +44,30 @@ class Position():
 		return self.__column
 	
 	@property
-	def player_on_pos(self) -> Player:
+	def player_on_pos(self) -> AbstractPlayer:
 		return self.__player_on_pos
 	
 	@player_on_pos.setter
-	def player_on_pos(self, player: Player) -> None:
+	def player_on_pos(self, player: AbstractPlayer) -> None:
 		self.__player_on_pos = player
 
 	@property
-	def piece(self) -> Piece:
+	def piece(self) -> AbstractPiece:
 		return self.__piece
 	
 	@piece.setter
-	def piece(self, piece: Piece) -> None:
+	def piece(self, piece: AbstractPiece) -> None:
 		self.__piece = piece
 
 	@property
-	def connections(self) -> list[Connection]:
+	def connections(self) -> list[AbstractConnection]:
 		return self.__connections
 
 	@connections.setter
-	def connections(self, connections: list[Connection]) -> None:
+	def connections(self, connections: list[AbstractConnection]) -> None:
 		self.__connections = connections
 
-	def place_piece(self, piece_put: Piece) -> None: # Arrumar parametros na modelagem
+	def place_piece(self, piece_put: AbstractPiece) -> None: # Arrumar parametros na modelagem
 		self.__piece = piece_put
 		self.set_is_occupied()
 		self.__player_on_pos = piece_put.owner_player

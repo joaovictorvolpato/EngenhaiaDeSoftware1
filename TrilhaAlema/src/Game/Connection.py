@@ -1,9 +1,8 @@
-#!/usr/bin/python
-# -*- coding: UTF-8 -*-
-from Position import Position
+from Abstractions.AbstractPosition import AbstractPosition
+
 
 class Connection():
-	def __init__(self, id: int, positions: list[Position]):
+	def __init__(self, id: int, positions: list[AbstractPosition]):
 		self.__id = id
 		self.__positions_list = positions
 		self.__is_moinho = False
@@ -13,7 +12,7 @@ class Connection():
 		return self.__id
 
 	@property
-	def positions_list(self) -> list[Position]:
+	def positions_list(self) -> list[AbstractPosition]:
 		return self.__positions_list
 
 	@property
@@ -21,7 +20,7 @@ class Connection():
 		return self.__is_moinho
 
 	@is_moinho.setter
-	def is_moinho(self, moinho) -> None:
+	def is_moinho(self, moinho: bool) -> None:
 		self.__is_moinho = moinho
 
 	def set_is_moinho(self) -> None:

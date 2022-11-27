@@ -1,29 +1,34 @@
-#!/usr/bin/python
-# -*- coding: UTF-8 -*-
-from Player import Player
-from Position import Position
-from Connection import Connection
-from Move import Move
-from Piece import Piece
-from InterfaceUpdater import InterfaceUpdater
-from PlayerInterface import PlayerInterface
+from Abstractions.AbstractConnection import AbstractConnection
+from Abstractions.AbstractMove import AbstractMove
+from Abstractions.AbstractPiece import AbstractPiece
+from Abstractions.AbstractPlayer import AbstractPlayer
+from Abstractions.AbstractPosition import AbstractPosition
+
+from Game.Connection import Connection
+# from Game.Move import Move
+from Game.Piece import Piece
+# from Game.Player import Player
+from Game.Position import Position
+
+from Interface.InterfaceUpdater import InterfaceUpdater
+from Interface.PlayerInterface import PlayerInterface
 
 class Board:
-	def __init__(self, local_player: Player, remote_player: Player):
+	def __init__(self, local_player: AbstractPlayer, remote_player: AbstractPlayer):
 		self.__player_interface: PlayerInterface = None
 		self.__interface_updater = None
 		self.__position_matrix: list = self.set_board_position_matrix() # Check how its modelled. Put it in init
-		self.__occupied_positions: list[Position] = []
+		self.__occupied_positions: list[AbstractPosition] = []
 		self.__total_positions: int = 32
-		self.__selected_position: Position = None
-		self.__selected_piece: Piece = None
+		self.__selected_position: AbstractPosition = None
+		self.__selected_piece: AbstractPiece = None
 		self.__local_player = local_player # Player(1, "name", True, "styles") CHANGE "name" AND "styles"
 		self.__remote_player = remote_player # Player(2, "name", False, "styles") CHANGE "name " AND "styles"
 		self.__draw: bool = False
 		self.__withdrawed: bool = False
 		self.__game_phase: str = "placing"
 		self.__move_type: str = None
-		self.__move: Move = None
+		self.__move: AbstractMove = None
 
 	# GETTERS AND SETTERS
 
@@ -40,11 +45,11 @@ class Board:
 		return self.__position_matrix
 	
 	@property
-	def occupied_positions(self) -> list[Position]:
+	def occupied_positions(self) -> list[AbstractPosition]:
 		return self.__occupied_positions
 
 	@occupied_positions.setter
-	def occupied_positions(self, occupied__positions_list: list[Position]):
+	def occupied_positions(self, occupied__positions_list: list[AbstractPosition]):
 		self.__occupied_positions = occupied__positions_list
 	
 	@property
@@ -52,35 +57,35 @@ class Board:
 		return self.__total_positions
 	
 	@property
-	def selected_position(self) -> Position:
+	def selected_position(self) -> AbstractPosition:
 		return self.__selected_position
 	
 	@selected_position.setter
-	def selected_position(self, selected_position: Position):
+	def selected_position(self, selected_position: AbstractPosition):
 		self.__selected_position = selected_position
 	
 	@property
-	def selected_piece(self) -> Piece:
+	def selected_piece(self) -> AbstractPiece:
 		return self.__selected_piece
 	
 	@selected_piece.setter
-	def selected_piece(self, selected_piece: Piece):
+	def selected_piece(self, selected_piece: AbstractPiece):
 		self.__selected_piece = selected_piece
 	
 	@property
-	def local_player(self) -> Player:
+	def local_player(self) -> AbstractPlayer:
 		return self.__local_player
 	
 	@local_player.setter
-	def local_player(self, local_player: Player):
+	def local_player(self, local_player: AbstractPlayer):
 		self.__local_player = local_player
 	
 	@property
-	def remote_player(self) -> Player:
+	def remote_player(self) -> AbstractPlayer:
 		return self.__remote_player
 	
 	@remote_player.setter
-	def remote_player(self, remote_player: Player):
+	def remote_player(self, remote_player: AbstractPlayer):
 		self.__remote_player = remote_player
 
 	@property
@@ -116,11 +121,11 @@ class Board:
 		self.__move_type = move_type
 
 	@property
-	def move(self) -> Move:
+	def move(self) -> AbstractMove:
 		return self.__move
 
 	@move.setter
-	def move(self, move: Move):
+	def move(self, move: AbstractMove):
 		self.move = move
 
 	# END OF GETTERS AND SETTERS
@@ -304,8 +309,8 @@ class Board:
 
 	# So entra aqui em retirada de peca feita pelo player LOCAL
 	def remove_piece(self) -> None: # ALTERAR MODELAGEM
-		piece_to_remove: Piece = self.__selected_piece
-		piece_owner: Player = piece_to_remove.owner_player
+		piece_to_remove: AbstractPiece = self.__selected_piece
+		piece_owner: AbstractPlayer = piece_to_remove.owner_player
 
 		if piece_owner == self.__remote_player:
 			in_moinho = piece_to_remove.in_moinho
@@ -333,8 +338,8 @@ class Board:
 			self.__player_interface.notify_invalid_move()
 
 	# So entra aqui em colocacao
-	def execute_place_piece(self, piece_put: Piece) -> None: # Alterar modelagem
-		owner_player_of_piece: Player = piece_put.owner_player
+	def execute_place_piece(self, piece_put: AbstractPiece) -> None: # Alterar modelagem
+		owner_player_of_piece: AbstractPlayer = piece_put.owner_player
 		owner_player_of_piece.decrement_pieces_in_hand() # Alterar modelagem
 		owner_player_of_piece.increment_pieces_on_board() # Alterar modelagem
 
@@ -354,7 +359,7 @@ class Board:
 		self.__player_interface.update_interface_image()
 
 	# So entra aqui em remocao de peca
-	def execute_remove_piece(self, position_to_remove_piece: Position, player_who_removed_piece: Player) -> None: # Alterar modelagem
+	def execute_remove_piece(self, position_to_remove_piece: AbstractPosition, player_who_removed_piece: AbstractPlayer) -> None: # Alterar modelagem
 		piece_to_remove = position_to_remove_piece.piece
 		player_to_decrement_pieces_in_board = position_to_remove_piece.player_on_pos
 		
@@ -372,7 +377,7 @@ class Board:
 	
 	def evaluate_moinho(self) -> None:
 		num_of_moinhos: int = self.get_num_of_moinhos(self.__selected_position)
-		piece_put_on_position: Piece = self.__selected_position.piece
+		piece_put_on_position: AbstractPiece = self.__selected_position.piece
   
 		if num_of_moinhos == 0:
 			self.finish_turn()
@@ -383,9 +388,9 @@ class Board:
 		elif num_of_moinhos > 0:
 			self.notify_player_to_remove_piece(num_of_moinhos)
 
-	def get_num_of_moinhos(self, selected_position: Position) -> int: # Change argument's name in modelling
-		position_connections: list[Connection] = selected_position.connections
-		player_on_selected_position: Player = selected_position.player_on_pos
+	def get_num_of_moinhos(self, selected_position: AbstractPosition) -> int: # Change argument's name in modelling
+		position_connections: list[AbstractConnection] = selected_position.connections
+		player_on_selected_position: AbstractPlayer = selected_position.player_on_pos
   
 		moinhos_count = 0
 		for connection in position_connections:
@@ -404,7 +409,7 @@ class Board:
 	def propose_draw(self) -> None:
 		self.__draw = True
 
-	def start_match(self, local_player: Player, remote_player: Player, local_player_id: int) -> None:
+	def start_match(self, local_player: AbstractPlayer, remote_player: AbstractPlayer, local_player_id: int) -> None:
 		pass
 
 	def execute_move(self, aMove) -> None:
@@ -442,7 +447,7 @@ class Board:
 		#Check if piece to move has already been set, if piece_to_move_already_set:
 		#Save second click as selected_position (which is the destiny). Then, do the movement as already modelled.
 		game_phase: str = self.__game_phase
-		position : Position = self.__position_matrix[line][column]
+		position : AbstractPosition = self.__position_matrix[line][column]
 		occupied: bool = position.occupied
 		moinhos: int = self.__move.moinhos
 		if game_phase == "placing" and not occupied and not moinhos:
@@ -483,16 +488,16 @@ class Board:
 		else:
 			pass
 
-	def set_winner(self, winner_player: Player) -> None:
+	def set_winner(self, winner_player: AbstractPlayer) -> None:
 		winner_player.winner = True
 
-	def verify_blocked(self, player: Player) -> bool:
+	def verify_blocked(self, player: AbstractPlayer) -> bool:
 		blocked_pieces_count: int = 0
 		player_pieces_number: int = player.pieces_on_board
 
 		for position in self.__position_matrix:
 			if (position is not None) and (position.player_on_pos == player):
-				position_neighborhood: list[Position] = position.neighborhood
+				position_neighborhood: list[AbstractPosition] = position.neighborhood
 				occupied_neighbors = 0
 				for neighbor in position_neighborhood:
 					if neighbor.is_occupied:

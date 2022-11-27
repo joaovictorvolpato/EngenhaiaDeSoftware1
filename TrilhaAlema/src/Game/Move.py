@@ -1,18 +1,14 @@
-#!/usr/bin/python
-# -*- coding: UTF-8 -*-
-import Position
-from Position import Position
-from Piece import Piece
-from Board import Board
-from enum import Enum
+from Abstractions.AbstractPiece import AbstractPiece
+from Abstractions.AbstractPosition import AbstractPosition
+
 
 class Move():
 	def __init__(self):
 		self.__type: str = None
 		self.__moinhos = 0
-		self.__final_position: Position = None
-		self.__start_position: Position = None
-		self.__piece: Piece = None
+		self.__final_position: AbstractPosition = None
+		self.__start_position: AbstractPosition = None
+		self.__piece: AbstractPiece = None
 
 	@property
 	def type(self) -> str:
@@ -31,27 +27,27 @@ class Move():
 		self.__moinhos = num_of_moinhos
 
 	@property
-	def final_position(self) -> Position:
+	def final_position(self) -> AbstractPosition:
 		return self.__final_position
 
 	@final_position.setter
-	def final_position(self, final_position: Position) -> None:
+	def final_position(self, final_position: AbstractPosition) -> None:
 		self.__final_position = final_position
 
 	@property
-	def start_position(self) -> Position:
+	def start_position(self) -> AbstractPosition:
 		return self.__start_position
 
 	@start_position.setter
-	def start_position(self, start_position: Position) -> None:
+	def start_position(self, start_position: AbstractPosition) -> None:
 		self.__start_position = start_position
 
 	@property
-	def piece(self) -> Piece:
+	def piece(self) -> AbstractPiece:
 		return self.__piece
 
 	@piece.setter
-	def piece(self, piece : Piece) -> None:
+	def piece(self, piece : AbstractPiece) -> None:
 		self.__piece = piece
 
 	def get_move_dict(self):
