@@ -6,6 +6,7 @@ Modelagem:
     - ADICIONAR DOG ACTOR NOS SEND MOVES;
     - MUDAR LOGICA DE setMoveType() em todos diagramas que o referenciarem;
     - ADICIONAR TROCAR DE TURNO APÓS RECEBER A JOGADA;
+    - ALTERAR POSICAO DE CHAMADA DO EVALUATE_WINNER() NOS DIAGRAMAS;
 
 Código:
     1. Game
@@ -15,8 +16,8 @@ Código:
             - notify_player_to_remove_piece() (OK!)
             - start_match();
 	        - execute_move() (OK!)
-	        - end_game();
-	        - restart_move(); 
+	        - end_game() (OK!)
+	        - restart_move(); (OK!)
 	        - notify_player_not_turn() (OK!)
             - get_interface_changes();
 	        - check_if_match_was_abandoned();

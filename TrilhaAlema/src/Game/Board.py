@@ -1,3 +1,5 @@
+import sys
+
 from Abstractions.AbstractConnection import AbstractConnection
 from Abstractions.AbstractMove import AbstractMove
 from Abstractions.AbstractPiece import AbstractPiece
@@ -326,7 +328,6 @@ class Board:
 
 			if can_remove:
 				self.execute_remove_piece(self.__selected_piece.position, self.__selected_piece.owner_player)	
-				self.finish_turn()
 				move_type = self.__move.type
 				if move_type == "place_piece":
 					self.__move.set_move("place_piece_and_remove_piece", self.__local_player.player_id, num_of_moinhos,
@@ -337,6 +338,8 @@ class Board:
 				
 				if num_of_moinhos == 1:
 					self.__player_interface.send_move(self.__move)
+					self.evaluate_winner()
+					self.finish_turn()
 
 			else:
 				self.__player_interface.notify_player("You can't remove a piece that's part of a moinho.")
@@ -383,6 +386,7 @@ class Board:
 		piece_put_on_position: AbstractPiece = self.__selected_position.piece
   
 		if num_of_moinhos == 0:
+			self.evaluate_winner()
 			self.finish_turn()
 			piece_put_on_position.in_moinho: bool = False
 			self.__move.moinho: int = num_of_moinhos
@@ -446,7 +450,9 @@ class Board:
 		
 		elif move_type == "decline_draw":
 			self.restart_move()
-		
+
+		self.evaluate_winner()
+		self.notify_player_turn()
 		self.finish_turn()
 	
 	def set_draw(self) -> None:
@@ -454,10 +460,20 @@ class Board:
 		self.end_game()
 
 	def end_game(self) -> None:
-		pass
+		if self.__local_player.winner:
+			self.__player_interface.notify_player("CONGRATULATIONS! YOU WON THE GAME!")
+		elif self.__remote_player.winner:
+			self.__player_interface.notify_player("SAD, YOU LOST THE GAME! TRY HARDER NEXT TIME.")
+		else:
+			self.__player_interface.notify_player("OH, SO BORING... THE GAME ENDED IN DRAW.")
+		
+		sys.exit()
 
 	def restart_move(self) -> None:
-		pass
+		self.__move.set_move_none()
+
+	def notify_player_turn(self) -> None:
+		self.__player_interface.notify_player("IT'S YOUR TURN.")
 
 	def notify_player_not_turn(self) -> None:
 		self.__player_interface.notify_player("Sorry, but is not your turn.")
@@ -514,9 +530,9 @@ class Board:
 		is_turn: bool = self.__local_player.turn
 		if is_turn:
 			# self.propose_draw() RETIRAR DO CODIGO E DA MODELAGEM
-			self.finish_turn()
 			self.__move.set_move("propose_draw", self.__local_player.player_id)
 			self.__player_interface.send_move(self.__move)
+			self.finish_turn()
 			self.__player_interface.update_interface_image()
 		else:
 			pass
@@ -546,10 +562,16 @@ class Board:
 		remote_player = self.__remote_player
 
 		remote_player_has_sufficient_pieces: bool = remote_player.verify_sufficient_pieces_number()
-		remote_player_blocked: bool = self.verify_blocked(self.remote_player)
+		remote_player_blocked: bool = self.verify_blocked(remote_player)
+
+		local_player_has_sufficient_pieces: bool = local_player.verify_sufficient_pieces_number()
+		local_player_blocked: bool = self.verify_blocked(local_player)
 
 		if remote_player_blocked or not remote_player_has_sufficient_pieces: # Alterar diagrama de algoritmo
 			self.set_winner(local_player)
+			self.end_game()
+		elif local_player_blocked or not local_player_has_sufficient_pieces:
+			self.set_winner(remote_player)
 			self.end_game()
 		else:
 			pass
