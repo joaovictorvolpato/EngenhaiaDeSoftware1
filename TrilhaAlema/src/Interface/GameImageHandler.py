@@ -16,5 +16,4 @@ class GameImageHandler:
         cls.canvas_image = PhotoImage(file=Path.relative_to_assets("canvas_image.png"))
         cls.button_image = PhotoImage(file = Path.relative_to_assets("button_image.png"))
         cls.AVAI_piece_image = PhotoImage(file=Path.relative_to_assets("AVAI.png"))
-        cls.VASCO_piece_image = PhotoImage(file = Path.relative_to_assets("VASCO.png"))
-        cls.DRAW_BUTTON_image = PhotoImage(file = Path.relative_to_assets("draw_button.png"))   
+        cls.VASCO_piece_image = PhotoImage(file = Path.relative_to_assets("VASCO.png")) 
