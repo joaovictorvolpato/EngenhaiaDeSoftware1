@@ -1,12 +1,12 @@
 #!/usr/bin/python
 # -*- coding: UTF-8 -*-
-from Game.Position import Position
-from Game.Piece import Piece
-from Game.Board import Board
-from Interface.PlayerInterface import PlayerInterface
-from Game.Player import Player
+# from Game.Position import Position
+# from Game.Piece import Piece
+# from Game.Board import Board
+# #from Interface.PlayerInterface import PlayerInterface
+# from Game.Player import Player
 
-class InterfaceUpdater(object):
+class InterfaceUpdater():
 	def set_message(self, aMessage):
 		"""@ParamType aMessage string"""
 		pass
