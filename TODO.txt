@@ -2,45 +2,47 @@ Descrição:
     - Sintonizar Especificação de Requisitos com restante do projeto antes da entrega (última coisa a fazer).
 
 Modelagem:
-    - Deixar os diagramas consistentes com o código antes de terça-feira (dia de horário marcado com o professor).
+    - Deixar os diagramas consistentes com o código antes de terça-feira (dia de horário marcado com o professor);
+    - ADICIONAR DOG ACTOR NOS SEND MOVES;
+    - MUDAR LOGICA DE setMoveType() em todos diagramas que o referenciarem;
+    - ADICIONAR TROCAR DE TURNO APÓS RECEBER A JOGADA;
 
 Código:
     1. Game
-        - CONSERTAR IMPORTS EM TUDO;
+        - CONSERTAR IMPORTS EM TUDO (OK!)
 
         * Board
-            - notify_player_to_remove_piece();
+            - notify_player_to_remove_piece() (OK!)
             - start_match();
-	        - execute_move();
+	        - execute_move() (OK!)
 	        - end_game();
-	        - restart_move();
-	        - register_invalid_move();
-	        - notify_player_not_turn();
+	        - restart_move(); 
+	        - notify_player_not_turn() (OK!)
             - get_interface_changes();
 	        - check_if_match_was_abandoned();
-            - Alterar os trechos de código que chamam algum notify na player_interface.
+            - Alterar os trechos de código que chamam algum notify na player_interface (OK!)
 
         * Connection
-            - OK
+            - OK!
 
         * Game
-            - OK
+            - OK!
 
         * Move
             - Verificar o que é necessário para o send_move (e parte do DOG, tornar objeto Move em dicionário);
 
         * Piece
-            - OK
+            - OK!
 
         * Player
-            - OK
+            - OK!
     
         * Position
-            - OK
+            - OK!
     
     2. Interface
         * PlayerInterface
-            - Criar método notify_player_to(str) para notificar algo ao player;
+            - Criar método notify_player(str) para notificar algo ao player;
             - start_match();
             - start_game();
             - receive_start();

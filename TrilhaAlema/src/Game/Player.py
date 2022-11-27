@@ -1,9 +1,3 @@
-#!/usr/bin/python
-# -*- coding: UTF-8 -*-
-import Piece
-import Position
-import Board
-
 
 class Player:
 	def __init__(self, id: int, name: str, turn: bool, style: str) -> None:
@@ -27,7 +21,7 @@ class Player:
 		return self.__name
 
 	@name.setter
-	def name(self, new_name) -> None:
+	def name(self, new_name: str) -> None:
 		self.__name = new_name
 
 	@property
@@ -43,7 +37,7 @@ class Player:
 		return self.__pieces_in_hand
 	
 	@pieces_in_hand.setter
-	def pieces_in_hand(self, pieces_number) -> None:
+	def pieces_in_hand(self, pieces_number: int) -> None:
 		self.__pieces_in_hand = pieces_number
 	
 	@property
@@ -51,7 +45,7 @@ class Player:
 		return self.__pieces_on_board
 	
 	@pieces_on_board.setter
-	def pieces_on_board(self, pieces_number) -> None:
+	def pieces_on_board(self, pieces_number: int) -> None:
 		self.__pieces_on_board = pieces_number
 
 	@property
@@ -59,7 +53,7 @@ class Player:
 		return self.__removed_pieces
 	
 	@removed_pieces.setter
-	def removed_pieces(self, pieces_removed_number) -> None:
+	def removed_pieces(self, pieces_removed_number: int) -> None:
 		self.__removed_pieces = pieces_removed_number
 	
 	@property
@@ -108,9 +102,9 @@ class Player:
 		self.__removed_pieces += 1
 
 	def can_do_fly(self) -> bool:
-		pieces_number: int = self.__pieces_on_board
+		pieces_number = self.__pieces_on_board
 		return (pieces_number == 3)
 	
 	def verify_sufficient_pieces_number(self) -> bool:
-		pieces_number: int = self.__pieces_on_board
+		pieces_number = self.__pieces_on_board
 		return (pieces_number > 2)
