@@ -130,4 +130,4 @@ class DogProxy:
                             self.move_order = int(move_player_order)
                             self.dog_actor.receive_move(move_dictionary)
                             if move_dictionary["match_status"] == "finished":
-                                self.status = 2
+                                self.status = 2 #   connected without match
