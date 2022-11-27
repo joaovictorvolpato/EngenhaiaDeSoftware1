@@ -6,3 +6,4 @@ class Path:
     @staticmethod
     def relative_to_assets(path: str) -> str:
         return os.path.join(Path.src_path, "Assets", path)
+    
