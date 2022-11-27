@@ -278,7 +278,7 @@ class Board:
 			self.notify_player_not_turn()
 		else:
 			self.__move.set_move_none()
-			self.__move.type = "place_piece"
+			self.__move.set_move("place_piece", self.__local_player.player_id, final_position = self.__selected_position)
 			piece_to_place = Piece(self.__local_player)
 			self.execute_place_piece(piece_to_place)
 			if self.__local_player.pieces_in_hand == 0:
@@ -301,14 +301,15 @@ class Board:
 				self.__move.set_move_none()
 				if not self.__selected_position.is_occupied:
 					if (self.__selected_position in piece_to_move.position.neighborhood) or piece_owner.can_do_fly(): # Alterar modelagem
-						self.__move.type = "move_piece"
+						self.__move.set_move("move_piece", self.__local_player.player_id, final_position = self.__selected_position, 
+											start_position = self.__selected_piece.position)
 						self.execute_move_piece()
 						self.evaluate_moinho()
 				else:
 					self.__player_interface.notify_player("You're clicking on a occupied position.")
 
 	# So entra aqui em retirada de peca feita pelo player LOCAL
-	def remove_piece(self) -> None: # ALTERAR MODELAGEM
+	def remove_piece(self, num_of_moinhos: int) -> None: # ALTERAR MODELAGEM
 		piece_to_remove: AbstractPiece = self.__selected_piece
 		piece_owner: AbstractPlayer = piece_to_remove.owner_player
 
@@ -325,11 +326,14 @@ class Board:
 				self.finish_turn()
 				move_type = self.__move.type
 				if move_type == "place_piece":
-					self.__move.type = "place_piece_and_remove_piece"
+					self.__move.set_move("place_piece_and_remove_piece", self.__local_player.player_id, num_of_moinhos,
+										removed_piece_position = piece_to_remove.position)
 				elif move_type == "move_piece":
-					self.__move.type = "move_piece_and_remove_piece"
+					self.__move.set_move("move_piece_and_remove_piece", self.__local_player.player_id, num_of_moinhos,
+										removed_piece_position = piece_to_remove.position)
 				
-				self.__player_interface.send_move(self.__move)
+				if num_of_moinhos == 1:
+					self.__player_interface.send_move(self.__move)
 
 			else:
 				self.__player_interface.notify_player("You can't remove a piece that's part of a moinho.")
@@ -402,23 +406,54 @@ class Board:
 		
 		return moinhos_count
 
-	def propose_draw(self) -> None:
-		self.__draw = True
 
 	def start_match(self, local_player: AbstractPlayer, remote_player: AbstractPlayer, local_player_id: int) -> None:
 		pass
 
-	def execute_move(self, aMove) -> None:
-		"""@ParamType aMove Move"""
-		pass
+	def execute_move(self, move_to_execute: AbstractMove) -> None:
+		self.__move = move_to_execute
+		move_type = self.__move.type
+
+		if move_type == "place_piece":
+			self.execute_place_piece()
+
+		elif move_type == "move_piece":
+			self.execute_move_piece()
+
+		elif move_type == "place_piece_and_remove_piece":
+			self.execute_place_piece()
+			self.execute_remove_piece()
+
+		elif move_type == "move_piece_and_remove_piece":
+			self.execute_move_piece()
+			self.execute_remove_piece()
+
+		elif move_type == "propose_draw":
+			accepts_draw: bool = self.__player_interface.ask_user_accepts_draw() # MUDAR NOME NA MODELAGEM
+
+			if accepts_draw:
+				self.__move.set_move("accept_draw", self.__local_player.player_id)
+				self.__player_interface.send_move(self.__move)
+			else:
+				self.__move.set_move("decline_draw", self.__local_player.player_id)
+				self.__player_interface.send_move(self.__move)
+		
+		elif move_type == "accept_draw":
+			self.set_draw()
+		
+		elif move_type == "decline_draw":
+			self.restart_move()
+		
+		self.finish_turn()
+	
+	def set_draw(self) -> None:
+		self.__draw = True
+		self.end_game()
 
 	def end_game(self) -> None:
 		pass
 
 	def restart_move(self) -> None:
-		pass
-
-	def register_invalid_move(self) -> None:
 		pass
 
 	def notify_player_not_turn(self) -> None:
@@ -428,7 +463,6 @@ class Board:
 		self.set_abandoned()
 		self.set_winner(self.__local_player)
 		self.end_game()
-		self.__player_interface.update_interface_image()
 
 	def finish_turn(self) -> None:
 		self.__local_player.change_turn()
@@ -476,9 +510,9 @@ class Board:
 	def clicked_propose_draw(self) -> None:
 		is_turn: bool = self.__local_player.turn
 		if is_turn:
-			self.propose_draw()
+			# self.propose_draw() RETIRAR DO CODIGO E DA MODELAGEM
 			self.finish_turn()
-			self.__move.type = "propose_draw"
+			self.__move.set_move("propose_draw", self.__local_player.player_id)
 			self.__player_interface.send_move(self.__move)
 			self.__player_interface.update_interface_image()
 		else:

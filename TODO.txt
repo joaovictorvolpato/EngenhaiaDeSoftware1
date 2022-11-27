@@ -2,7 +2,10 @@ Descrição:
     - Sintonizar Especificação de Requisitos com restante do projeto antes da entrega (última coisa a fazer).
 
 Modelagem:
-    - Deixar os diagramas consistentes com o código antes de terça-feira (dia de horário marcado com o professor).
+    - Deixar os diagramas consistentes com o código antes de terça-feira (dia de horário marcado com o professor);
+    - ADICIONAR DOG ACTOR NOS SEND MOVES;
+    - MUDAR LOGICA DE setMoveType() em todos diagramas que o referenciarem;
+    - ADICIONAR TROCAR DE TURNO APÓS RECEBER A JOGADA;
 
 Código:
     1. Game
@@ -11,11 +14,10 @@ Código:
         * Board
             - notify_player_to_remove_piece() (OK!)
             - start_match();
-	        - execute_move();
+	        - execute_move() (OK!)
 	        - end_game();
-	        - restart_move();
-	        - register_invalid_move();
-	        - notify_player_not_turn();
+	        - restart_move(); 
+	        - notify_player_not_turn() (OK!)
             - get_interface_changes();
 	        - check_if_match_was_abandoned();
             - Alterar os trechos de código que chamam algum notify na player_interface (OK!)
