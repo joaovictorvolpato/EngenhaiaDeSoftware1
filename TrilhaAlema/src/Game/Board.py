@@ -3,6 +3,9 @@ from Abstractions.AbstractMove import AbstractMove
 from Abstractions.AbstractPiece import AbstractPiece
 from Abstractions.AbstractPlayer import AbstractPlayer
 from Abstractions.AbstractPosition import AbstractPosition
+from Abstractions.AbstractBoard import AbstractBoard
+from Abstractions.AbstractPlayerInterface import AbstractPlayerInterface
+from Abstractions.AbstractInterfaceUpdater import AbstractInterfaceUpdater
 
 from Game.Connection import Connection
 # from Game.Move import Move
@@ -10,13 +13,13 @@ from Game.Piece import Piece
 # from Game.Player import Player
 from Game.Position import Position
 
-from Interface.InterfaceUpdater import InterfaceUpdater
-from Interface.PlayerInterface import PlayerInterface
+#from Interface.InterfaceUpdater import InterfaceUpdater
+#from Interface.PlayerInterface import PlayerInterface
 
 class Board:
 	def __init__(self, local_player: AbstractPlayer, remote_player: AbstractPlayer):
-		self.__player_interface: PlayerInterface = None
-		self.__interface_updater = None
+		self.__player_interface: AbstractPlayerInterface = None
+		self.__interface_updater: AbstractInterfaceUpdater = None
 		self.__position_matrix: list = self.set_board_position_matrix() # Check how its modelled. Put it in init
 		self.__occupied_positions: list[AbstractPosition] = []
 		self.__total_positions: int = 32
@@ -33,7 +36,7 @@ class Board:
 	# GETTERS AND SETTERS
 
 	@property
-	def player_interface(self) -> PlayerInterface:
+	def player_interface(self) -> AbstractPlayerInterface:
 		return self.__player_interface
 	
 	@property
