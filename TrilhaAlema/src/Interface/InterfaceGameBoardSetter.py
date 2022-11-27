@@ -18,7 +18,7 @@ class InterfaceGameBoardSetter:
 
     def set_game_board(self) -> None:
         self.__setup_propose_draw_button(self.__board)
-        self.__setup_piece_switches(self.__board)
+        self.__setup_position_buttons(self.__board)
 
     def __setup_propose_draw_button(self, board:Board) -> None: #ADD TO MODELLING
         propose_draw_button = ProposeDrawButton(
@@ -36,7 +36,7 @@ class InterfaceGameBoardSetter:
             height=60.0
         )
 
-    def __setup_piece_switches(self, board:Board) -> None: #Change piece switches names to match the board places sequence. Code on click to return the button number
+    def __setup_position_buttons(self, board:Board) -> None: #Change piece switches names to match the board places sequence. Code on click to return the button number
         piece_switch_32 = PositionButton(
             id = 32,
             image=GameImageHandler.button_image,
