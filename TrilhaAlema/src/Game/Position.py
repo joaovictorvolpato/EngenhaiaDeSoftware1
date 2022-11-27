@@ -85,6 +85,3 @@ class Position():
 
 	def set_is_occupied(self) -> None:
 		self.__is_occupied = True
-
-	def operation(self):
-		pass
