@@ -29,7 +29,6 @@ class Board:
 		self.__local_player = local_player # Player(1, "name", True, "styles") CHANGE "name" AND "styles"
 		self.__remote_player = remote_player # Player(2, "name", False, "styles") CHANGE "name " AND "styles"
 		self.__draw: bool = False
-		self.__withdrawed: bool = False
 		self.__game_phase: str = "placing"
 		self.__move_type: str = None
 		self.__move: AbstractMove = Move()
@@ -97,14 +96,6 @@ class Board:
 	@draw.setter
 	def draw(self, draw: bool):
 		self.__draw = draw
-
-	@property
-	def withdrawed(self) -> bool:
-		return self.__withdrawed
-	
-	@withdrawed.setter
-	def withdrawed(self, withdrawed: bool) -> None:
-		self.__withdrawed = withdrawed
 
 	@property
 	def game_phase(self) -> str:
@@ -410,7 +401,7 @@ class Board:
 	def start_match(self, local_player: AbstractPlayer, remote_player: AbstractPlayer, local_player_id: int) -> None:
 		pass
 
-	def execute_move(self, move_to_execute: AbstractMove) -> None:
+	def execute_received_move(self, move_to_execute: AbstractMove) -> None:
 		self.__move = move_to_execute
 		move_type = self.__move.type
 
@@ -466,7 +457,6 @@ class Board:
 		self.__move.set_move_none()
 
 	def receive_withdrawal_notification(self) -> None:
-		self.set_abandoned()
 		self.set_winner(self.__local_player)
 		self.end_game()
 
@@ -506,12 +496,6 @@ class Board:
 
 	def get_interface_changes(self) -> tuple:
 		pass
-
-	def check_if_match_was_abandoned(self) -> bool:
-		pass
-
-	def set_abandoned(self) -> None:
-		self.__withdrawed = True
 
 	def clicked_propose_draw(self) -> None:
 		print("Clicked on propose draw button.")

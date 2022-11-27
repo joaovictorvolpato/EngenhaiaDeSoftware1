@@ -57,11 +57,6 @@ class AbstractBoard(ABC):
 
     @property
     @abstractmethod
-    def withdrawed(self) -> None:
-        pass
-
-    @property
-    @abstractmethod
     def game_phase(self) -> None:
         pass
 
@@ -123,7 +118,7 @@ class AbstractBoard(ABC):
         pass
 
     @abstractmethod
-    def execute_move(self, move) -> None:
+    def execute_received_move(self, move) -> None:
         pass
 
     @abstractmethod
@@ -160,14 +155,6 @@ class AbstractBoard(ABC):
 
     @abstractmethod
     def get_interface_changes(self) -> None:
-        pass
-
-    @abstractmethod
-    def check_if_match_was_abandoned(self) -> None:
-        pass
-
-    @abstractmethod
-    def set_abandoned(self) -> None:
         pass
 
     @abstractmethod
