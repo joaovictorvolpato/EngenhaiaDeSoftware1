@@ -296,7 +296,7 @@ class Board:
 			piece_owner = piece_to_move.owner_player
 
 			if piece_owner != self.__local_player:
-				self.__player_interface.notify_invalid_move()
+				self.__player_interface.notify_player("You can't move a opponent piece.")
 			else:
 				self.__move.set_move_none()
 				if not self.__selected_position.is_occupied:
@@ -305,7 +305,7 @@ class Board:
 						self.execute_move_piece()
 						self.evaluate_moinho()
 				else:
-					self.__player_interface.notify_invalid_move()
+					self.__player_interface.notify_player("You're clicking on a occupied position.")
 
 	# So entra aqui em retirada de peca feita pelo player LOCAL
 	def remove_piece(self) -> None: # ALTERAR MODELAGEM
@@ -332,10 +332,10 @@ class Board:
 				self.__player_interface.send_move(self.__move)
 
 			else:
-				self.__player_interface.notify_invalid_move()
+				self.__player_interface.notify_player("You can't remove a piece that's part of a moinho.")
 
 		else:
-			self.__player_interface.notify_invalid_move()
+			self.__player_interface.notify_player("You can't remove your own piece.")
 
 	# So entra aqui em colocacao
 	def execute_place_piece(self, piece_put: AbstractPiece) -> None: # Alterar modelagem
@@ -426,7 +426,7 @@ class Board:
 		pass
 
 	def notify_player_not_turn(self) -> None:
-		pass
+		self.__player_interface.notify_player("Sorry, but is not your turn.")
 
 	def receive_withdrawal_notification(self) -> None:
 		self.set_abandoned()
@@ -465,7 +465,7 @@ class Board:
 			self.__selected_piece = position.piece
 			self.remove_piece()
 			moinhos -= 1
-			self.__player_interface.notify_player_to(f"You can remove more {moinhos} pieces.")
+			self.__player_interface.notify_player(f"You can remove more {moinhos} pieces.")
 
 	def get_interface_changes(self) -> tuple:
 		"""@ReturnType tuple"""
