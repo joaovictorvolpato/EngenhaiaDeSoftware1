@@ -10,6 +10,7 @@ class BoardCanvas(Canvas):
         self.__local_player_text, self.__remote_player_text = self.__write_player_texts()
         self.__local_player_pieces_in_hand, self.__remote_player_pieces_in_hand = self.__write_players_pieces_in_hand()
         self.__local_player_captured_pieces, self.__remote_player_captured_pieces = self.__write_players_captured_pieces()
+        self.__is_turn_text = self.__write_on_canvas(650.0, 20.0, anchor="nw", text="It's not your turn!", fill="#000000", font=("Inter", 32 * -1))
 
     @property
     def local_player_pieces_in_hand(self):
@@ -42,6 +43,14 @@ class BoardCanvas(Canvas):
     @remote_player_captured_pieces.setter
     def remote_player_captured_pieces(self, captured_pieces:int) -> None:
         self.__change_text(f"Captured Pieces: {captured_pieces}", self.__remote_player_captured_pieces)
+        
+    @property
+    def is_turn_text(self):
+        return self.__is_turn_text
+
+    @is_turn_text.setter
+    def is_turn_text(self, text:str) -> None:
+        self.__change_text(text, self.__is_turn_text)
 
     def __draw_image_on_canvas(self, width:float, height:float, image:PhotoImage):
         image_drawn = self.create_image(width, height, image = image)
@@ -80,6 +89,6 @@ class BoardCanvas(Canvas):
     def __change_text(self, text:str, written_text) -> None:
         self.itemconfig(written_text, text = text)
 
-    def draw_team_images(self, local_image:PhotoImage, remote_image:PhotoImage) -> None: #Called after start match for starter and receive start for receiver.
-        self.draw_image_on_canvas(1050.0, 591.0, local_image = GameImageHandler.VASCO_piece_image) #Change later
-        self.draw_image_on_canvas(1275.0, 591.0, remote_image = GameImageHandler.AVAI_piece_image) #Change later
+    def draw_team_images(self, local_image:PhotoImage = GameImageHandler.VASCO_piece_image, remote_image:PhotoImage = GameImageHandler.AVAI_piece_image) -> None: #Called after start match for starter and receive start for receiver.
+        self.__draw_image_on_canvas(1095.0, 591.0, image = GameImageHandler.VASCO_piece_image) #Change later local
+        self.__draw_image_on_canvas(1315.0, 591.0, image = GameImageHandler.AVAI_piece_image) #Change later remote

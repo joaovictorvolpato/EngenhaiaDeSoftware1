@@ -10,6 +10,7 @@ class InterfaceGameBoardSetter:
         self.__canvas = BoardCanvas(bg = "#327421", height = 1024, width = 1440, bd = 0, highlightthickness = 0, relief = "ridge")
         self.__canvas.place(x = 0, y = 0)
         self.__board = board
+        self.__canvas.draw_team_images() #Remove later, drawn in start or receive
 
     @property
     def canvas(self) -> BoardCanvas:
