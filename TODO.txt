@@ -52,6 +52,7 @@ Código:
         
         * BoardCanvas
             - Terminar caixas de texto dos jogadores e do ProposeDraw;
+            OK!
         
         * InterfaceUpdater
             - TODOS os métodos
