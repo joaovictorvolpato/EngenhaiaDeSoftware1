@@ -22,14 +22,14 @@ class PieceSwitch(Button):
     def on_click(self) -> None:
         print(self.id)
         if not self.button_pressed:
-            self.configure(image = GameImageHandler.current_piece_image)
-            self.set_button_pressed()
+            self.configure(image = GameImageHandler.VASCO_piece_image)
+            self.toggle_switch()
 
         else:
             self.configure(image = GameImageHandler.button_image)
-            self.set_button_pressed()
+            self.toggle_switch()
 
-    def set_button_pressed(self) -> bool:
+    def toggle_switch(self) -> bool:
         self.button_pressed = not self.button_pressed
 
     def get_position_in_position_matrix_from_id(self, id: int) -> tuple:
