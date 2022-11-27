@@ -16,8 +16,8 @@ class PlayerInterface(DogPlayerInterface):
         GameImageHandler.set_game_images()
         self.__local_player, self.__remote_player = self.__create_players()
         self.__interface_updater: InterfaceUpdater = InterfaceUpdater() #Implement.
-        self.__board: Board = Board(self.__local_player, self.__remote_player, self, self.__interface_updater) #Start program in modelling
-        self.__interface_game_board_setter = InterfaceGameBoardSetter(self.__window, self.__board)
+        self.__board: Board = Board(self.__local_player, self.__remote_player, self) #Start program in modelling
+        self.__interface_game_board_setter = InterfaceGameBoardSetter(self.__board)
         self.__interface_game_board_setter.set_game_board()
         self.__window.resizable(False, False)
         self.__menubar, self.__menu_file = self.__create_menu()
@@ -60,7 +60,7 @@ class PlayerInterface(DogPlayerInterface):
 
     def __create_menu(self) -> tuple[Menu, Menu]:
         menubar = self.__create_menubar()
-        menu_file = self.__create_menu_file()
+        menu_file = self.__create_menu_file(menubar)
         self.__add_menu_commands(menu_file)
 
         return menubar, menu_file
@@ -72,9 +72,9 @@ class PlayerInterface(DogPlayerInterface):
 
         return menubar
 
-    def __create_menu_file(self) -> Menu:
-        menu_file = Menu(self.__menubar)
-        self.__menubar.add_cascade(menu=menu_file, label='File')
+    def __create_menu_file(self, menubar) -> Menu:
+        menu_file = Menu(menubar)
+        menubar.add_cascade(menu=menu_file, label='File')
 
         return menu_file
 
@@ -86,7 +86,7 @@ class PlayerInterface(DogPlayerInterface):
         player_name = simpledialog.askstring(title="Player identification", prompt="Qual o seu nome?")
         self.__local_player.name = player_name
         dog_server_interface = DogActor()
-        message = self.dog_server_interface.initialize(player_name, self)
+        message = dog_server_interface.initialize(player_name, self)
         messagebox.showinfo(message=message)
 
         return dog_server_interface
