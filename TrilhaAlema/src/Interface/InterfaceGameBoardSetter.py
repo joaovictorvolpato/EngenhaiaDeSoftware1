@@ -1,8 +1,8 @@
-from ChangePieceSwitch import ChangePieceSwitch
-from PieceSwitch import PieceSwitch
-from GameImageHandler import GameImageHandler
+from Interface.ChangePieceSwitch import ChangePieceSwitch
+from Interface.PieceSwitch import PieceSwitch
+from Interface.GameImageHandler import GameImageHandler
 from tkinter import Canvas, Tk
-from Board import Board
+from Game.Board import Board
 
 class InterfaceGameBoardSetter:
     def __init__(self, window:Tk, board:Board) -> None:
