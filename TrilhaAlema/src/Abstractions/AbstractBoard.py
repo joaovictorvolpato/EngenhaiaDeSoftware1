@@ -1,6 +1,7 @@
 from abc import ABC, abstractmethod
 from Abstractions.AbstractPiece import AbstractPiece
 from Abstractions.AbstractPlayer import AbstractPlayer
+from Abstractions.AbstractPosition import AbstractPosition
 
 
 class AbstractBoard(ABC):
@@ -98,7 +99,7 @@ class AbstractBoard(ABC):
         pass
 
     @abstractmethod
-    def execute_remove_piece(self, position_to_remove_piece: Position, player_who_removed_piece: AbstractPlayer) -> None:
+    def execute_remove_piece(self, position_to_remove_piece: AbstractPosition, player_who_removed_piece: AbstractPlayer) -> None:
         pass
 
     @abstractmethod
@@ -110,7 +111,7 @@ class AbstractBoard(ABC):
         pass
 
     @abstractmethod
-    def get_num_of_moinhos(self, selected_position: Position) -> None:
+    def get_num_of_moinhos(self, selected_position: AbstractPosition) -> None:
         pass
 
     @abstractmethod
