@@ -1,5 +1,4 @@
 from tkinter import Button
-from GameImageHandler import GameImageHandler
 from Abstractions.AbstractBoard import AbstractBoard
 
 class ProposeDrawButton(Button):
