@@ -482,14 +482,15 @@ class Board:
 		#Hence, if game_phase == "moving":
 		#Check if piece to move has already been set, if piece_to_move_already_set:
 		#Save second click as selected_position (which is the destiny). Then, do the movement as already modelled.
+		print(f"Clicked position: {line}, {column}")
 		game_phase: str = self.__game_phase
 		position : AbstractPosition = self.__position_matrix[line][column]
-		occupied: bool = position.occupied
+		occupied: bool = position.is_occupied
 		moinhos: int = self.__move.moinhos
 		if game_phase == "placing" and not occupied and not moinhos:
 			self.__selected_position = position
 			self.place_piece()
-		
+
 		if game_phase == "moving" and occupied and not moinhos:
 			if self.__selected_piece == None:
 				self.__selected_piece = position.piece
@@ -513,6 +514,7 @@ class Board:
 		self.__withdrawed = True
 
 	def clicked_propose_draw(self) -> None:
+		print("Clicked on propose draw button.")
 		is_turn: bool = self.__local_player.turn
 		if is_turn:
 			# self.propose_draw() RETIRAR DO CODIGO E DA MODELAGEM
