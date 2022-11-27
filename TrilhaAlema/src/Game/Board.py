@@ -1,5 +1,4 @@
 import sys
-
 from Abstractions.AbstractConnection import AbstractConnection
 from Abstractions.AbstractMove import AbstractMove
 from Abstractions.AbstractPiece import AbstractPiece
@@ -8,15 +7,10 @@ from Abstractions.AbstractPosition import AbstractPosition
 from Abstractions.AbstractBoard import AbstractBoard
 from Abstractions.AbstractPlayerInterface import AbstractPlayerInterface
 from Abstractions.AbstractInterfaceUpdater import AbstractInterfaceUpdater
-
 from Game.Connection import Connection
 from Game.Move import Move
 from Game.Piece import Piece
-# from Game.Player import Player
 from Game.Position import Position
-
-#from Interface.InterfaceUpdater import InterfaceUpdater
-#from Interface.PlayerInterface import PlayerInterface
 
 class Board:
 	def __init__(self, local_player: AbstractPlayer, remote_player: AbstractPlayer, player_interface: AbstractPlayerInterface) -> None:
