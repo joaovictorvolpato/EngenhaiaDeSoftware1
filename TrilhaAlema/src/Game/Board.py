@@ -370,13 +370,9 @@ class Board:
 
 		self.__player_interface.update_interface_image()
 
-	def notify_player_to_remove_piece(number_of_moinhos: int) -> None: # Alterar modelagem
-		for n in range(number_of_moinhos):
-			# Implementar logica do jogador remover peca
-			pass
-	
 	def evaluate_moinho(self) -> None:
 		num_of_moinhos: int = self.get_num_of_moinhos(self.__selected_position)
+		self.__move.moinhos = num_of_moinhos
 		piece_put_on_position: AbstractPiece = self.__selected_position.piece
   
 		if num_of_moinhos == 0:
@@ -386,7 +382,7 @@ class Board:
 			self.__player_interface.send_move(self.__move)
 		
 		elif num_of_moinhos > 0:
-			self.notify_player_to_remove_piece(num_of_moinhos)
+			self.__player_interface.notify_player(f"You have done {num_of_moinhos} moinho(s). Remove a opponent piece.")
 
 	def get_num_of_moinhos(self, selected_position: AbstractPosition) -> int: # Change argument's name in modelling
 		position_connections: list[AbstractConnection] = selected_position.connections

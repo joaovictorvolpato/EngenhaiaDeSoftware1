@@ -9,7 +9,7 @@ Código:
         - CONSERTAR IMPORTS EM TUDO (OK!)
 
         * Board
-            - notify_player_to_remove_piece();
+            - notify_player_to_remove_piece() (OK!)
             - start_match();
 	        - execute_move();
 	        - end_game();
