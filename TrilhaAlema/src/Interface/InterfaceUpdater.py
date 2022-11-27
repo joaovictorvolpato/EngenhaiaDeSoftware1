@@ -1,10 +1,10 @@
 #!/usr/bin/python
 # -*- coding: UTF-8 -*-
-import Position
-import Piece
-import Board
-import PlayerInterface
-import Player
+from Game.Position import Position
+from Game.Piece import Piece
+from Game.Board import Board
+from Interface.PlayerInterface import PlayerInterface
+from Game.Player import Player
 
 class InterfaceUpdater(object):
 	def set_message(self, aMessage):
