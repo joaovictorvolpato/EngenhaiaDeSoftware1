@@ -12,7 +12,7 @@ class Board():
 	def __init__(self):
 		self.__player_interface: PlayerInterface = None
 		self.__interface_updater = None
-		self.__position_matrix: list = self.set_board_position_matrix() # Check how its modelled.
+		self.__position_matrix: list = self.set_board_position_matrix() # Check how its modelled. Put it in init
 		self.__occupied_positions: list[Position] = []
 		self.__total_positions: int = 32
 		self.__selected_position: Position = None
@@ -42,7 +42,7 @@ class Board():
 	@property
 	def occupied_positions(self) -> list[Position]:
 		return self.__occupied_positions
-	
+
 	@occupied_positions.setter
 	def occupied_positions(self, occupied__positions_list: list[Position]):
 		self.__occupied_positions = occupied__positions_list
