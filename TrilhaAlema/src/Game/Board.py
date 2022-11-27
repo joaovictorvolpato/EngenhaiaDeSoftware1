@@ -10,7 +10,7 @@ from Abstractions.AbstractPlayerInterface import AbstractPlayerInterface
 from Abstractions.AbstractInterfaceUpdater import AbstractInterfaceUpdater
 
 from Game.Connection import Connection
-# from Game.Move import Move
+from Game.Move import Move
 from Game.Piece import Piece
 # from Game.Player import Player
 from Game.Position import Position
@@ -32,7 +32,7 @@ class Board:
 		self.__withdrawed: bool = False
 		self.__game_phase: str = "placing"
 		self.__move_type: str = None
-		self.__move: AbstractMove = None
+		self.__move: AbstractMove = Move()
 
 	@property
 	def player_interface(self) -> AbstractPlayerInterface:
