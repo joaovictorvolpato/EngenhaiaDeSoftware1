@@ -1,5 +1,6 @@
 from abc import ABC, abstractmethod
 from Abstractions.AbstractPiece import AbstractPiece
+from TrilhaAlema.src.Abstractions.AbstractPlayer import AbstractPlayer
 
 
 class AbstractPosition(ABC):
@@ -30,12 +31,12 @@ class AbstractPosition(ABC):
 
     @property
     @abstractmethod
-    def player_on_pos(self) -> None:
+    def player_on_pos(self) -> AbstractPlayer:
         pass
 
     @property
     @abstractmethod
-    def piece(self) -> None:
+    def piece(self) -> AbstractPiece:
         pass
 
     @property
