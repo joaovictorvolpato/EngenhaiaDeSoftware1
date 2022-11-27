@@ -444,21 +444,23 @@ class Board:
 		game_phase: str = self.__game_phase
 		position : Position = self.__position_matrix[line][column]
 		occupied: bool = position.occupied
-		there_is_moinho: bool = self.__move.moinho > 0
-		if game_phase == "placing" and not occupied and not there_is_moinho:
+		moinhos: int = self.__move.moinhos
+		if game_phase == "placing" and not occupied and not moinhos:
 			self.__selected_position = position
-			self.place_piece(self.__selected_piece)
-			
-		if game_phase == "moving" and occupied and not there_is_moinho:
+			self.place_piece()
+		
+		if game_phase == "moving" and occupied and not moinhos:
 			if self.__selected_piece == None:
 				self.__selected_piece = position.piece
 			else:
 				self.__selected_position = position
 				self.move_piece()
 
-		if there_is_moinho:
-			self.selected_piece = position.piece
+		if moinhos:
+			self.__selected_piece = position.piece
 			self.remove_piece()
+			moinhos -= 1
+			self.__player_interface.notify_player_to(f"You can remove more {moinhos} pieces.")
 
 	def get_interface_changes(self) -> tuple:
 		"""@ReturnType tuple"""

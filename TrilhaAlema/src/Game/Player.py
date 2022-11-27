@@ -95,9 +95,6 @@ class Player:
 	def initialize(self, id: int, name: str, style: str) -> None:
 		self.__init__(self, id, name, style)
 
-	def select_position(self):
-		pass
-
 	def increment_pieces_on_board(self) -> None:
 		self.__pieces_on_board += 1
 
