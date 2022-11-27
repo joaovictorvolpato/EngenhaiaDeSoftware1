@@ -5,11 +5,12 @@ import Position
 import Board
 
 
-class Player(object):
-	def __init__(self, number: int, style: str, pieces_start_number: int = 12, turn: bool = False) -> None:
-		self.__player_number: int = number
+class Player:
+	def __init__(self, id: int, name: str, turn: bool, style: str) -> None:
+		self.__player_id: int = id
+		self.__name: str = name
 		self.__winner: bool = False
-		self.__pieces_in_hand: int = pieces_start_number
+		self.__pieces_in_hand: int = 12
 		self.__pieces_on_board: int = 0
 		self.__removed_pieces: int = 0
 		self.__turn: bool = turn
@@ -18,12 +19,16 @@ class Player(object):
 # START OF GETTERS AND SETTERS 
 
 	@property
-	def player_number(self) -> int:
-		return self.__player_number
+	def player_id(self) -> int:
+		return self.__player_id
 
-	@player_number.setter
-	def player_number(self, number: int) -> None:
-		self.__player_number = number
+	@property
+	def name(self) -> str:
+		return self.__name
+
+	@name.setter
+	def name(self, new_name) -> None:
+		self.__name = new_name
 
 	@property
 	def winner(self) -> bool:
@@ -78,10 +83,17 @@ class Player(object):
 		self.__turn = not self.__turn
 
 	def reset(self) -> None:
-		pass
+		self.__player_id: int = None
+		self.__name: str = None
+		self.__winner: bool = None
+		self.__pieces_in_hand: int = None
+		self.__pieces_on_board: int = None
+		self.__removed_pieces: int = None
+		self.__turn: bool = None
+		self.__style: str = None
 
-	def initialize(self) -> None:
-		pass
+	def initialize(self, id: int, name: str, style: str) -> None:
+		self.__init__(self, id, name, style)
 
 	def select_position(self):
 		pass

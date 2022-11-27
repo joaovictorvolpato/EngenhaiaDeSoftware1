@@ -8,8 +8,8 @@ from Piece import Piece
 from InterfaceUpdater import InterfaceUpdater
 from PlayerInterface import PlayerInterface
 
-class Board():
-	def __init__(self):
+class Board:
+	def __init__(self, local_player: Player, remote_player: Player):
 		self.__player_interface: PlayerInterface = None
 		self.__interface_updater = None
 		self.__position_matrix: list = self.set_board_position_matrix() # Check how its modelled. Put it in init
@@ -17,8 +17,8 @@ class Board():
 		self.__total_positions: int = 32
 		self.__selected_position: Position = None
 		self.__selected_piece: Piece = None
-		self.__local_player: Player = None
-		self.__remote_player: Player = None
+		self.__local_player = local_player # Player(1, "name", True, "styles") CHANGE "name" AND "styles"
+		self.__remote_player = remote_player # Player(2, "name", False, "styles") CHANGE "name " AND "styles"
 		self.__draw: bool = False
 		self.__withdrawed: bool = False
 		self.__game_phase: str = "placing"
@@ -404,9 +404,7 @@ class Board():
 	def propose_draw(self) -> None:
 		self.__draw = True
 
-	def start_match(self, *aPlayers, aLocal_player_id) -> None:
-		"""@ParamType aPlayers string*
-		@ParamType aLocal_player_id string"""
+	def start_match(self, local_player: Player, remote_player: Player, local_player_id: int) -> None:
 		pass
 
 	def execute_move(self, aMove) -> None:
