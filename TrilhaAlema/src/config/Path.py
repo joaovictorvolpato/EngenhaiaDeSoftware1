@@ -1,11 +1,7 @@
 import os
 
 class Path:
-    src_path = ""
-    
-    @staticmethod
-    def set_src_path(path: str) -> None:
-        Path.src_path = path
+    src_path = os.path.join(os.getcwd(), "TrilhaAlema", "src")
 
     @staticmethod
     def relative_to_assets(path: str) -> str:
