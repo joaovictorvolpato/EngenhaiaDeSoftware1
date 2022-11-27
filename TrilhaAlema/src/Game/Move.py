@@ -55,7 +55,7 @@ class Move():
 	def player_who_does_the_move(self) -> int:
 		return self.__player_who_does_the_move
 
-	def get_move_dict(self):
+	def get_move_dict(self) -> dict:
 		move_dict = {}
 		move_dict['type'] = self.__type
 		move_dict['moinhos'] = self.__moinhos

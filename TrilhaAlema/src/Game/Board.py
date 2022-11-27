@@ -23,7 +23,6 @@ class Board:
 		self.__remote_player = remote_player # Player(2, "name", False, "styles") CHANGE "name " AND "styles"
 		self.__draw: bool = False
 		self.__game_phase: str = "placing"
-		self.__move_type: str = None
 		self.__move: AbstractMove = Move()
 
 	@property
@@ -97,14 +96,6 @@ class Board:
 	@game_phase.setter
 	def game_phase(self, phase : str):
 		self.__game_phase = phase
-
-	@property
-	def move_type(self) -> str:
-		return self.__move_type
-
-	@move_type.setter
-	def move_type(self, move_type: str):
-		self.__move_type = move_type
 
 	@property
 	def move(self) -> AbstractMove:
@@ -265,12 +256,17 @@ class Board:
 
 		return occupied_positions_list
 	
-	def get_interface_changes(self) -> tuple[list, int, int]:
+	def get_interface_changes(self) -> tuple[list, int, int, int, int]:
 		position_to_update = self.verify_occupied_positions_in_matrix()
 		pieces_in_local_player_hand_to_uptdade = self.__local_player.pieces_in_hand
 		pieces_in_remote_player_hand_to_update = self.__remote_player.pieces_in_hand
+		pieces_that_local_player_captured = self.__local_player.removed_pieces
+		pieces_that_remote_player_captured = self.__remote_player.removed_pieces
 
-		return position_to_update, pieces_in_local_player_hand_to_uptdade, pieces_in_remote_player_hand_to_update
+		tuple_with_changes = (position_to_update, pieces_in_local_player_hand_to_uptdade, pieces_in_remote_player_hand_to_update, 
+		pieces_that_local_player_captured, pieces_that_remote_player_captured)
+
+		return tuple_with_changes
 
 	def clicked_propose_draw(self) -> None:
 		print("Clicked on propose draw button.")

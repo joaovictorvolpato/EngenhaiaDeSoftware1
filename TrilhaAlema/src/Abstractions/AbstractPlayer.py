@@ -4,17 +4,17 @@ from abc import ABC, abstractmethod
 class AbstractPlayer(ABC):
     @property
     @abstractmethod
-    def player_id(self) -> None:
+    def player_id(self) -> int:
         pass
 
     @property
     @abstractmethod
-    def name(self) -> None:
+    def name(self) -> str:
         pass
 
     @property
     @abstractmethod
-    def winner(self) -> None:
+    def winner(self) -> bool:
         pass
 
     @property
@@ -24,26 +24,26 @@ class AbstractPlayer(ABC):
 
     @property
     @abstractmethod
-    def pieces_on_board(self) -> None:
+    def pieces_on_board(self) -> int:
         pass
 
     @property
     @abstractmethod
-    def removed_pieces(self) -> None:
+    def removed_pieces(self) -> int:
         pass
 
     @property
     @abstractmethod
-    def turn(self) -> None:
+    def turn(self) -> bool:
         pass
 
     @property
     @abstractmethod
-    def style(self) -> None:
+    def style(self) -> str:
         pass
 
     @abstractmethod
-    def get_turn(self) -> None:
+    def get_turn(self) -> bool:
         pass
 
     @abstractmethod
@@ -79,9 +79,9 @@ class AbstractPlayer(ABC):
         pass
 
     @abstractmethod
-    def can_do_fly(self) -> None:
+    def can_do_fly(self) -> bool:
         pass
 
     @abstractmethod
-    def verify_sufficient_pieces_number(self) -> None:
+    def verify_sufficient_pieces_number(self) -> bool:
         pass
