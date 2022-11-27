@@ -1,4 +1,4 @@
-from tkinter import Canvas, Tk, PhotoImage, _CanvasItemId
+from tkinter import Canvas, Tk, PhotoImage
 from Interface.GameImageHandler import GameImageHandler
 
 class BoardCanvas(Canvas):
@@ -12,7 +12,7 @@ class BoardCanvas(Canvas):
         self.__local_player_captured_pieces, self.__remote_player_captured_pieces = self.write_players_captured_pieces()
 
     @property
-    def local_player_pieces_in_hand(self) -> _CanvasItemId:
+    def local_player_pieces_in_hand(self):
         return self.__local_player_pieces_in_hand
 
     @local_player_pieces_in_hand.setter
@@ -20,7 +20,7 @@ class BoardCanvas(Canvas):
         self.change_text(f"Pieces In Hand: {pieces_in_hand}", self.__local_player_pieces_in_hand)
     
     @property
-    def remote_player_pieces_in_hand(self) -> _CanvasItemId:
+    def remote_player_pieces_in_hand(self):
         return self.__remote_player_pieces_in_hand
 
     @remote_player_pieces_in_hand.setter
@@ -28,7 +28,7 @@ class BoardCanvas(Canvas):
         self.change_text(f"Pieces In Hand: {pieces_in_hand}", self.__local_player_pieces_in_hand)
 
     @property
-    def local_player_captured_pieces(self) -> _CanvasItemId:
+    def local_player_captured_pieces(self):
         return self.__local_player_captured_pieces
 
     @local_player_captured_pieces.setter
@@ -36,37 +36,37 @@ class BoardCanvas(Canvas):
         self.change_text(f"Captured Pieces: {captured_pieces}", self.__local_player_captured_pieces)
     
     @property
-    def remote_player_captured_pieces(self) -> _CanvasItemId:
+    def remote_player_captured_pieces(self):
         return self.__remote_player_captured_pieces
 
     @remote_player_captured_pieces.setter
     def remote_player_captured_pieces(self, captured_pieces:int) -> None:
         self.change_text(f"Captured Pieces: {captured_pieces}", self.__remote_player_captured_pieces)
 
-    def draw_image_on_canvas(self, width:float, height:int, image:PhotoImage) -> _CanvasItemId:
+    def draw_image_on_canvas(self, width:float, height:int, image:PhotoImage):
         image_drawn = self.create_image(width, height, image)
         
         return image_drawn
 
-    def create_players_info(self) -> tuple[_CanvasItemId, _CanvasItemId]:
+    def create_players_info(self) -> tuple:
         local_player_info = self.create_rectangle(989.0, 80.0, 1194.0, 756.0, fill="#FFFFFF", outline="")
         remote_player_info = self.create_rectangle(1214.0, 80.0, 1419.0, 756.0, fill="#FFFFFF", outline="")
 
         return local_player_info, remote_player_info
 
-    def write_player_texts(self) -> tuple[_CanvasItemId, _CanvasItemId]:
+    def write_player_texts(self) -> tuple:
         local_player_text = self.write_on_canvas(1007.0, 105.0, anchor="nw", text="You", fill="#000000", font=("Inter", 32 * -1))
         remote_player_text = self.write_on_canvas(1238.0, 104.0, anchor="nw", text="Opponent", fill="#000000", font=("Inter", 32 * -1))
         
         return local_player_text, remote_player_text
 
-    def write_players_pieces_in_hand(self) -> tuple[_CanvasItemId, _CanvasItemId]:
+    def write_players_pieces_in_hand(self) -> tuple:
         local_player_pieces_in_hand = self.write_on_canvas(1007.0, 241.0, anchor="nw", text="Pieces In Hand: 12", fill="#000000", font=("Inter", 20 * -1))
         remote_player_pieces_in_hand = self.write_on_canvas(1238.0, 241.0, anchor="nw", text="Pieces In Hand: 12", fill="#000000", font=("Inter", 20 * -1))
 
         return local_player_pieces_in_hand, remote_player_pieces_in_hand
     
-    def write_players_captured_pieces(self) -> tuple[_CanvasItemId, _CanvasItemId]:
+    def write_players_captured_pieces(self) -> tuple:
         local_player_captured_pieces = self.write_on_canvas(1007.0, 385.0, anchor="nw", text="Captured Pieces: 0", fill="#000000", font=("Inter", 20 * -1))
         remote_player_captured_pieces = self.write_on_canvas(1238.0, 385.0, anchor="nw", text="Captured Pieces: 0", fill="#000000", font=("Inter", 20 * -1))
 
@@ -77,11 +77,9 @@ class BoardCanvas(Canvas):
 
         return written_text
 
-    def change_text(self, text:str, written_text:_CanvasItemId) -> None:
+    def change_text(self, text:str, written_text) -> None:
         self.itemconfig(written_text, text = text)
 
-    def draw_team_images(self, local_image:PhotoImage, remote_image:PhotoImage) -> _CanvasItemId:
+    def draw_team_images(self, local_image:PhotoImage, remote_image:PhotoImage) -> None:
         self.draw_image_on_canvas(1050.0, 591.0, local_image = GameImageHandler.VASCO_piece_image) #Change later
         self.draw_image_on_canvas(1275.0, 591.0, remote_image = GameImageHandler.AVAI_piece_image) #Change later
-
-        return
