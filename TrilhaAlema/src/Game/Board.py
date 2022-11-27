@@ -19,9 +19,8 @@ from Game.Position import Position
 #from Interface.PlayerInterface import PlayerInterface
 
 class Board:
-	def __init__(self, local_player: AbstractPlayer, remote_player: AbstractPlayer):
-		self.__player_interface: AbstractPlayerInterface = None
-		self.__interface_updater: AbstractInterfaceUpdater = None
+	def __init__(self, local_player: AbstractPlayer, remote_player: AbstractPlayer, player_interface: AbstractPlayerInterface) -> None:
+		self.__player_interface: AbstractPlayerInterface = player_interface
 		self.__position_matrix: list = self.set_board_position_matrix() # Check how its modelled. Put it in init
 		self.__occupied_positions: list[AbstractPosition] = []
 		self.__total_positions: int = 32
@@ -280,7 +279,7 @@ class Board:
 	def place_piece(self) -> None: # Atualizar modelagem
 		is_turn = self.__local_player.turn
 		if not is_turn:
-			self.notify_player_not_turn()
+			self.__player_interface.notify_player("Sorry, but is not your turn.")
 		else:
 			self.__move.set_move_none()
 			self.__move.set_move("place_piece", self.__local_player.player_id, final_position = self.__selected_position)
@@ -295,7 +294,7 @@ class Board:
 	def move_piece(self) -> None:
 		is_turn = self.__local_player.turn
 		if not is_turn:
-			self.notify_player_not_turn()
+			self.__player_interface.notify_player("Sorry, but is not your turn.")
 		else:
 			piece_to_move = self.__selected_piece
 			piece_owner = piece_to_move.owner_player
@@ -452,7 +451,7 @@ class Board:
 			self.restart_move()
 
 		self.evaluate_winner()
-		self.notify_player_turn()
+		self.__player_interface.notify_player("IT'S YOUR TURN.")
 		self.finish_turn()
 	
 	def set_draw(self) -> None:
@@ -471,12 +470,6 @@ class Board:
 
 	def restart_move(self) -> None:
 		self.__move.set_move_none()
-
-	def notify_player_turn(self) -> None:
-		self.__player_interface.notify_player("IT'S YOUR TURN.")
-
-	def notify_player_not_turn(self) -> None:
-		self.__player_interface.notify_player("Sorry, but is not your turn.")
 
 	def receive_withdrawal_notification(self) -> None:
 		self.set_abandoned()
