@@ -2,7 +2,7 @@ from distutils.command.config import config
 import json
 from urllib.parse import urldefrag
 import requests
-from dog.start_status import StartStatus
+from Dog.start_status import StartStatus
 
 
 class DogProxy:
