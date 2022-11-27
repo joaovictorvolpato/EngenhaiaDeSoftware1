@@ -17,7 +17,7 @@ Código:
             - start_match();
 	        - execute_move() (OK!)
 	        - end_game() (OK!)
-	        - restart_move(); 
+	        - restart_move(); (OK!)
 	        - notify_player_not_turn() (OK!)
             - get_interface_changes();
 	        - check_if_match_was_abandoned();

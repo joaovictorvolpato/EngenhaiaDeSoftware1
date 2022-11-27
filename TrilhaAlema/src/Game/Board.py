@@ -449,6 +449,7 @@ class Board:
 			self.restart_move()
 
 		self.evaluate_winner()
+		self.notify_player_turn()
 		self.finish_turn()
 	
 	def set_draw(self) -> None:
@@ -466,7 +467,10 @@ class Board:
 		sys.exit()
 
 	def restart_move(self) -> None:
-		pass
+		self.__move.set_move_none()
+
+	def notify_player_turn(self) -> None:
+		self.__player_interface.notify_player("IT'S YOUR TURN.")
 
 	def notify_player_not_turn(self) -> None:
 		self.__player_interface.notify_player("Sorry, but is not your turn.")
@@ -523,9 +527,9 @@ class Board:
 		is_turn: bool = self.__local_player.turn
 		if is_turn:
 			# self.propose_draw() RETIRAR DO CODIGO E DA MODELAGEM
-			self.finish_turn()
 			self.__move.set_move("propose_draw", self.__local_player.player_id)
 			self.__player_interface.send_move(self.__move)
+			self.finish_turn()
 			self.__player_interface.update_interface_image()
 		else:
 			pass
