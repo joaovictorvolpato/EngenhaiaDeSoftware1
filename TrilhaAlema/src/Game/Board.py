@@ -1,3 +1,4 @@
+import os
 import sys
 from Abstractions.AbstractConnection import AbstractConnection
 from Abstractions.AbstractMove import AbstractMove
@@ -445,7 +446,7 @@ class Board:
 		else:
 			self.__player_interface.notify_player("OH, SO BORING... THE GAME ENDED IN DRAW.")
 		
-		sys.exit()
+		self.player_interface.end_program()
 
 	def restart_move(self) -> None:
 		self.__move.set_move_none()

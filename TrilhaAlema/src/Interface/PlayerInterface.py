@@ -1,3 +1,4 @@
+import os, signal
 from Interface.InterfaceGameBoardSetter import InterfaceGameBoardSetter
 from Interface.GameImageHandler import GameImageHandler
 from Interface.InterfaceUpdater import InterfaceUpdater
@@ -121,3 +122,6 @@ class PlayerInterface(DogPlayerInterface):
     
     def ask_user_accepts_draw(self) -> bool:
         return messagebox.askyesno(message="Do you accept to end the match in a draw?")
+
+    def end_program(self) -> None:
+        os.kill(os.getpid(), signal.SIGINT)
