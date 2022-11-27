@@ -339,6 +339,8 @@ class Board():
 		owner_player_of_piece.increment_pieces_on_board() # Alterar modelagem
 
 		self.__selected_position.place_piece(piece_put)
+
+		self.__player_interface.update_interface_image()
 	
 	# So entra aqui em movimentacao
 	def execute_move_piece(self) -> None: # Alterar modelagem
@@ -349,6 +351,8 @@ class Board():
 		origin_position.remove_piece()
 		destiny_position.place_piece(piece_to_move)
 
+		self.__player_interface.update_interface_image()
+
 	# So entra aqui em remocao de peca
 	def execute_remove_piece(self, position_to_remove_piece: Position, player_who_removed_piece: Player) -> None: # Alterar modelagem
 		piece_to_remove = position_to_remove_piece.piece
@@ -358,6 +362,8 @@ class Board():
 		player_to_decrement_pieces_in_board.decrement_pieces_on_board()
 		player_who_removed_piece.increment_removed_pieces()
 		position_to_remove_piece.remove_piece()
+
+		self.__player_interface.update_interface_image()
 
 	def notify_player_to_remove_piece(number_of_moinhos: int) -> None: # Alterar modelagem
 		for n in range(number_of_moinhos):
@@ -396,7 +402,7 @@ class Board():
 		return moinhos_count
 
 	def propose_draw(self) -> None:
-		pass
+		self.__draw = True
 
 	def start_match(self, *aPlayers, aLocal_player_id) -> None:
 		"""@ParamType aPlayers string*
@@ -420,7 +426,10 @@ class Board():
 		pass
 
 	def receive_withdrawal_notification(self) -> None:
-		pass
+		self.set_abandoned()
+		self.set_winner(self.__local_player)
+		self.end_game()
+		self.__player_interface.update_interface_image()
 
 	def finish_turn(self) -> None:
 		self.__local_player.change_turn()
@@ -461,7 +470,7 @@ class Board():
 		pass
 
 	def set_abandoned(self) -> None:
-		pass
+		self.__withdrawed = True
 
 	def clicked_propose_draw(self) -> None:
 		is_turn: bool = self.__local_player.turn
@@ -470,7 +479,7 @@ class Board():
 			self.finish_turn()
 			self.__move.type = "propose_draw"
 			self.__player_interface.send_move(self.__move)
-			# FALTA ATUALIZAR INTERFACE
+			self.__player_interface.update_interface_image()
 		else:
 			pass
 
