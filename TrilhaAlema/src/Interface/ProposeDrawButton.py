@@ -7,4 +7,4 @@ class ProposeDrawButton(Button):
         self.__board = board
 
     def on_click(self) -> None:
-        self.__board.propose_draw()
+        self.__board.clicked_propose_draw()
