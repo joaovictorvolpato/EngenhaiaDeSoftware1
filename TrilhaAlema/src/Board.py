@@ -464,7 +464,15 @@ class Board():
 		pass
 
 	def clicked_propose_draw(self) -> None:
-		pass
+		is_turn: bool = self.__local_player.turn
+		if is_turn:
+			self.propose_draw()
+			self.finish_turn()
+			self.__move.type = "propose_draw"
+			self.__player_interface.send_move(self.__move)
+			# FALTA ATUALIZAR INTERFACE
+		else:
+			pass
 
 	def set_winner(self, winner_player: Player) -> None:
 		winner_player.winner = True
