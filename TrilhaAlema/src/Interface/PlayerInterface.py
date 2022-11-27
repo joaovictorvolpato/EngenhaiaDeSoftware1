@@ -1,12 +1,12 @@
 from tkinter import  Tk, Menu, FALSE
-from InterfaceGameBoardSetter import InterfaceGameBoardSetter
-from GameImageHandler import GameImageHandler
+from Interface.InterfaceGameBoardSetter import InterfaceGameBoardSetter
+from Interface.GameImageHandler import GameImageHandler
 from tkinter import messagebox
 from tkinter import simpledialog
-from dog.dog_interface import DogPlayerInterface
-from dog.dog_actor import DogActor
-from Move import Move
-from Board import Board
+from Dog.dog_interface import DogPlayerInterface
+from Dog.dog_actor import DogActor
+from Game.Move import Move
+from Game.Board import Board
 
 class PlayerInterface(DogPlayerInterface):
     def __init__(self) -> None:
