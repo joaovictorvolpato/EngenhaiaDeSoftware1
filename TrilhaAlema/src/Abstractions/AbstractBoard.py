@@ -1,4 +1,7 @@
 from abc import ABC, abstractmethod
+from Abstractions.AbstractPiece import AbstractPiece
+from Abstractions.AbstractPlayer import AbstractPlayer
+
 
 class AbstractBoard(ABC):
     @property
@@ -87,7 +90,7 @@ class AbstractBoard(ABC):
         pass
 
     @abstractmethod
-    def execute_place_piece(self, piece_put: Piece) -> None:
+    def execute_place_piece(self, piece_put: AbstractPiece) -> None:
         pass
 
     @abstractmethod
@@ -95,7 +98,7 @@ class AbstractBoard(ABC):
         pass
 
     @abstractmethod
-    def execute_remove_piece(self, position_to_remove_piece: Position, player_who_removed_piece: Player) -> None:
+    def execute_remove_piece(self, position_to_remove_piece: Position, player_who_removed_piece: AbstractPlayer) -> None:
         pass
 
     @abstractmethod
@@ -115,7 +118,7 @@ class AbstractBoard(ABC):
         pass
 
     @abstractmethod
-    def start_match(self, local_player: Player, remote_player: Player, local_player_id: int) -> None:
+    def start_match(self, local_player: AbstractPlayer, remote_player: AbstractPlayer, local_player_id: int) -> None:
         pass
 
     @abstractmethod
@@ -151,7 +154,7 @@ class AbstractBoard(ABC):
         pass
 
     @abstractmethod    
-    def clicked_position(self, line:int, column:int) -> None:
+    def clicked_position(self, line: int, column: int) -> None:
         pass
 
     @abstractmethod
@@ -171,11 +174,11 @@ class AbstractBoard(ABC):
         pass
 
     @abstractmethod
-    def set_winner(self, winner_player: Player) -> None:
+    def set_winner(self, winner_player: AbstractPlayer) -> None:
         pass
 
     @abstractmethod
-    def verify_blocked(self, player: Player) -> None:
+    def verify_blocked(self, player: AbstractPlayer) -> None:
         pass
 
     @abstractmethod
