@@ -1,12 +1,14 @@
-from Interface.ChangePieceSwitch import ChangePieceSwitch
+from Interface.ProposeDrawButton import ProposeDrawButton
 from Interface.PieceSwitch import PieceSwitch
 from Interface.GameImageHandler import GameImageHandler
-from tkinter import Canvas, Tk
+from tkinter import Tk
 from Game.Board import Board
+from Interface.BoardCanvas import BoardCanvas
 
 class InterfaceGameBoardSetter:
     def __init__(self, window:Tk, board:Board) -> None:
         self.__window = window
+        self.__canvas = BoardCanvas()
         self.__board = board
 
     def set_game_board(self) -> None:
@@ -14,85 +16,16 @@ class InterfaceGameBoardSetter:
         self.__setup_change_piece_switch()
         self.__setup_piece_switches()
 
-    def __setup_canvas(self) -> None:
-        canvas = Canvas(
-            self.__window,
-            bg = "#327421",
-            height = 1024,
-            width = 1440,
-            bd = 0,
-            highlightthickness = 0,
-            relief = "ridge"
-        )
-        canvas.place(x = 0, y = 0)
-
-        board_image = canvas.create_image(
-            492.0,
-            428.0,
-            image=GameImageHandler.canvas_image
-        )
-        
-        canvas.create_rectangle(
-            989.0,
-            80.0,
-            1194.0,
-            756.0,
-            fill="#FFFFFF",
-            outline="")
-
-        canvas.create_rectangle(
-            1214.0,
-            80.0,
-            1419.0,
-            756.0,
-            fill="#FFFFFF",
-            outline="")
-
-        canvas.create_text(
-            1238.0,
-            104.0,
-            anchor="nw",
-            text="Jogador 2",
-            fill="#000000",
-            font=("Inter", 32 * -1)
-        )
-
-        canvas.create_text(
-            1007.0,
-            105.0,
-            anchor="nw",
-            text="Jogador 1",
-            fill="#000000",
-            font=("Inter", 32 * -1)
-        )
-
-        canvas.create_text(
-            203.0,
-            781.0,
-            anchor="nw",
-            text="Change Piece",
-            fill="#FFFFFF",
-            font=("Inter", 32 * -1)
-        )
-
-        canvas.create_rectangle(
-            479.0,
-            862.0,
-            612.0,
-            967.0,
-            fill="#327421",
-            outline="")
-
-    def __setup_change_piece_switch(self, board:Board) -> None:
-        change_piece_switch = ChangePieceSwitch(
-            image=GameImageHandler.VASCO_piece_image,
+    def __setup_propose_draw_button(self, board:Board) -> None: #ADD TO MODELLING
+        propose_draw_button = ProposeDrawButton(
+            image=GameImageHandler.DRAW_BUTTON_image,
             borderwidth=0,
             highlightthickness=0,
-            command=lambda: change_piece_switch.on_click(),
+            command=lambda: propose_draw_button.on_click(),
             relief="flat",
             board=board
         )
-        change_piece_switch.place(
+        propose_draw_button.place(
             x=287.0,
             y=832.0,
             width=60.0,
