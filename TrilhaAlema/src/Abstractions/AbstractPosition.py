@@ -1,6 +1,6 @@
 from abc import ABC, abstractmethod
 from Abstractions.AbstractPlayer import AbstractPlayer
-from TrilhaAlema.src.Abstractions.AbstractPlayer import AbstractPlayer
+from Abstractions.AbstractPlayer import AbstractPlayer
 
 
 class AbstractPosition(ABC):
