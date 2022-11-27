@@ -8,13 +8,17 @@ from Interface.BoardCanvas import BoardCanvas
 class InterfaceGameBoardSetter:
     def __init__(self, window:Tk, board:Board) -> None:
         self.__window = window
-        self.__canvas = BoardCanvas()
+        self.__canvas = BoardCanvas(self.__window, bg = "#327421", height = 1024, width = 1440, bd = 0, highlightthickness = 0, relief = "ridge")
+        self.__canvas.place(x = 0, y = 0)
         self.__board = board
 
+    @property
+    def canvas(self) -> BoardCanvas:
+        return self.__canvas
+
     def set_game_board(self) -> None:
-        self.__setup_canvas()
-        self.__setup_change_piece_switch()
-        self.__setup_piece_switches()
+        self.__setup_propose_draw_button(self.__board)
+        self.__setup_piece_switches(self.__board)
 
     def __setup_propose_draw_button(self, board:Board) -> None: #ADD TO MODELLING
         propose_draw_button = ProposeDrawButton(
