@@ -1,6 +1,6 @@
 from tkinter import Button, PhotoImage
-from GameImageHandler import GameImageHandler
-from Board import Board
+from Interface.GameImageHandler import GameImageHandler
+from Game.Board import Board
 
 class PieceSwitch(Button):
     id_to_position: list[tuple] = [
