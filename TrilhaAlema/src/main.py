@@ -1,3 +1,3 @@
-from Game import Game
+from Game.Game import Game
 
 game = Game()
