@@ -254,6 +254,59 @@ class Board:
 
 		return position_matrix
 
+	def verify_occupied_positions_in_matrix(self) -> list:
+		occupied_positions_list: list[tuple[bool, int]] = [(False, 0)] # INDEX 0 NOT CONSIDERED
+		for position in self.__position_matrix:
+			if position is not None:
+				if position.is_occupied:
+					occupied_positions_list.append((position.is_occupied, position.player_on_pos.player_id))
+				else:
+					occupied_positions_list.append((position.is_occupied, 0))
+
+		return occupied_positions_list
+	
+	def get_interface_changes(self) -> tuple[list, int, int]:
+		position_to_update = self.verify_occupied_positions_in_matrix()
+		pieces_in_local_player_hand_to_uptdade = self.__local_player.pieces_in_hand
+		pieces_in_remote_player_hand_to_update = self.__remote_player.pieces_in_hand
+
+		return position_to_update, pieces_in_local_player_hand_to_uptdade, pieces_in_remote_player_hand_to_update
+
+	def clicked_propose_draw(self) -> None:
+		print("Clicked on propose draw button.")
+		is_turn: bool = self.__local_player.turn
+		if is_turn:
+			# self.propose_draw() RETIRAR DO CODIGO E DA MODELAGEM
+			self.__move.set_move("propose_draw", self.__local_player.player_id)
+			self.__player_interface.send_move(self.__move)
+			self.finish_turn()
+			self.__player_interface.update_interface_image()
+		else:
+			pass
+
+	def clicked_position(self, line:int, column:int) -> None:
+		print(f"Clicked position: {line}, {column}")
+		game_phase: str = self.__game_phase
+		position : AbstractPosition = self.__position_matrix[line][column]
+		occupied: bool = position.is_occupied
+		moinhos: int = self.__move.moinhos
+		if game_phase == "placing" and not occupied and not moinhos:
+			self.__selected_position = position
+			self.place_piece()
+
+		if game_phase == "moving" and occupied and not moinhos:
+			if self.__selected_piece == None:
+				self.__selected_piece = position.piece
+			else:
+				self.__selected_position = position
+				self.move_piece()
+
+		if moinhos:
+			self.__selected_piece = position.piece
+			self.remove_piece()
+			self.__move.moinhos -= 1
+			self.__player_interface.notify_player(f"You can remove more {moinhos} pieces.")
+
 	# Só entra aqui em colocacao de peca LOCAL
 	def place_piece(self) -> None: # Atualizar modelagem
 		is_turn = self.__local_player.turn
@@ -325,6 +378,51 @@ class Board:
 		else:
 			self.__player_interface.notify_player("You can't remove your own piece.")
 
+	def execute_received_move(self, move_to_execute: AbstractMove) -> None:
+		self.__move = move_to_execute
+		move_type = self.__move.type
+
+		if move_type == "place_piece":
+			self.execute_place_piece()
+
+		elif move_type == "move_piece":
+			self.execute_move_piece()
+
+		elif move_type == "place_piece_and_remove_piece":
+			self.execute_place_piece()
+			self.execute_remove_piece()
+
+		elif move_type == "move_piece_and_remove_piece":
+			self.execute_move_piece()
+			self.execute_remove_piece()
+
+		elif move_type == "propose_draw":
+			accepts_draw: bool = self.__player_interface.ask_user_accepts_draw() # MUDAR NOME NA MODELAGEM
+
+			if accepts_draw:
+				self.__move.set_move("accept_draw", self.__local_player.player_id)
+				self.__player_interface.send_move(self.__move)
+			else:
+				self.__move.set_move("decline_draw", self.__local_player.player_id)
+				self.__player_interface.send_move(self.__move)
+		
+		elif move_type == "accept_draw":
+			self.set_draw()
+		
+		elif move_type == "decline_draw":
+			self.restart_move()
+
+		self.evaluate_winner()
+		self.__player_interface.notify_player("IT'S YOUR TURN.")
+		self.finish_turn()
+	
+	def set_draw(self) -> None:
+		self.__draw = True
+		self.end_game()
+
+	def restart_move(self) -> None:
+		self.__move.set_move_none()
+
 	# Só entra aqui em colocação
 	def execute_place_piece(self, piece_put: AbstractPiece) -> None: # Alterar modelagem
 		owner_player_of_piece: AbstractPlayer = piece_put.owner_player
@@ -391,141 +489,13 @@ class Board:
 		
 		return moinhos_count
 
-	def execute_received_move(self, move_to_execute: AbstractMove) -> None:
-		self.__move = move_to_execute
-		move_type = self.__move.type
-
-		if move_type == "place_piece":
-			self.execute_place_piece()
-
-		elif move_type == "move_piece":
-			self.execute_move_piece()
-
-		elif move_type == "place_piece_and_remove_piece":
-			self.execute_place_piece()
-			self.execute_remove_piece()
-
-		elif move_type == "move_piece_and_remove_piece":
-			self.execute_move_piece()
-			self.execute_remove_piece()
-
-		elif move_type == "propose_draw":
-			accepts_draw: bool = self.__player_interface.ask_user_accepts_draw() # MUDAR NOME NA MODELAGEM
-
-			if accepts_draw:
-				self.__move.set_move("accept_draw", self.__local_player.player_id)
-				self.__player_interface.send_move(self.__move)
-			else:
-				self.__move.set_move("decline_draw", self.__local_player.player_id)
-				self.__player_interface.send_move(self.__move)
-		
-		elif move_type == "accept_draw":
-			self.set_draw()
-		
-		elif move_type == "decline_draw":
-			self.restart_move()
-
-		self.evaluate_winner()
-		self.__player_interface.notify_player("IT'S YOUR TURN.")
-		self.finish_turn()
-	
-	def set_draw(self) -> None:
-		self.__draw = True
-		self.end_game()
-
-	def end_game(self) -> None:
-		if self.__local_player.winner:
-			self.__player_interface.notify_player("CONGRATULATIONS! YOU WON THE GAME!")
-		elif self.__remote_player.winner:
-			self.__player_interface.notify_player("SAD, YOU LOST THE GAME! TRY HARDER NEXT TIME.")
-		else:
-			self.__player_interface.notify_player("OH, SO BORING... THE GAME ENDED IN DRAW.")
-		
-		self.player_interface.end_program()
-
-	def restart_move(self) -> None:
-		self.__move.set_move_none()
-
-	def receive_withdrawal_notification(self) -> None:
-		self.set_winner(self.__local_player)
-		self.end_game()
-
 	def finish_turn(self) -> None:
 		self.__local_player.change_turn()
 		self.__remote_player.change_turn()
 
-	def clicked_position(self, line:int, column:int) -> None:
-		print(f"Clicked position: {line}, {column}")
-		game_phase: str = self.__game_phase
-		position : AbstractPosition = self.__position_matrix[line][column]
-		occupied: bool = position.is_occupied
-		moinhos: int = self.__move.moinhos
-		if game_phase == "placing" and not occupied and not moinhos:
-			self.__selected_position = position
-			self.place_piece()
-
-		if game_phase == "moving" and occupied and not moinhos:
-			if self.__selected_piece == None:
-				self.__selected_piece = position.piece
-			else:
-				self.__selected_position = position
-				self.move_piece()
-
-		if moinhos:
-			self.__selected_piece = position.piece
-			self.remove_piece()
-			moinhos -= 1
-			self.__player_interface.notify_player(f"You can remove more {moinhos} pieces.")
-
-	def get_interface_changes(self) -> tuple[list, int, int]:
-		position_to_update = self.verify_occupied_positions_in_matrix()
-		pieces_in_local_player_hand_to_uptdade = self.__local_player.pieces_in_hand
-		pieces_in_remote_player_hand_to_update = self.__remote_player.pieces_in_hand
-
-		return position_to_update, pieces_in_local_player_hand_to_uptdade, pieces_in_remote_player_hand_to_update
-
-	def verify_occupied_positions_in_matrix(self) -> list:
-		occupied_positions_list: list[tuple[bool, int]] = [(False, 0)] # INDEX 0 NOT CONSIDERED
-		for position in self.__position_matrix:
-			if position is not None:
-				if position.is_occupied:
-					occupied_positions_list.append((position.is_occupied, position.player_on_pos.player_id))
-				else:
-					occupied_positions_list.append((position.is_occupied, 0))
-
-		return occupied_positions_list
-
-	def clicked_propose_draw(self) -> None:
-		print("Clicked on propose draw button.")
-		is_turn: bool = self.__local_player.turn
-		if is_turn:
-			# self.propose_draw() RETIRAR DO CODIGO E DA MODELAGEM
-			self.__move.set_move("propose_draw", self.__local_player.player_id)
-			self.__player_interface.send_move(self.__move)
-			self.finish_turn()
-			self.__player_interface.update_interface_image()
-		else:
-			pass
-
-	def set_winner(self, winner_player: AbstractPlayer) -> None:
-		winner_player.winner = True
-
-	def verify_blocked(self, player: AbstractPlayer) -> bool:
-		blocked_pieces_count: int = 0
-		player_pieces_number: int = player.pieces_on_board
-
-		for position in self.__position_matrix:
-			if (position is not None) and (position.player_on_pos == player):
-				position_neighborhood: list[AbstractPosition] = position.neighborhood
-				occupied_neighbors = 0
-				for neighbor in position_neighborhood:
-					if neighbor.is_occupied:
-						occupied_neighbors += 1
-				if occupied_neighbors == len(position_neighborhood):
-					blocked_pieces_count += 1
-		
-		is_player_blocked = (player_pieces_number == blocked_pieces_count)
-		return is_player_blocked
+	def receive_withdrawal_notification(self) -> None:
+		self.set_winner(self.__local_player)
+		self.end_game()
 
 	def evaluate_winner(self) -> None:
 		local_player = self.__local_player
@@ -545,3 +515,33 @@ class Board:
 			self.end_game()
 		else:
 			pass
+
+	def verify_blocked(self, player: AbstractPlayer) -> bool:
+		blocked_pieces_count: int = 0
+		player_pieces_number: int = player.pieces_on_board
+
+		for position in self.__position_matrix:
+			if (position is not None) and (position.player_on_pos == player):
+				position_neighborhood: list[AbstractPosition] = position.neighborhood
+				occupied_neighbors = 0
+				for neighbor in position_neighborhood:
+					if neighbor.is_occupied:
+						occupied_neighbors += 1
+				if occupied_neighbors == len(position_neighborhood):
+					blocked_pieces_count += 1
+		
+		is_player_blocked = (player_pieces_number == blocked_pieces_count)
+		return is_player_blocked
+	
+	def set_winner(self, winner_player: AbstractPlayer) -> None:
+		winner_player.winner = True
+	
+	def end_game(self) -> None:
+		if self.__local_player.winner:
+			self.__player_interface.notify_player("CONGRATULATIONS! YOU WON THE GAME!")
+		elif self.__remote_player.winner:
+			self.__player_interface.notify_player("SAD, YOU LOST THE GAME! TRY HARDER NEXT TIME.")
+		else:
+			self.__player_interface.notify_player("OH, SO BORING... THE GAME ENDED IN DRAW.")
+		
+		self.player_interface.end_program()
