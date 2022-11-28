@@ -29,10 +29,6 @@ class Board:
 		return self.__player_interface
 	
 	@property
-	def interface_updater(self) -> None:
-		return self.__interface_updater
-	
-	@property
 	def position_matrix(self) -> list:
 		return self.__position_matrix
 	
