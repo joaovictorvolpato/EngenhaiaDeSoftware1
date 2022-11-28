@@ -3,7 +3,6 @@ from Abstractions.AbstractMove import AbstractMove
 from Abstractions.AbstractPiece import AbstractPiece
 from Abstractions.AbstractPlayer import AbstractPlayer
 from Abstractions.AbstractPosition import AbstractPosition
-from Abstractions.AbstractBoard import AbstractBoard
 from Abstractions.AbstractPlayerInterface import AbstractPlayerInterface
 from Game.Connection import Connection
 from Game.Move import Move
@@ -18,8 +17,8 @@ class Board:
 		self.__total_positions: int = 32
 		self.__selected_position: AbstractPosition = None
 		self.__selected_piece: AbstractPiece = None
-		self.__local_player = local_player # Player(1, "name", True, "styles") CHANGE "name" AND "styles"
-		self.__remote_player = remote_player # Player(2, "name", False, "styles") CHANGE "name " AND "styles"
+		self.__local_player = local_player
+		self.__remote_player = remote_player
 		self.__draw: bool = False
 		self.__game_phase: str = "placing"
 		self.__move: AbstractMove = Move()
@@ -308,7 +307,6 @@ class Board:
 				self.__move.moinhos -= 1
 				self.__player_interface.notify_player(f"You can remove more {moinhos} pieces.")
 
-	# Só entra aqui em colocacao de peca LOCAL
 	def place_piece(self) -> None: # Atualizar modelagem
 		self.__move.set_move_none()
 		self.__move.set_move("place_piece", self.__local_player.player_id, final_position = self.__selected_position)
@@ -319,7 +317,6 @@ class Board:
 
 		self.evaluate_moinho()
 
-	# Só entra aqui em movimentacao de peca LOCAL
 	def move_piece(self) -> None:
 		piece_to_move = self.__selected_piece
 		piece_owner = piece_to_move.owner_player
@@ -337,14 +334,12 @@ class Board:
 			else:
 				self.__player_interface.notify_player("You're clicking on a occupied position.")
 
-	# Só entra aqui em retirada de peca feita pelo player LOCAL
 	def remove_piece(self, num_of_moinhos: int) -> None: # ALTERAR MODELAGEM
 		piece_to_remove: AbstractPiece = self.__selected_piece
 		piece_owner: AbstractPlayer = piece_to_remove.owner_player
 
 		if piece_owner == self.__remote_player:
 			in_moinho = piece_to_remove.in_moinho
-
 			if in_moinho:
 				can_remove: bool = (self.__remote_player.pieces_on_board == 3)
 			else:
@@ -359,7 +354,7 @@ class Board:
 				elif move_type == "move_piece":
 					self.__move.set_move("move_piece_and_remove_piece", self.__local_player.player_id, num_of_moinhos,
 										removed_piece_position = piece_to_remove.position)
-				
+
 				if num_of_moinhos == 1:
 					move_dict = self.__move.get_move_dict()
 					self.__player_interface.send_move(move_dict)
@@ -367,10 +362,8 @@ class Board:
 					self.__selected_position = None
 					self.evaluate_winner()
 					self.finish_turn()
-
 			else:
 				self.__player_interface.notify_player("You can't remove a piece that's part of a moinho.")
-
 		else:
 			self.__player_interface.notify_player("You can't remove your own piece.")
 
@@ -404,17 +397,17 @@ class Board:
 				self.__move.set_move("decline_draw", self.__local_player.player_id)
 				move_dict = self.__move.get_move_dict()
 				self.__player_interface.send_move(move_dict)
-		
+
 		elif move_type == "accept_draw":
 			self.set_draw()
-		
+
 		elif move_type == "decline_draw":
 			self.restart_move()
 
 		self.evaluate_winner()
 		self.__player_interface.notify_player("IT'S YOUR TURN.")
 		self.finish_turn()
-	
+
 	def set_draw(self) -> None:
 		self.__draw = True
 		self.end_game()
@@ -429,7 +422,7 @@ class Board:
 		owner_player_of_piece.increment_pieces_on_board() # Alterar modelagem
 
 		self.__selected_position.place_piece(piece_put)
-	
+
 	# Só entra aqui em movimentação
 	def execute_move_piece(self) -> None: # Alterar modelagem
 		piece_to_move = self.__selected_piece
@@ -445,19 +438,19 @@ class Board:
 	def execute_remove_piece(self, position_to_remove_piece: AbstractPosition, player_who_removed_piece: AbstractPlayer) -> None: # Alterar modelagem
 		piece_to_remove = position_to_remove_piece.piece
 		player_to_decrement_pieces_in_board = position_to_remove_piece.player_on_pos
-		
+
 		piece_to_remove.set_piece_captured()
 		player_to_decrement_pieces_in_board.decrement_pieces_on_board()
 		player_who_removed_piece.increment_removed_pieces()
 		position_to_remove_piece.remove_piece()
 
-		#self.__player_interface.update_interface_image()
+		self.__player_interface.update_interface_image()
 
 	def evaluate_moinho(self) -> None:
 		num_of_moinhos: int = self.get_num_of_moinhos(self.__selected_position)
 		self.__move.moinhos = num_of_moinhos
 		piece_put_on_position: AbstractPiece = self.__selected_position.piece
-  
+
 		if num_of_moinhos == 0:
 			self.finish_turn()
 			piece_put_on_position.in_moinho: bool = False
@@ -476,7 +469,7 @@ class Board:
 	def get_num_of_moinhos(self, selected_position: AbstractPosition) -> int: # Change argument's name in modelling
 		position_connections: list[AbstractConnection] = selected_position.connections
 		player_on_selected_position: AbstractPlayer = selected_position.player_on_pos
-  
+
 		moinhos_count = 0
 		for connection in position_connections:
 			positions_in_connection = connection.positions_list
@@ -488,7 +481,7 @@ class Board:
 
 			if same_player == 3:
 				moinhos_count += 1
-		
+
 		return moinhos_count
 
 	def finish_turn(self) -> None:
@@ -536,19 +529,20 @@ class Board:
 							occupied_neighbors += 1
 					if occupied_neighbors == len(position_neighborhood):
 						blocked_pieces_count += 1
-		
+
 		is_player_blocked = (player_pieces_number == blocked_pieces_count)
 		return is_player_blocked
-	
+
 	def set_winner(self, winner_player: AbstractPlayer) -> None:
 		winner_player.winner = True
-	
+
 	def end_game(self) -> None:
 		if self.__local_player.winner:
 			self.__player_interface.notify_player("CONGRATULATIONS! YOU WON THE GAME!")
 		elif self.__remote_player.winner:
-			self.__player_interface.notify_player("SAD, YOU LOST THE GAME! TRY HARDER NEXT TIME.")
+			self.__player_interface.notify_player("THAT'S SAD, YOU LOST THE GAME! TRY HARDER NEXT TIME!")
 		else:
 			self.__player_interface.notify_player("OH, SO BORING... THE GAME ENDED IN DRAW.")
-		
+
+		self.__player_interface.notify_player("CLICK OK TO EXIT THE GAME.")
 		self.player_interface.end_program()
