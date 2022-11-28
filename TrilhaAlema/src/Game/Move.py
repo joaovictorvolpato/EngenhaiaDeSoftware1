@@ -55,6 +55,10 @@ class Move:
 	def player_who_does_the_move(self) -> int:
 		return self.__player_who_does_the_move
 
+	@player_who_does_the_move.setter
+	def player_who_does_the_move(self, player_who_does_the_move: int) -> None:
+		self.__player_who_does_the_move = player_who_does_the_move
+
 	def get_move_dict(self) -> dict:
 		move_dict = {}
 		move_dict['type'] = self.__type
@@ -72,7 +76,10 @@ class Move:
 
 		if self.__removed_pieces_positions != []:
 			print(self.__removed_pieces_positions)
-			move_dict['removed_pieces_positions_list'] = [position.matrix_position for position in self.__removed_pieces_positions]
+			try:
+				move_dict['removed_pieces_positions_list'] = [position.matrix_position for position in self.__removed_pieces_positions]
+			except:
+				move_dict['removed_pieces_positions_list'] = []
 		else:
 			move_dict['removed_pieces_positions_list'] = [(0, 0)]
 
@@ -117,13 +124,5 @@ class Move:
    
 		move.player_who_does_the_move = move_dict['player_who_does_the_move']
 		move.__match_status = move_dict["match_status"]
-
-		print(move.type)
-		print(move.moinhos)
-		print(move.final_position)
-		print(move.start_position)
-		print(move.removed_pieces_positions)
-		print(move.player_who_does_the_move)
-		print(move.__match_status)
 
 		return move
