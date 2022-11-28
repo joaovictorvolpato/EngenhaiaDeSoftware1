@@ -368,7 +368,14 @@ class Board:
 				self.__player_interface.notify_player("You can't remove a piece that's part of a moinho.")
 				if self.all_pieces_in_moinho(self.__remote_player):
 					self.__moinhos = 0
-					return True
+					move_dict = self.__game.move.get_move_dict()
+					self.__player_interface.send_move(move_dict)
+					self.__selected_position = None
+					self.__selected_piece = None
+					self.__removed_pieces_positions = []
+					self.finish_turn()
+					self.__player_interface.update_interface_image()
+					return False
 
 				return False
 
