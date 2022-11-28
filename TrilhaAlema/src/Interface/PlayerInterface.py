@@ -51,6 +51,10 @@ class PlayerInterface(DogPlayerInterface):
     @property
     def dog_server_interface(self) -> DogActor:
         return self.__dog_server_interface
+    
+    @dog_server_interface.setter
+    def dog_server_interface(self, dog_server_interface: DogActor) -> None:
+        self.__dog_server_interface = dog_server_interface
 
     def __create_window(self) -> Tk:
         window = Tk()

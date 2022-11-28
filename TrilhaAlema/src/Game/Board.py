@@ -261,7 +261,7 @@ class Board:
 			self.finish_turn()
 			self.__player_interface.update_interface_image()
 		else:
-			pass
+			self.__player_interface.notify_player("It's not your turn.")
 
 	def clicked_position(self, line:int, column:int) -> None:
 		is_turn = self.__local_player.turn

@@ -5,7 +5,7 @@ class BoardCanvas(Canvas):
     def __init__(self, bg:str, height:int, width:int, bd:int, highlightthickness:int, relief:str) -> None:
         Canvas.__init__(self, width = width, height = height, bg = bg, highlightthickness = highlightthickness, bd = bd, relief = relief)
         self.__draw_image_on_canvas(492.0, 428.0, GameImageHandler.canvas_image)
-        self.__draw_button_text = self.__write_on_canvas(203.0, 781.0, anchor="nw", text="Click to Propose Draw", fill="#FFFFFF", font=("Inter", 32 * -1))
+        self.__draw_button_text = self.__write_on_canvas(203.0, 781.0, anchor="nw", text="Click to Propose Draw", fill="#000000", font=("Inter", 32 * -1))
         self.__local_player_info, self.__remote_player_info = self.__create_players_info()
         self.__local_player_text, self.__remote_player_text = self.__write_player_texts()
         self.__local_player_pieces_in_hand, self.__remote_player_pieces_in_hand = self.__write_players_pieces_in_hand()
@@ -14,12 +14,20 @@ class BoardCanvas(Canvas):
         self.__game_phase_text = self.__write_on_canvas(461.0, 846.0, anchor="nw", text="Game Phase: match not started", fill="#000000", font=("Inter", 32 * -1))
 
     @property
+    def local_player_text(self) -> str:
+        return self.__local_player_text
+
+    @local_player_text.setter
     def local_player_text(self, player_name: str) -> None:
-        return self.change_text(player_name, self.__local_player_text)
+        return self.__change_text(player_name, self.__local_player_text)
 
     @property
+    def remote_player_text(self) -> str:
+        return self.__remote_player_text
+
+    @remote_player_text.setter
     def remote_player_text(self, player_name: str) -> None:
-        return self.change_text(player_name, self.__remote_player_text)
+        return self.__change_text(player_name, self.__remote_player_text)
 
     @property
     def local_player_pieces_in_hand(self):
