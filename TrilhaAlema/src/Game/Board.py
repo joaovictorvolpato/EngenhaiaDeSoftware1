@@ -296,6 +296,7 @@ class Board:
 							self.__player_interface.notify_player("You can't move a piece to a position that is already occupied.")
 				else:
 					self.__player_interface.notify_player("You must select a piece to move.")
+					self.__selected_piece = None
 
 			elif moinhos > 0:
 				piece_to_remove = position.piece
@@ -443,6 +444,7 @@ class Board:
 
 		if self.__local_player.pieces_in_hand == 0:
 			self.__game_phase = "moving"
+			self.__player_interface.notify_player("You need to select a piece to move from now on.")
 
 		self.__player_interface.update_interface_image()
 
