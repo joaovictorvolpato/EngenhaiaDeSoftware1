@@ -24,11 +24,11 @@ class PositionButton(Button):
     @property
     def id(self) -> int:
         return self.__id
-    
+
     @property
     def team_on_position(self) -> str:
         return self.__team_on_position
-    
+
     @team_on_position.setter
     def team_on_position(self, team: str) -> None:
         self.__team_on_position = team
@@ -48,7 +48,7 @@ class PositionButton(Button):
             self.config(image = GameImageHandler.avai_piece_image)
             
         self.team_on_position = team
-        
+
     def erase_piece_from_position(self) -> None:
         self.configure(image = self.button_image)
 

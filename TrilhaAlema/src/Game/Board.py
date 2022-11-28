@@ -4,13 +4,14 @@ from Abstractions.AbstractPiece import AbstractPiece
 from Abstractions.AbstractPlayer import AbstractPlayer
 from Abstractions.AbstractPosition import AbstractPosition
 from Abstractions.AbstractPlayerInterface import AbstractPlayerInterface
+from Abstractions.AbstractGame import AbstractGame
 from Game.Connection import Connection
 from Game.Move import Move
 from Game.Piece import Piece
 from Game.Position import Position
 
 class Board:
-	def __init__(self, local_player: AbstractPlayer, remote_player: AbstractPlayer, player_interface: AbstractPlayerInterface) -> None:
+	def __init__(self, local_player: AbstractPlayer, remote_player: AbstractPlayer, player_interface: AbstractPlayerInterface, game_ref) -> None:
 		self.__player_interface: AbstractPlayerInterface = player_interface
 		self.__position_matrix: list = self.set_board_position_matrix()
 		self.__occupied_positions: list[AbstractPosition] = []
@@ -22,6 +23,7 @@ class Board:
 		self.__draw: bool = False
 		self.__game_phase: str = "placing"
 		self.__move: AbstractMove = Move()
+		self.__game:AbstractGame = game_ref
 
 	@property
 	def player_interface(self) -> AbstractPlayerInterface:
@@ -239,8 +241,8 @@ class Board:
 
 		return position_matrix
 
-	def verify_occupied_positions_in_matrix(self) -> list:
-		occupied_positions_list: list[tuple[bool, int]] = [(False, 0)] # INDEX 0 NOT CONSIDERED
+	def verify_occupied_positions_in_matrix(self) -> list[tuple[bool, int]]:
+		occupied_positions_list: list[tuple[bool, int]] = []
 		for position in self.__position_matrix:
 			if position is not None:
 				if position.is_occupied:
@@ -250,14 +252,14 @@ class Board:
 
 		return occupied_positions_list
 	
-	def get_interface_changes(self) -> tuple[list, int, int, int, int]:
-		position_to_update = self.verify_occupied_positions_in_matrix()
+	def get_interface_changes(self) -> tuple[list[tuple[bool, int]], int, int, int, int]:
+		positions_to_update = self.verify_occupied_positions_in_matrix()
 		pieces_in_local_player_hand_to_uptdade = self.__local_player.pieces_in_hand
 		pieces_in_remote_player_hand_to_update = self.__remote_player.pieces_in_hand
 		pieces_that_local_player_captured = self.__local_player.removed_pieces
 		pieces_that_remote_player_captured = self.__remote_player.removed_pieces
 
-		tuple_with_changes = (position_to_update, pieces_in_local_player_hand_to_uptdade, pieces_in_remote_player_hand_to_update, 
+		tuple_with_changes = (positions_to_update, pieces_in_local_player_hand_to_uptdade, pieces_in_remote_player_hand_to_update, 
 		pieces_that_local_player_captured, pieces_that_remote_player_captured)
 
 		return tuple_with_changes
@@ -545,4 +547,4 @@ class Board:
 			self.__player_interface.notify_player("OH, SO BORING... THE GAME ENDED IN DRAW.")
 
 		self.__player_interface.notify_player("CLICK OK TO EXIT THE GAME.")
-		self.player_interface.end_program()
+		self.__game.end_program()
