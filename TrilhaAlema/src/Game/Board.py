@@ -87,7 +87,7 @@ class Board:
 	def game_phase(self, phase : str):
 		self.__game_phase = phase
 
-	def set_board_position_matrix(self) -> list:
+	def set_board_position_matrix(self) -> list[Position]:
 		position_1 = Position((0, 1))
 		position_2 = Position((0, 2))
 		position_3 = Position((0, 3))
@@ -355,10 +355,11 @@ class Board:
 		else:
 			self.__player_interface.notify_player("You can't remove your own piece.")
 
-	def execute_received_move(self, move_to_execute: AbstractMove) -> None:
-		print(move_to_execute)
-		self.__game.move = move_to_execute
+	def execute_received_move(self) -> None:
+		print(self.__game.move)
 		move_type = self.__game.move.type
+		self.__selected_piece = self.__game.move.start_position.piece
+		self.__selected_position = self.__game.move.final_position
 
 		if move_type == "place_piece":
 			self.execute_place_piece()
@@ -368,11 +369,13 @@ class Board:
 
 		elif move_type == "place_piece_and_remove_piece":
 			self.execute_place_piece()
-			self.execute_remove_piece()
+			for position_to_remove in self.__game.move.removed_pieces_positions:
+				self.execute_remove_piece(position_to_remove, self.__remote_player)
 
 		elif move_type == "move_piece_and_remove_piece":
 			self.execute_move_piece()
-			self.execute_remove_piece()
+			for position_to_remove in self.__game.move.removed_pieces_positions:
+				self.execute_remove_piece(position_to_remove, self.__remote_player)
 
 		elif move_type == "propose_draw":
 			accepts_draw: bool = self.__player_interface.ask_user_accepts_draw() # MUDAR NOME NA MODELAGEM
@@ -403,15 +406,13 @@ class Board:
 	def restart_move(self) -> None:
 		self.__game.move.set_move_none()
 
-	# Só entra aqui em colocação
-	def execute_place_piece(self, piece_put: AbstractPiece) -> None: # Alterar modelagem
-		owner_player_of_piece: AbstractPlayer = piece_put.owner_player
+	def execute_place_piece(self) -> None: # Alterar modelagem
+		owner_player_of_piece: AbstractPlayer = self.__selected_piece.owner_player
 		owner_player_of_piece.decrement_pieces_in_hand() # Alterar modelagem
 		owner_player_of_piece.increment_pieces_on_board() # Alterar modelagem
 
-		self.__selected_position.place_piece(piece_put)
+		self.__selected_position.place_piece(self.__selected_piece)
 
-	# Só entra aqui em movimentação
 	def execute_move_piece(self) -> None: # Alterar modelagem
 		piece_to_move = self.__selected_piece
 		destiny_position = self.__selected_position
@@ -422,7 +423,6 @@ class Board:
 
 		self.__player_interface.update_interface_image()
 
-	# Só entra aqui em remoção de peca
 	def execute_remove_piece(self, position_to_remove_piece: AbstractPosition, player_who_removed_piece: AbstractPlayer) -> None: # Alterar modelagem
 		piece_to_remove = position_to_remove_piece.piece
 		player_to_decrement_pieces_in_board = position_to_remove_piece.player_on_pos
@@ -454,7 +454,7 @@ class Board:
 			self.__selected_position = None
 			self.__player_interface.notify_player(f"You have done {num_of_moinhos} moinho(s). Remove a opponent piece.")
 
-	def get_num_of_moinhos(self, selected_position: AbstractPosition) -> int: # Change argument's name in modelling
+	def get_num_of_moinhos(self, selected_position: AbstractPosition) -> int:
 		position_connections: list[AbstractConnection] = selected_position.connections
 		player_on_selected_position: AbstractPlayer = selected_position.player_on_pos
 
