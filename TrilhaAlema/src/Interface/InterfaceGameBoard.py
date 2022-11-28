@@ -5,20 +5,18 @@ from tkinter import Tk
 from Game.Board import Board
 from Interface.BoardCanvas import BoardCanvas
 
-class InterfaceGameBoardSetter:
+class InterfaceGameBoard:
     def __init__(self, board:Board) -> None:
         self.__canvas = BoardCanvas(bg = "#327421", height = 1024, width = 1440, bd = 0, highlightthickness = 0, relief = "ridge")
         self.__canvas.place(x = 0, y = 0)
         self.__board = board
         self.__canvas.draw_team_images() #Remove later, drawn in start or receive
+        self.__setup_propose_draw_button(self.__board)
+        self.__setup_position_buttons(self.__board)
 
     @property
     def canvas(self) -> BoardCanvas:
         return self.__canvas
-
-    def set_game_board(self) -> None:
-        self.__setup_propose_draw_button(self.__board)
-        self.__setup_position_buttons(self.__board)
 
     def __setup_propose_draw_button(self, board:Board) -> None: #ADD TO MODELLING
         propose_draw_button = ProposeDrawButton(
