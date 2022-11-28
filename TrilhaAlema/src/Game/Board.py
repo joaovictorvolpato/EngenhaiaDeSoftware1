@@ -334,10 +334,12 @@ class Board:
 
 		if piece_to_remove.owner_player == self.__remote_player:
 			in_moinho = piece_to_remove.in_moinho
+			print("MOINHO????", in_moinho)
+			can_remove: bool = False
 			if not in_moinho:
-				can_remove: bool = True
+				can_remove = True
 			else:
-				can_remove: bool = (self.__remote_player.pieces_on_board == 3 and self.game_phase == "moving")
+				can_remove = (self.__remote_player.pieces_on_board == 3 and self.game_phase == "moving")
 
 			if can_remove:
 				self.execute_remove_piece(piece_to_remove.position, self.__remote_player)	
