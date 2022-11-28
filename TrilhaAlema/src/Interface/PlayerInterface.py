@@ -116,12 +116,3 @@ class PlayerInterface(DogPlayerInterface):
     
     def ask_user_accepts_draw(self) -> bool:
         return messagebox.askyesno(message="Do you accept to end the match in a draw?")
-
-    def get_player_from_id(self, player_id: int) -> Player:
-        try:
-            if self.__game.local_player.id == player_id:
-                return self.__game.local_player
-            elif self.__game.remote_player.id == player_id:
-                return self.__game.remote_player
-        except ValueError:
-            print("Invalid player id")

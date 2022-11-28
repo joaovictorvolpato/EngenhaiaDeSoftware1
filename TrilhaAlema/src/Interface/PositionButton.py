@@ -18,7 +18,7 @@ class PositionButton(Button):
         Button.__init__(self, image = image, borderwidth = borderwidth, highlightthickness = highlightthickness, command = command, relief = relief)
         self.button_image = GameImageHandler.button_image
         self.__id: int = id
-        self.__team_on_position: str = ""
+        self.__piece_drawn: str = ""
         self.__board: Board = board
 
     @property
@@ -27,11 +27,11 @@ class PositionButton(Button):
 
     @property
     def team_on_position(self) -> str:
-        return self.__team_on_position
+        return self.__piece_drawn
 
     @team_on_position.setter
     def team_on_position(self, team: str) -> None:
-        self.__team_on_position = team
+        self.__piece_drawn = team
 
     @property
     def board(self) -> Board:
