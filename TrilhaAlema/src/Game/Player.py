@@ -10,8 +10,6 @@ class Player:
 		self.__turn: bool = turn
 		self.__style: str = style
 
-# START OF GETTERS AND SETTERS 
-
 	@property
 	def player_id(self) -> int:
 		return self.__player_id
@@ -68,11 +66,6 @@ class Player:
 	def style(self) -> str:
 		return self.__style
 
-# END OF GETTERS AND SETTERS
-
-	def get_turn(self) -> bool:
-		return self.__turn
-	
 	def change_turn(self) -> None:
 		self.__turn = not self.__turn
 

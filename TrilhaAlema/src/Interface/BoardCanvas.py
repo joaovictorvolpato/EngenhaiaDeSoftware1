@@ -11,6 +11,7 @@ class BoardCanvas(Canvas):
         self.__local_player_pieces_in_hand, self.__remote_player_pieces_in_hand = self.__write_players_pieces_in_hand()
         self.__local_player_captured_pieces, self.__remote_player_captured_pieces = self.__write_players_captured_pieces()
         self.__is_turn_text = self.__write_on_canvas(650.0, 20.0, anchor="nw", text="It's not your turn!", fill="#000000", font=("Inter", 32 * -1))
+        self.__game_phase_text = self.__write_on_canvas(461.0, 846.0, anchor="nw", text="Game Phase: match not started", fill="#000000", font=("Inter", 32 * -1))
 
     @property
     def local_player_pieces_in_hand(self):
@@ -43,7 +44,7 @@ class BoardCanvas(Canvas):
     @remote_player_captured_pieces.setter
     def remote_player_captured_pieces(self, captured_pieces:int) -> None:
         self.__change_text(f"Captured Pieces: {captured_pieces}", self.__remote_player_captured_pieces)
-        
+
     @property
     def is_turn_text(self):
         return self.__is_turn_text
@@ -51,6 +52,14 @@ class BoardCanvas(Canvas):
     @is_turn_text.setter
     def is_turn_text(self, text:str) -> None:
         self.__change_text(text, self.__is_turn_text)
+
+    @property
+    def game_phase_text(self):
+        return self.__game_phase_text
+
+    @game_phase_text.setter
+    def game_phase_text(self, text:str) -> None:
+        self.__change_text(text, self.__game_phase_text)
 
     def __draw_image_on_canvas(self, width:float, height:float, image:PhotoImage):
         image_drawn = self.create_image(width, height, image = image)
