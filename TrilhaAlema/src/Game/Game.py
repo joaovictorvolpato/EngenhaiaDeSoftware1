@@ -10,8 +10,8 @@ class Game:
         self.__player_interface = PlayerInterface(self)
         self.__local_player, self.__remote_player = self.__create_players()
         self.__board: Board = Board(self.__local_player, self.__remote_player, self.__player_interface, self)
-        self.__player_interface.interface_game_board = InterfaceGameBoard(self.__board)
-        self.__player_interface.dog_server_interface = self.__player_interface.connect_to_dog()
+        self.__connect_interface_to_game()
+        self.__connect_game_to_dog_server()
         self.__move: Move = Move()
 
     @property
@@ -39,6 +39,12 @@ class Game:
         remote_player = Player(0, "", False, "")
 
         return local_player, remote_player
+    
+    def __connect_interface_to_game(self) -> None:
+        self.__player_interface.interface_game_board = InterfaceGameBoard(self.__board)
+        
+    def __connect_game_to_dog_server(self) -> None:
+        self.__player_interface.dog_server_interface = self.__player_interface.connect_to_dog()
 
     def start_game(self) -> None:
         self.player_interface.window.mainloop()
