@@ -397,6 +397,7 @@ class Board:
 			self.execute_place_piece(piece_to_place)
 
 		elif move_type == "move_piece":
+			print(self.__game.move.start_position.matrix_position)
 			self.__selected_piece = self.__game.move.start_position.piece
 			self.__selected_position = self.__game.move.final_position
 			self.execute_move_piece()
@@ -411,6 +412,8 @@ class Board:
 				self.execute_remove_piece(position_to_remove, self.__local_player)
 
 		elif move_type == "move_piece_and_remove_piece":
+			print(self.__game.move.start_position.matrix_position)
+			print()
 			self.__selected_piece = self.__game.move.start_position.piece
 			self.__selected_position = self.__game.move.final_position
 			self.execute_move_piece()
@@ -486,7 +489,9 @@ class Board:
 		self.__selected_piece.in_moinho = False
 		self.__selected_piece.position.remove_piece()
 		self.__selected_position.place_piece(self.__selected_piece)
+
 		self.__selected_piece.position = self.__selected_position
+		self.__selected_position.piece = self.__selected_piece
 
 		self.__player_interface.update_interface_image()
 
