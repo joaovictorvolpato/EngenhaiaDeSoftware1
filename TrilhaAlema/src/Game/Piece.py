@@ -4,10 +4,10 @@ from Abstractions.AbstractPosition import AbstractPosition
 
 
 class Piece():
-	def __init__(self, owner_player: AbstractPlayer):
+	def __init__(self, owner_player: AbstractPlayer, position: AbstractPosition) -> None:
 		self.__owner_player: AbstractPlayer = owner_player
 		self.__style = self.__owner_player.style
-		self.__position: AbstractPosition = None
+		self.__position: AbstractPosition = position
 		self.__captured: bool = False
 		self.__in_moinho: bool = False
 		self.__move: AbstractMove = None
