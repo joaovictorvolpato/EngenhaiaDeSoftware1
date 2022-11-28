@@ -46,7 +46,7 @@ Código:
             - start_game(); OK!
             - receive_start(); OK!
             - send_move(); OK!
-            - receive_move();
+            - receive_move(); OK (MAS PRECIDA DE TESTES E RESOLVER BUGS!
         
         * BoardCanvas
             - Terminar caixas de texto dos jogadores e do ProposeDraw;

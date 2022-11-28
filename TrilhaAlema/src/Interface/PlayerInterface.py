@@ -126,14 +126,14 @@ class PlayerInterface(DogPlayerInterface):
 
     def receive_withdrawal_notification(self) -> None:
         self.notify_player("Your opponent has withdrawn from the match.")
-        self.__board.receive_withdrawal_notification()
+        self.__game.board.receive_withdrawal_notification()
 
     def send_move(self, move: Move) -> None:
         self.__dog_server_interface.send_move(move)
 
-    def receive_move(self, move: Move) -> None:
-       print(move)
-       #  self.__board.execute_received_move(move)
+    def receive_move(self, move_dict: dict) -> None:
+       self.__game.move = Move.rebuild_remote_move(move_dict, self.__game.board.position_matrix)
+       self.__game.board.execute_received_move()
 
     def notify_player(self, message: str) -> None:
         messagebox.showinfo(message=message)
