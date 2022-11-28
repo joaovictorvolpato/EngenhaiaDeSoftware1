@@ -43,10 +43,10 @@ class PositionButton(Button):
 
     def draw_piece_on_position(self, team: str) -> None:
         if team == "VASCO":
-            self.config(image = GameImageHandler.vasco_piece_image)
-        else:
-            self.config(image = GameImageHandler.avai_piece_image)
-            
+            self.config(image = GameImageHandler.VASCO_piece_image)
+        elif team == "AVAI":
+            self.config(image = GameImageHandler.AVAI_piece_image)
+
         self.team_on_position = team
 
     def erase_piece_from_position(self) -> None:
