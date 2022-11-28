@@ -39,7 +39,7 @@ class AbstractPlayer(ABC):
 
     @property
     @abstractmethod
-    def style(self) -> str:
+    def team(self) -> str:
         pass
 
     @abstractmethod
@@ -51,7 +51,7 @@ class AbstractPlayer(ABC):
         pass
 
     @abstractmethod
-    def initialize(self, id: int, name: str, style: str) -> None:
+    def initialize(self, id: int, name: str, team: str) -> None:
         pass
 
     @abstractmethod

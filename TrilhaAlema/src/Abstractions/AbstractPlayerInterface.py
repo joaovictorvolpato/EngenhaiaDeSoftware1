@@ -4,10 +4,15 @@ from Dog.dog_actor import DogActor
 from Game.Move import Move
 from Interface.InterfaceUpdater import InterfaceUpdater
 from Game.Player import Player
-from Game.Board import Board
+from Game.Game import Game
 from Interface.InterfaceGameBoard import InterfaceGameBoard
 
 class AbstractPlayerInterface(ABC):
+    @property
+    @abstractmethod
+    def game(self) -> Game:
+        pass
+    
     @property
     @abstractmethod
     def window(self) -> Tk:
