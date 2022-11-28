@@ -107,7 +107,7 @@ class PlayerInterface(DogPlayerInterface):
         local_player = self.game.local_player
         local_player.player_id = 1
         local_player.turn = True
-        local_player.team = "VASCO"
+        local_player.team = "FIGUEIRENSE"
 
         #Setting remote player up
         remote_player = self.game.remote_player
@@ -135,7 +135,7 @@ class PlayerInterface(DogPlayerInterface):
         remote_player = self.game.remote_player
         remote_player.player_id = 1
         remote_player.turn = True
-        remote_player.team = "VASCO"
+        remote_player.team = "FIGUEIRENSE"
 
         #Updates the interface and game phase
         self.__game.board.game_phase = "placing"
@@ -144,14 +144,14 @@ class PlayerInterface(DogPlayerInterface):
 
     def draw_team_images(self, local_player, remote_player) -> None:
         local_player_image = None
-        if local_player.team == "VASCO":
-            local_player_image = GameImageHandler.VASCO_piece_image
+        if local_player.team == "FIGUEIRENSE":
+            local_player_image = GameImageHandler.FIGUEIRENSE_piece_image
         elif local_player.team == "AVAI":
             local_player_image = GameImageHandler.AVAI_piece_image
 
         remote_player_image = None
-        if remote_player.team == "VASCO":
-            remote_player_image = GameImageHandler.VASCO_piece_image
+        if remote_player.team == "FIGUEIRENSE":
+            remote_player_image = GameImageHandler.FIGUEIRENSE_piece_image
         elif remote_player.team == "AVAI":
             remote_player_image = GameImageHandler.AVAI_piece_image
         
