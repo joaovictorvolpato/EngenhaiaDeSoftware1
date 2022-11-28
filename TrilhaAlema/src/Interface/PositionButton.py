@@ -18,7 +18,7 @@ class PositionButton(Button):
         Button.__init__(self, image = image, borderwidth = borderwidth, highlightthickness = highlightthickness, command = command, relief = relief)
         self.button_image = GameImageHandler.button_image
         self.__id: int = id
-        self.__piece_drawn: str = ""
+        self.__piece_drawn: False = False
         self.__board: Board = board
 
     @property
@@ -26,12 +26,12 @@ class PositionButton(Button):
         return self.__id
 
     @property
-    def team_on_position(self) -> str:
+    def piece_drawn(self) -> str:
         return self.__piece_drawn
 
-    @team_on_position.setter
-    def team_on_position(self, team: str) -> None:
-        self.__piece_drawn = team
+    @piece_drawn.setter
+    def piece_drawn(self, piece_drawn: bool) -> None:
+        self.__piece_drawn = piece_drawn
 
     @property
     def board(self) -> Board:
@@ -47,10 +47,11 @@ class PositionButton(Button):
         elif team == "AVAI":
             self.config(image = GameImageHandler.AVAI_piece_image)
 
-        self.team_on_position = team
+        self.__piece_drawn = True
 
     def erase_piece_from_position(self) -> None:
         self.configure(image = self.button_image)
+        self.__piece_drawn = False
 
     def get_position_in_position_matrix_from_id(self, id: int) -> tuple:
         return self.id_to_position[id]
