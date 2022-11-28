@@ -2,12 +2,12 @@ from Abstractions.AbstractPiece import AbstractPiece
 from Abstractions.AbstractPosition import AbstractPosition
 
 
-class Move():
+class Move:
 	def __init__(self):
 		self.__type: str = None
 		self.__moinhos = 0
-		self.__final_position: tuple[int, int] = None
-		self.__start_position: tuple[int, int] = None
+		self.__final_position: AbstractPosition = None
+		self.__start_position: AbstractPosition = None
 		self.__removed_pieces_positions: list[tuple[int, int]] = []
 		self.__player_who_does_the_move: int = None
 
@@ -59,10 +59,11 @@ class Move():
 		move_dict = {}
 		move_dict['type'] = self.__type
 		move_dict['moinhos'] = self.__moinhos
-		move_dict['final_position'] = self.__final_position.__dict__()
-		move_dict['start_position'] = self.__start_position.__dict__()
-		move_dict['removed_pieces_positions'] = self.__removed_piece_position.__dict__()
-		move_dict['player_who_does_the_move'] = self.__player_who_does_the_move.__dict__()
+		move_dict['final_position'] = self.__final_position.matrix_position
+		move_dict['start_position'] = self.__start_position.matrix_position
+		move_dict['removed_pieces_positions_list'] = [position.matrix_position for position in self.__removed_pieces_positions]
+		move_dict['player_who_does_the_move'] = self.__player_who_does_the_move
+
 		return move_dict
 
 	def set_move_none(self):

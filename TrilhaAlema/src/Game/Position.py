@@ -4,7 +4,7 @@ from Abstractions.AbstractPlayer import AbstractPlayer
 from Abstractions.AbstractPosition import AbstractPosition
 
 
-class Position():
+class Position:
 	def __init__(self, matrix: tuple, neighborhood: list[AbstractPosition] = [], connections: list[AbstractConnection] = []):
 		self.__matrix_position: tuple = matrix
 		self.__neighborhood: list[AbstractPosition] = neighborhood
