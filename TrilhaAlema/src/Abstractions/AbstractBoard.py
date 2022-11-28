@@ -4,20 +4,13 @@ from Abstractions.AbstractPlayer import AbstractPlayer
 from Abstractions.AbstractPosition import AbstractPosition
 from Abstractions.AbstractMove import AbstractMove
 from Abstractions.AbstractPlayerInterface import AbstractPlayerInterface
-from Abstractions.AbstractInterfaceUpdater import AbstractInterfaceUpdater
-
 
 class AbstractBoard(ABC):
     @property
     @abstractmethod
     def player_interface(self) -> AbstractPlayerInterface:
         pass
-	
-    @property
-    @abstractmethod
-    def interface_updater(self) -> AbstractInterfaceUpdater:
-        pass
-	
+
     @property
     @abstractmethod
     def position_matrix(self) -> list:
