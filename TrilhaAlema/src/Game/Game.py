@@ -40,7 +40,7 @@ class Game:
 
     def __create_players(self) -> tuple[Player, Player]:
         local_player = Player(0, "", False, "") 
-        remote_player = Player(0, "", False, "")
+        remote_player = Player(0, "Opponent", False, "")
 
         return local_player, remote_player
     
@@ -58,9 +58,9 @@ class Game:
 
     def get_player_from_id(self, player_id: int) -> Player:
         try:
-            if self.__local_player.id == player_id:
+            if self.__local_player.player_id == player_id:
                 return self.__local_player
-            elif self.__remote_player.id == player_id:
+            elif self.__remote_player.player_id == player_id:
                 return self.__remote_player
         except ValueError:
             print("Invalid player id")
