@@ -54,7 +54,7 @@ class PlayerInterface(DogPlayerInterface):
         return window
 
     def __create_players(self) -> tuple[Player, Player]:
-        local_player = Player(1, "", False, "VASCO")
+        local_player = Player(1, "", True, "VASCO") # CHANGE LATER
         remote_player = Player(2, "", False, "AVAI")
 
         return local_player, remote_player
