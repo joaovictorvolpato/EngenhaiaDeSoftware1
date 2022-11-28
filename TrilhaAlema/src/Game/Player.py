@@ -101,7 +101,7 @@ class Player:
 	def can_do_fly(self) -> bool:
 		pieces_number = self.__pieces_on_board
 		return (pieces_number == 3)
-	
+
 	def verify_sufficient_pieces_number(self) -> bool:
 		pieces_number = self.__pieces_on_board + self.__pieces_in_hand
 		return (pieces_number > 2)
