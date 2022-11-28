@@ -35,7 +35,7 @@ class BoardCanvas(Canvas):
 
     @local_player_pieces_in_hand.setter
     def local_player_pieces_in_hand(self, pieces_in_hand:int) -> None:
-        self.change_text(f"Pieces In Hand: {pieces_in_hand}", self.__local_player_pieces_in_hand)
+        self.__change_text(f"Pieces In Hand: {pieces_in_hand}", self.__local_player_pieces_in_hand)
 
     @property
     def remote_player_pieces_in_hand(self):

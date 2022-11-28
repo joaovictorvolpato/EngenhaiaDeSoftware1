@@ -33,6 +33,10 @@ class Game:
     @property
     def move(self) -> Move:
         return self.__move
+    
+    @move.setter
+    def move(self, move: Move) -> None:
+        self.__move = move
 
     def __create_players(self) -> tuple[Player, Player]:
         local_player = Player(0, "", False, "") 

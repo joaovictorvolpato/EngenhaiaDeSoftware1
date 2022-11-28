@@ -14,6 +14,10 @@ class Player:
 	def player_id(self) -> int:
 		return self.__player_id
 
+	@player_id.setter
+	def player_id(self, id: int) -> None:
+		self.__player_id = id
+
 	@property
 	def name(self) -> str:
 		return self.__name
