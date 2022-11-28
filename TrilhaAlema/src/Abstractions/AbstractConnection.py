@@ -4,17 +4,17 @@ from abc import ABC, abstractmethod
 class AbstractConnection(ABC):
     @property
     @abstractmethod
-    def id(self) -> None:
+    def id(self) -> int:
         pass
 
     @property
     @abstractmethod
-    def positions_list(self) -> None:
+    def positions_list(self) -> list:
         pass
 
     @property
     @abstractmethod
-    def is_moinho(self) -> None:
+    def is_moinho(self) -> bool:
         pass
 
     @abstractmethod

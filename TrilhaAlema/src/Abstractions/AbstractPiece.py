@@ -1,10 +1,12 @@
 from abc import ABC, abstractmethod
+from Abstractions.AbstractPlayer import AbstractPlayer
+from Abstractions.AbstractMove import AbstractMove
 
 
 class AbstractPiece(ABC):
     @property
     @abstractmethod
-    def owner_player(self) -> None:
+    def owner_player(self) -> AbstractPlayer:
         pass
 
     @property
@@ -19,17 +21,17 @@ class AbstractPiece(ABC):
 
     @property
     @abstractmethod
-    def captured(self) -> None:
+    def captured(self) -> bool:
         pass
 
     @property
     @abstractmethod
-    def in_moinho(self) -> None:
+    def in_moinho(self) -> bool:
         pass
 
     @property
     @abstractmethod
-    def move(self) -> None:
+    def move(self) -> AbstractMove:
         pass
 
     @abstractmethod

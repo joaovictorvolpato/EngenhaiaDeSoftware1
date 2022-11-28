@@ -2,27 +2,30 @@ from abc import ABC, abstractmethod
 from Abstractions.AbstractPiece import AbstractPiece
 from Abstractions.AbstractPlayer import AbstractPlayer
 from Abstractions.AbstractPosition import AbstractPosition
+from Abstractions.AbstractMove import AbstractMove
+from Abstractions.AbstractPlayerInterface import AbstractPlayerInterface
+from Abstractions.AbstractInterfaceUpdater import AbstractInterfaceUpdater
 
 
 class AbstractBoard(ABC):
     @property
     @abstractmethod
-    def player_interface(self) -> None:
+    def player_interface(self) -> AbstractPlayerInterface:
         pass
 	
     @property
     @abstractmethod
-    def interface_updater(self) -> None:
+    def interface_updater(self) -> AbstractInterfaceUpdater:
         pass
 	
     @property
     @abstractmethod
-    def position_matrix(self) -> None:
+    def position_matrix(self) -> list:
         pass
 	
     @property
     @abstractmethod
-    def occupied_positions(self) -> None:
+    def occupied_positions(self) -> list[AbstractPosition]:
         pass
 
     @property
@@ -32,46 +35,49 @@ class AbstractBoard(ABC):
 
     @property
     @abstractmethod
-    def selected_position(self) -> None:
+    def selected_position(self) -> AbstractPosition:
         pass
 
     @property
     @abstractmethod
-    def selected_piece(self) -> None:
+    def selected_piece(self) -> AbstractPiece:
         pass
 
     @property
     @abstractmethod
-    def local_player(self) -> None:
+    def local_player(self) -> AbstractPlayer:
         pass
 
     @property
     @abstractmethod
-    def remote_player(self) -> None:
+    def remote_player(self) -> AbstractPlayer:
         pass
 
     @property
     @abstractmethod
-    def draw(self) -> None:
+    def draw(self) -> bool:
         pass
 
     @property
     @abstractmethod
-    def game_phase(self) -> None:
+    def game_phase(self) -> str:
         pass
 
     @property
     @abstractmethod
-    def move_type(self) -> None:
-        pass
-
-    @property
-    @abstractmethod
-    def move(self) -> None:
+    def move(self) -> AbstractMove:
         pass
 
     @abstractmethod
-    def set_board_position_matrix(self) -> None:
+    def set_board_position_matrix(self) -> list:
+        pass
+
+    @abstractmethod
+    def verify_occupied_positions_in_matrix(self) -> list:
+        pass
+
+    @abstractmethod
+    def get_interface_changes(self) -> tuple[list, int, int, int, int]:
         pass
 
     @abstractmethod
@@ -106,7 +112,7 @@ class AbstractBoard(ABC):
         pass
 
     @abstractmethod
-    def get_num_of_moinhos(self, selected_position: AbstractPosition) -> None:
+    def get_num_of_moinhos(self, selected_position: AbstractPosition) -> int:
         pass
 
     @abstractmethod
@@ -166,7 +172,7 @@ class AbstractBoard(ABC):
         pass
 
     @abstractmethod
-    def verify_blocked(self, player: AbstractPlayer) -> None:
+    def verify_blocked(self, player: AbstractPlayer) -> bool:
         pass
 
     @abstractmethod

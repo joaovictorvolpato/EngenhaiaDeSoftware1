@@ -1,21 +1,22 @@
 from abc import ABC, abstractmethod
 from Abstractions.AbstractPiece import AbstractPiece
+from Abstractions.AbstractPlayer import AbstractPlayer
 
 
 class AbstractPosition(ABC):
     @property
     @abstractmethod
-    def matrix_position(self) -> None:
+    def matrix_position(self) -> tuple:
         pass
 
     @property
     @abstractmethod
-    def neighborhood(self) -> None:
+    def neighborhood(self) -> list:
         pass
 
     @property
     @abstractmethod
-    def is_occupied(self) -> None:
+    def is_occupied(self) -> bool:
         pass
 
     @property
@@ -25,22 +26,22 @@ class AbstractPosition(ABC):
 
     @property
     @abstractmethod
-    def column(self) -> None:
+    def column(self) -> int:
         pass
 
     @property
     @abstractmethod
-    def player_on_pos(self) -> None:
+    def player_on_pos(self) -> AbstractPlayer:
         pass
 
     @property
     @abstractmethod
-    def piece(self) -> None:
+    def piece(self) -> AbstractPiece:
         pass
 
     @property
     @abstractmethod
-    def connections(self) -> None:
+    def connections(self) -> list:
         pass
 
     @abstractmethod
@@ -57,8 +58,4 @@ class AbstractPosition(ABC):
 
     @abstractmethod
     def set_is_occupied(self) -> None:
-        pass
-
-    @abstractmethod
-    def operation(self):
         pass

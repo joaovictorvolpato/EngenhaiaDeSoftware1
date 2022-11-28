@@ -23,7 +23,6 @@ class Board:
 		self.__remote_player = remote_player # Player(2, "name", False, "styles") CHANGE "name " AND "styles"
 		self.__draw: bool = False
 		self.__game_phase: str = "placing"
-		self.__move_type: str = None
 		self.__move: AbstractMove = Move()
 
 	@property
@@ -97,14 +96,6 @@ class Board:
 	@game_phase.setter
 	def game_phase(self, phase : str):
 		self.__game_phase = phase
-
-	@property
-	def move_type(self) -> str:
-		return self.__move_type
-
-	@move_type.setter
-	def move_type(self, move_type: str):
-		self.__move_type = move_type
 
 	@property
 	def move(self) -> AbstractMove:
