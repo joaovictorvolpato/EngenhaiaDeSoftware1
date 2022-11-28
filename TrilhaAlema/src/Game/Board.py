@@ -509,6 +509,7 @@ class Board:
 		local_player_blocked: bool = self.verify_blocked(local_player)
 
 		if remote_player_blocked or not remote_player_has_sufficient_pieces: # Alterar diagrama de algoritmo
+			print(remote_player_blocked, remote_player_has_sufficient_pieces)
 			self.set_winner(local_player)
 			self.end_game()
 		elif local_player_blocked or not local_player_has_sufficient_pieces:
@@ -518,6 +519,9 @@ class Board:
 			pass
 
 	def verify_blocked(self, player: AbstractPlayer) -> bool:
+		if self.__game_phase == "placing": 
+			return False
+
 		blocked_pieces_count: int = 0
 		player_pieces_number: int = player.pieces_on_board
 
