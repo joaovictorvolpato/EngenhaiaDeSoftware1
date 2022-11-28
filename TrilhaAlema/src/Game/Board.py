@@ -507,6 +507,8 @@ class Board:
 				for position in positions_in_connection:
 					print(position.matrix_position)
 					position.piece.in_moinho = True
+					print(position.piece)
+					print("IN MOINHO: ", position.piece.in_moinho)
 				moinhos_count += 1
 
 		return moinhos_count
