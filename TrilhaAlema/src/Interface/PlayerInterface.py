@@ -81,7 +81,6 @@ class PlayerInterface(DogPlayerInterface):
 
     def __add_menu_commands(self, menu_file: Menu) -> None:
         menu_file.add_command(label='Iniciar jogo', command=self.start_match)
-        #menu_file.add_command(label='restaurar estado inicial', command=self.start_game) #May be useless if game is gonna close
 
     def __connect_to_dog(self) -> DogActor:
         player_name = simpledialog.askstring(title="Player identification", prompt="Qual o seu nome?")
@@ -96,9 +95,6 @@ class PlayerInterface(DogPlayerInterface):
             start_status = self.dog_server_interface.start_match(2)
             message = start_status.get_message()
             messagebox.showinfo(message=message)
-
-    # def start_game(self) -> None: #Possibly useless if game is gonna close.
-    #         print('start_game')
 
     def receive_start(self, start_status) -> None:
             message = start_status.get_message()   

@@ -43,6 +43,10 @@ class AbstractPlayerInterface(ABC):
     @abstractmethod
     def receive_move(self, move: Move) -> None:
         pass
+    
+    @abstractmethod
+    def notify_player(self, message: str) -> None:
+        pass
 
     @abstractmethod
     def end_program(self) -> None:
