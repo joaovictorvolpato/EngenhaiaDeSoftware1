@@ -108,7 +108,7 @@ class PlayerInterface(DogPlayerInterface):
         self.__dog_server_interface.send_move(move)
 
     def receive_move(self, move: Move) -> None:
-        pass
+        self.__board.execute_received_move(move)
 
     def notify_player(self, message: str) -> None:
         messagebox.showinfo(message=message)

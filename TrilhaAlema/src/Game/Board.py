@@ -375,6 +375,7 @@ class Board:
 			self.__player_interface.notify_player("You can't remove your own piece.")
 
 	def execute_received_move(self, move_to_execute: AbstractMove) -> None:
+		print(move_to_execute)
 		self.__move = move_to_execute
 		move_type = self.__move.type
 
