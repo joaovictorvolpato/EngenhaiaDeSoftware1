@@ -401,7 +401,7 @@ class Board:
 			accepts_draw: bool = self.__player_interface.ask_user_accepts_draw() # MUDAR NOME NA MODELAGEM
 
 			if accepts_draw:
-				self.__game.move.set_move("accept_draw", self.__local_player.player_id, "finished")
+				self.__game.move.set_move("accept_draw", self.__local_player.player_id, match_status="finished")
 				move_dict = self.__game.move.get_move_dict()
 				self.__player_interface.send_move(move_dict)
 				self.set_winner(self.__local_player)
