@@ -2,10 +2,10 @@ class InterfaceUpdater:
 	@staticmethod
 	def update_interface_image(player_interface):
 		board = player_interface.game.board
-		(positions_to_update, pieces_in_local_player_hand_to_uptdade, pieces_in_remote_player_hand_to_update, 
+		(positions_to_update, pieces_in_local_player_hand_to_update, pieces_in_remote_player_hand_to_update, 
    		pieces_that_local_player_captured, pieces_that_remote_player_captured) = board.get_interface_changes()
 		InterfaceUpdater.display_pieces_on_positions(player_interface, positions_to_update)
-		InterfaceUpdater.display_pieces_in_local_player_hand(player_interface, pieces_in_local_player_hand_to_uptdade)
+		InterfaceUpdater.display_pieces_in_local_player_hand(player_interface, pieces_in_local_player_hand_to_update)
 		InterfaceUpdater.display_pieces_in_remote_player_hand(player_interface, pieces_in_remote_player_hand_to_update)
 		InterfaceUpdater.display_local_player_captured_pieces(player_interface, pieces_that_local_player_captured)
 		InterfaceUpdater.display_remote_player_captured_pieces(player_interface, pieces_that_remote_player_captured)
