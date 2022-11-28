@@ -273,7 +273,8 @@ class Board:
 		if is_turn:
 			# self.propose_draw() RETIRAR DO CODIGO E DA MODELAGEM
 			self.__move.set_move("propose_draw", self.__local_player.player_id)
-			self.__player_interface.send_move(self.__move)
+			move_dict = self.__move.get_move_dict()
+			self.__player_interface.send_move(move_dict)
 			self.finish_turn()
 			#self.__player_interface.update_interface_image()
 		else:
@@ -364,7 +365,8 @@ class Board:
 										removed_piece_position = piece_to_remove.position)
 				
 				if num_of_moinhos == 1:
-					self.__player_interface.send_move(self.__move)
+					move_dict = self.__move.get_move_dict()
+					self.__player_interface.send_move(move_dict)
 					self.__selected_piece = None
 					self.__selected_position = None
 					self.evaluate_winner()
@@ -400,10 +402,12 @@ class Board:
 
 			if accepts_draw:
 				self.__move.set_move("accept_draw", self.__local_player.player_id)
-				self.__player_interface.send_move(self.__move)
+				move_dict = self.__move.get_move_dict()
+				self.__player_interface.send_move(move_dict)
 			else:
 				self.__move.set_move("decline_draw", self.__local_player.player_id)
-				self.__player_interface.send_move(self.__move)
+				move_dict = self.__move.get_move_dict()
+				self.__player_interface.send_move(move_dict)
 		
 		elif move_type == "accept_draw":
 			self.set_draw()
@@ -463,7 +467,8 @@ class Board:
 			self.finish_turn()
 			piece_put_on_position.in_moinho: bool = False
 			self.__move.moinho: int = num_of_moinhos
-			self.__player_interface.send_move(self.__move)
+			move_dict = self.__move.get_move_dict()
+			self.__player_interface.send_move(move_dict)
 			self.__selected_piece = None
 			self.__selected_position = None
 
