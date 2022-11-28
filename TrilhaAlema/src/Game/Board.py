@@ -390,6 +390,7 @@ class Board:
 			piece_to_place = Piece(self.__remote_player, self.__selected_position)
 			self.execute_place_piece(piece_to_place)
 			self.__player_interface.notify_player("Your opponent has done moinho(s). One or more of your pieces are going to be removed.")
+			num_of_moinhos = self.get_num_of_moinhos(self.__selected_position)
 			for position_to_remove in self.__game.move.removed_pieces_positions:
 				self.execute_remove_piece(position_to_remove, self.__local_player)
 
@@ -398,6 +399,7 @@ class Board:
 			self.__selected_position = self.__game.move.final_position
 			self.execute_move_piece()
 			self.__player_interface.notify_player("Your opponent has done moinho(s). One or more of your pieces are going to be removed.")
+			num_of_moinhos = self.get_num_of_moinhos(self.__selected_position)
 			for position_to_remove in self.__game.move.removed_pieces_positions:
 				self.execute_remove_piece(position_to_remove, self.__local_player)
 
