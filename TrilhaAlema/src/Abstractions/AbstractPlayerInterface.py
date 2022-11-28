@@ -20,21 +20,6 @@ class AbstractPlayerInterface(ABC):
 
     @property
     @abstractmethod
-    def interface_updater(self) -> InterfaceUpdater:
-        pass
-
-    @property
-    @abstractmethod
-    def local_player(self) -> Player:
-        pass
-
-    @property
-    @abstractmethod
-    def remote_player(self) -> Player:
-        pass
-
-    @property
-    @abstractmethod
     def interface_game_board(self) -> InterfaceGameBoard:
         pass
 
@@ -89,4 +74,8 @@ class AbstractPlayerInterface(ABC):
 
     @abstractmethod
     def end_program(self) -> None:
+        pass
+
+    @abstractmethod
+    def update_interface_image(self) -> None:
         pass

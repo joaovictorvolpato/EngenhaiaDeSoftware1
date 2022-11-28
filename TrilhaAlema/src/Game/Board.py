@@ -15,14 +15,12 @@ class Board:
 		self.__player_interface: AbstractPlayerInterface = player_interface
 		self.__position_matrix: list = self.set_board_position_matrix()
 		self.__occupied_positions: list[AbstractPosition] = []
-		self.__total_positions: int = 32
 		self.__selected_position: AbstractPosition = None
 		self.__selected_piece: AbstractPiece = None
 		self.__local_player = local_player
 		self.__remote_player = remote_player
 		self.__draw: bool = False
 		self.__game_phase: str = "placing"
-		self.__move: AbstractMove = Move()
 		self.__game:AbstractGame = game_ref
 
 	@property
@@ -40,10 +38,6 @@ class Board:
 	@occupied_positions.setter
 	def occupied_positions(self, occupied__positions_list: list[AbstractPosition]):
 		self.__occupied_positions = occupied__positions_list
-	
-	@property
-	def total_positions(self) -> int:
-		return self.__total_positions
 	
 	@property
 	def selected_position(self) -> AbstractPosition:
@@ -92,14 +86,6 @@ class Board:
 	@game_phase.setter
 	def game_phase(self, phase : str):
 		self.__game_phase = phase
-
-	@property
-	def move(self) -> AbstractMove:
-		return self.__move
-
-	@move.setter
-	def move(self, move: AbstractMove):
-		self.move = move
 
 	def set_board_position_matrix(self) -> list:
 		position_1 = Position((0, 1))
@@ -269,11 +255,11 @@ class Board:
 		is_turn: bool = self.__local_player.turn
 		if is_turn:
 			# self.propose_draw() RETIRAR DO CODIGO E DA MODELAGEM
-			self.__move.set_move("propose_draw", self.__local_player.player_id)
-			move_dict = self.__move.get_move_dict()
+			self.__game.move.set_move("propose_draw", self.__local_player.player_id)
+			move_dict = self.__game.move.get_move_dict()
 			self.__player_interface.send_move(move_dict)
 			self.finish_turn()
-			#self.__player_interface.update_interface_image()
+			self.__player_interface.update_interface_image()
 		else:
 			pass
 
@@ -285,7 +271,7 @@ class Board:
 			game_phase: str = self.__game_phase
 			position : AbstractPosition = self.__position_matrix[line][column]
 			occupied: bool = position.is_occupied
-			moinhos: int = self.__move.moinhos
+			moinhos: int = self.__game.move.moinhos
 			if game_phase == "placing" and not occupied and not moinhos:
 				self.__selected_position = position
 				self.place_piece()
@@ -306,12 +292,12 @@ class Board:
 			if moinhos:
 				self.__selected_piece = position.piece
 				self.remove_piece()
-				self.__move.moinhos -= 1
+				self.__game.move.moinhos -= 1
 				self.__player_interface.notify_player(f"You can remove more {moinhos} pieces.")
 
 	def place_piece(self) -> None: # Atualizar modelagem
-		self.__move.set_move_none()
-		self.__move.set_move("place_piece", self.__local_player.player_id, final_position = self.__selected_position)
+		self.__game.move.set_move_none()
+		self.__game.move.set_move("place_piece", self.__local_player.player_id, final_position = self.__selected_position)
 		piece_to_place = Piece(self.__local_player)
 		self.execute_place_piece(piece_to_place)
 		if self.__local_player.pieces_in_hand == 0:
@@ -326,10 +312,10 @@ class Board:
 		if piece_owner != self.__local_player:
 			self.__player_interface.notify_player("You can't move a opponent piece.")
 		else:
-			self.__move.set_move_none()
+			self.__game.move.set_move_none()
 			if not self.__selected_position.is_occupied:
 				if (self.__selected_position in piece_to_move.position.neighborhood) or piece_owner.can_do_fly(): # Alterar modelagem
-					self.__move.set_move("move_piece", self.__local_player.player_id, final_position = self.__selected_position, 
+					self.__game.move.set_move("move_piece", self.__local_player.player_id, final_position = self.__selected_position, 
 										start_position = self.__selected_piece.position)
 					self.execute_move_piece()
 					self.evaluate_moinho()
@@ -349,16 +335,16 @@ class Board:
 
 			if can_remove:
 				self.execute_remove_piece(self.__selected_piece.position, self.__selected_piece.owner_player)	
-				move_type = self.__move.type
+				move_type = self.__game.move.type
 				if move_type == "place_piece":
-					self.__move.set_move("place_piece_and_remove_piece", self.__local_player.player_id, num_of_moinhos,
+					self.__game.move.set_move("place_piece_and_remove_piece", self.__local_player.player_id, num_of_moinhos,
 										removed_piece_position = piece_to_remove.position)
 				elif move_type == "move_piece":
-					self.__move.set_move("move_piece_and_remove_piece", self.__local_player.player_id, num_of_moinhos,
+					self.__game.move.set_move("move_piece_and_remove_piece", self.__local_player.player_id, num_of_moinhos,
 										removed_piece_position = piece_to_remove.position)
 
 				if num_of_moinhos == 1:
-					move_dict = self.__move.get_move_dict()
+					move_dict = self.__game.move.get_move_dict()
 					self.__player_interface.send_move(move_dict)
 					self.__selected_piece = None
 					self.__selected_position = None
@@ -371,8 +357,8 @@ class Board:
 
 	def execute_received_move(self, move_to_execute: AbstractMove) -> None:
 		print(move_to_execute)
-		self.__move = move_to_execute
-		move_type = self.__move.type
+		self.__game.move = move_to_execute
+		move_type = self.__game.move.type
 
 		if move_type == "place_piece":
 			self.execute_place_piece()
@@ -392,12 +378,12 @@ class Board:
 			accepts_draw: bool = self.__player_interface.ask_user_accepts_draw() # MUDAR NOME NA MODELAGEM
 
 			if accepts_draw:
-				self.__move.set_move("accept_draw", self.__local_player.player_id, "finished")
-				move_dict = self.__move.get_move_dict()
+				self.__game.move.set_move("accept_draw", self.__local_player.player_id, "finished")
+				move_dict = self.__game.move.get_move_dict()
 				self.__player_interface.send_move(move_dict)
 			else:
-				self.__move.set_move("decline_draw", self.__local_player.player_id)
-				move_dict = self.__move.get_move_dict()
+				self.__game.move.set_move("decline_draw", self.__local_player.player_id)
+				move_dict = self.__game.move.get_move_dict()
 				self.__player_interface.send_move(move_dict)
 
 		elif move_type == "accept_draw":
@@ -415,7 +401,7 @@ class Board:
 		self.end_game()
 
 	def restart_move(self) -> None:
-		self.__move.set_move_none()
+		self.__game.move.set_move_none()
 
 	# Só entra aqui em colocação
 	def execute_place_piece(self, piece_put: AbstractPiece) -> None: # Alterar modelagem
@@ -434,7 +420,7 @@ class Board:
 		origin_position.remove_piece()
 		destiny_position.place_piece(piece_to_move)
 
-		#self.__player_interface.update_interface_image()
+		self.__player_interface.update_interface_image()
 
 	# Só entra aqui em remoção de peca
 	def execute_remove_piece(self, position_to_remove_piece: AbstractPosition, player_who_removed_piece: AbstractPlayer) -> None: # Alterar modelagem
@@ -450,14 +436,14 @@ class Board:
 
 	def evaluate_moinho(self) -> None:
 		num_of_moinhos: int = self.get_num_of_moinhos(self.__selected_position)
-		self.__move.moinhos = num_of_moinhos
+		self.__game.move.moinhos = num_of_moinhos
 		piece_put_on_position: AbstractPiece = self.__selected_position.piece
 
 		if num_of_moinhos == 0:
 			self.finish_turn()
 			piece_put_on_position.in_moinho: bool = False
-			self.__move.moinho: int = num_of_moinhos
-			move_dict = self.__move.get_move_dict()
+			self.__game.move.moinho: int = num_of_moinhos
+			move_dict = self.__game.move.get_move_dict()
 			self.__player_interface.send_move(move_dict)
 			self.evaluate_winner()
 			self.__selected_piece = None

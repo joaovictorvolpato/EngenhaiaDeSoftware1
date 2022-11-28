@@ -2,6 +2,7 @@ from Interface.PlayerInterface import PlayerInterface
 from Game.Player import Player
 from abc import ABC, abstractmethod
 from Game.Board import Board
+from Game.Move import Move
 
 class AbstractGame:
     @property
@@ -22,6 +23,11 @@ class AbstractGame:
     @property
     @abstractmethod
     def board(self) -> Board:
+        pass
+    
+    @property
+    @abstractmethod
+    def move(self) -> Move:
         pass
 
     @abstractmethod

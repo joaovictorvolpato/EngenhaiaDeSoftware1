@@ -2,12 +2,14 @@ from Interface.PlayerInterface import PlayerInterface
 from Game.Player import Player
 import os, signal
 from Game.Board import Board
+from Game.Move import Move
 
 class Game:
     def __init__(self) -> None:
         self.__player_interface = PlayerInterface(self)
         self.__local_player, self.__remote_player = self.__create_players()
         self.__board: Board = Board(self.__local_player, self.__remote_player, self.__player_interface)
+        self.__move: Move = Move()
 
     @property
     def player_interface(self) -> PlayerInterface:
@@ -24,6 +26,10 @@ class Game:
     @property
     def board(self) -> Board:
         return self.__board
+    
+    @property
+    def move(self) -> Move:
+        return self.__move
 
     def __create_players(self) -> tuple[Player, Player]:
         local_player = Player(0, "", False, "") 
