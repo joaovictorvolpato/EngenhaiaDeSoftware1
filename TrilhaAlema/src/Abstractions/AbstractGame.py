@@ -31,8 +31,11 @@ class AbstractGame:
     @abstractmethod
     def start_game(self) -> None:
         pass
-        
+    
+    @abstractmethod
     def end_program(self) -> None:
         pass
 
- 
+    @abstractmethod
+    def get_player_from_id(self, player_id: int) -> Player:
+       pass

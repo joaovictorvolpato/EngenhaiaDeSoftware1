@@ -36,3 +36,12 @@ class Game:
         
     def end_program(self) -> None:
         os.kill(os.getpid(), signal.SIGINT)
+
+    def get_player_from_id(self, player_id: int) -> Player:
+        try:
+            if self.__local_player.id == player_id:
+                return self.__local_player
+            elif self.__remote_player.id == player_id:
+                return self.__remote_player
+        except ValueError:
+            print("Invalid player id")
