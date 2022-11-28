@@ -70,7 +70,7 @@ class AbstractBoard(ABC):
         pass
 
     @abstractmethod
-    def get_interface_changes(self) -> tuple[list, int, int, int, int]:
+    def get_interface_changes(self) -> tuple[list[tuple[bool, int]], int, int, int, int]:
         pass
 
     @abstractmethod
@@ -150,10 +150,6 @@ class AbstractBoard(ABC):
 
     @abstractmethod    
     def clicked_position(self, line: int, column: int) -> None:
-        pass
-
-    @abstractmethod
-    def get_interface_changes(self) -> None:
         pass
 
     @abstractmethod

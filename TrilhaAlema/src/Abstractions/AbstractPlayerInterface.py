@@ -2,8 +2,42 @@ from abc import ABC, abstractmethod
 from tkinter import Tk, Menu, FALSE
 from Dog.dog_actor import DogActor
 from Game.Move import Move
+from Interface.InterfaceUpdater import InterfaceUpdater
+from Game.Player import Player
+from Game.Board import Board
+from Interface.InterfaceGameBoard import InterfaceGameBoard
 
 class AbstractPlayerInterface(ABC):
+    @property
+    @abstractmethod
+    def window(self) -> Tk:
+        return self.__window
+
+    @property
+    @abstractmethod
+    def interface_updater(self) -> InterfaceUpdater:
+        pass
+
+    @property
+    @abstractmethod
+    def local_player(self) -> Player:
+        pass
+
+    @property
+    @abstractmethod
+    def remote_player(self) -> Player:
+        pass
+
+    @property
+    @abstractmethod
+    def interface_game_board(self) -> InterfaceGameBoard:
+        pass
+
+    @property
+    @abstractmethod
+    def dog_server_interface(self) -> DogActor:
+        pass
+    
     @abstractmethod
     def __create_window(self) -> Tk:
         pass

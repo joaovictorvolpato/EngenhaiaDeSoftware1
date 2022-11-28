@@ -43,10 +43,6 @@ class AbstractPlayer(ABC):
         pass
 
     @abstractmethod
-    def get_turn(self) -> bool:
-        pass
-
-    @abstractmethod
     def change_turn(self) -> None:
         pass
 
