@@ -450,7 +450,8 @@ class Board:
 		piece_to_move = self.__selected_piece
 		destiny_position = self.__selected_position
 		origin_position = piece_to_move.position
-
+		self.__selected_piece.in_moinho = False
+		
 		origin_position.remove_piece()
 		destiny_position.place_piece(piece_to_move)
 
@@ -499,6 +500,8 @@ class Board:
 					same_player += 1
 
 			if same_player == 3:
+				for position in positions_in_connection:
+					position.piece.in_moinho = True
 				moinhos_count += 1
 
 		return moinhos_count
