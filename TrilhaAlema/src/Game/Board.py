@@ -505,6 +505,7 @@ class Board:
 
 			if same_player == 3:
 				for position in positions_in_connection:
+					print(position.matrix_position)
 					position.piece.in_moinho = True
 				moinhos_count += 1
 
