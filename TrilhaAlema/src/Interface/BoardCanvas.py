@@ -43,7 +43,7 @@ class BoardCanvas(Canvas):
 
     @remote_player_pieces_in_hand.setter
     def remote_player_pieces_in_hand(self, pieces_in_hand:int) -> None:
-        self.__change_text(f"Pieces In Hand: {pieces_in_hand}", self.__local_player_pieces_in_hand)
+        self.__change_text(f"Pieces In Hand: {pieces_in_hand}", self.__remote_player_pieces_in_hand)
 
     @property
     def local_player_captured_pieces(self):
