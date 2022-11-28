@@ -22,11 +22,11 @@ class Game:
     @property
     def remote_player(self) -> Player:
         return self.__remote_player
-    
+
     @property
     def board(self) -> Board:
         return self.__board
-    
+
     @property
     def move(self) -> Move:
         return self.__move
@@ -39,7 +39,7 @@ class Game:
 
     def start_game(self) -> None:
         self.player_interface.window.mainloop()
-        
+
     def end_program(self) -> None:
         os.kill(os.getpid(), signal.SIGINT)
 

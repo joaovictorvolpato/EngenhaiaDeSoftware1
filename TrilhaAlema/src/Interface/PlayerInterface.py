@@ -77,25 +77,52 @@ class PlayerInterface(DogPlayerInterface):
         return menu_file
 
     def __add_menu_commands(self, menu_file: Menu) -> None:
-        menu_file.add_command(label='Iniciar jogo', command=self.start_match)
+        menu_file.add_command(label='Start Match', command=self.start_match)
 
     def __connect_to_dog(self) -> DogActor:
-        player_name = simpledialog.askstring(title="Player identification", prompt="Qual o seu nome?")
+        player_name = simpledialog.askstring(title="Player identification", prompt="What is your name? Please, write at most 10 characters.")
         self.__game.local_player.name = player_name
         dog_server_interface = DogActor()
         message = dog_server_interface.initialize(player_name, self)
         messagebox.showinfo(message=message)
+        self.__interface_game_board.canvas.local_player_text = player_name
 
         return dog_server_interface
 
     def start_match(self) -> None:
-            start_status = self.dog_server_interface.start_match(2)
-            message = start_status.get_message()
-            messagebox.showinfo(message=message)
+        #Dog server interface
+        start_status = self.dog_server_interface.start_match(2)
+        message = start_status.get_message()
+        messagebox.showinfo(message=message)
+
+        #Setting local player up
+        local_player = self.game.local_player
+        local_player.player_id = 1
+        local_player.turn = True
+        local_player.team = "VASCO"
+        
+        #Setting remote player up
+        remote_player = self.game.remote_player
+        remote_player.player_id = 2
+        remote_player.turn = False
+        remote_player.team = "AVAI"
 
     def receive_start(self, start_status) -> None:
-            message = start_status.get_message()   
-            messagebox.showinfo(message=message)
+        #Notifies the player that the match has started
+        message = start_status.get_message()   
+        messagebox.showinfo(message=message)
+        
+        #Setting local player up
+        local_player = self.game.local_player
+        local_player.player_id = 2
+        local_player.turn = False
+        local_player.team = "AVAI"
+        
+        #Setting remote player up
+        remote_player = self.game.remote_player
+        remote_player.player_id = 1
+        remote_player.turn = True
+        remote_player.team = "VASCO"
 
     def receive_withdrawal_notification(self) -> None:
         self.notify_player("Your opponent has withdrawn from the match.")
