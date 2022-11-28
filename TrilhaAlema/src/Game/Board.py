@@ -278,8 +278,8 @@ class Board:
 			if game_phase == "placing" and not occupied and not self.__moinhos:
 				self.__selected_position = position
 				self.place_piece()
-
-			if game_phase == "moving" and not self.__moinhos:
+    
+			elif game_phase == "moving" and not self.__moinhos:
 				if self.__selected_piece == None and occupied:
 					if position.piece.owner_player.player_id == self.__local_player.player_id:
 						self.__selected_piece = position.piece
@@ -292,7 +292,7 @@ class Board:
 					self.__selected_position = position
 					self.move_piece()
 
-			if moinhos > 0:
+			elif moinhos > 0:
 				piece_to_remove = position.piece
 				piece_was_removed = self.remove_piece(self.__moinhos, piece_to_remove)
 				if piece_was_removed:
@@ -442,8 +442,7 @@ class Board:
 		self.__selected_position.place_piece(piece)
 
 		if self.__local_player.pieces_in_hand == 0:
-			print("Changing game phase to moving")
-			self.set_game_phase("moving")
+			self.__game_phase = "moving"
 
 		self.__player_interface.update_interface_image()
 
