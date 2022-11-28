@@ -15,7 +15,7 @@ class PlayerInterface(DogPlayerInterface):
         self.__game: AbstractGame = game_ref
         self.__window = self.__create_window()
         GameImageHandler.set_game_images()
-        self.__interface_game_board = InterfaceGameBoard(self.__game.board)
+        self.__interface_game_board = None
         self.__window.resizable(False, False)
         self.__menubar, self.__menu_file = self.__create_menu()
         self.__dog_server_interface: DogActor = self.__connect_to_dog()

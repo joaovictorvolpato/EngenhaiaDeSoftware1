@@ -1,4 +1,5 @@
 from Interface.PlayerInterface import PlayerInterface
+from Interface.InterfaceGameBoard import InterfaceGameBoard
 from Game.Player import Player
 import os, signal
 from Game.Board import Board
@@ -9,6 +10,7 @@ class Game:
         self.__player_interface = PlayerInterface(self)
         self.__local_player, self.__remote_player = self.__create_players()
         self.__board: Board = Board(self.__local_player, self.__remote_player, self.__player_interface)
+        self.__player_interface.interface_game_board = InterfaceGameBoard(self.__board)
         self.__move: Move = Move()
 
     @property
