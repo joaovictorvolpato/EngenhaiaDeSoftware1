@@ -16,7 +16,6 @@ class PlayerInterface(DogPlayerInterface):
         self.__window = self.__create_window()
         GameImageHandler.set_game_images()
         self.__local_player, self.__remote_player = self.__create_players()
-        self.__interface_updater: InterfaceUpdater = InterfaceUpdater() #Implement.
         self.__board: Board = Board(self.__local_player, self.__remote_player, self) #Start program in modelling
         self.__interface_game_board_setter = InterfaceGameBoardSetter(self.__board)
         self.__interface_game_board_setter.set_game_board()
