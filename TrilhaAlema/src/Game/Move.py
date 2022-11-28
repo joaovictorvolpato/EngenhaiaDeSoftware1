@@ -4,10 +4,9 @@ from Abstractions.AbstractPosition import AbstractPosition
 class Move:
 	def __init__(self):
 		self.__type: str = None
-		self.__moinhos = 0
 		self.__final_position: AbstractPosition = None
 		self.__start_position: AbstractPosition = None
-		self.__removed_pieces_positions: list[tuple[int, int]] = []
+		self.__removed_pieces_positions_list: list[tuple[int, int]] = []
 		self.__player_who_does_the_move: int = None
 		self.__match_status = None
 
@@ -18,14 +17,6 @@ class Move:
 	@type.setter
 	def type(self, move_type: str) -> None:
 		self.__type = move_type
-
-	@property
-	def moinhos(self) -> int:
-		return self.__moinhos
-
-	@moinhos.setter
-	def moinhos(self, num_of_moinhos: int) -> None:
-		self.__moinhos = num_of_moinhos
 
 	@property
 	def final_position(self) -> AbstractPosition:
@@ -44,12 +35,12 @@ class Move:
 		self.__start_position = start_position
 
 	@property
-	def removed_pieces_positions(self) -> list[AbstractPosition]:
-		return self.__removed_pieces_positions
+	def removed_pieces_positions_list(self) -> list[AbstractPosition]:
+		return self.__removed_pieces_positions_list
 
-	@removed_pieces_positions.setter
-	def removed_pieces_positions(self, positions : list[AbstractPosition]) -> None:
-		self.__removed_pieces_positions = positions
+	@removed_pieces_positions_list.setter
+	def removed_pieces_positions_list(self, removed_pieces_positions_list : list[AbstractPosition]) -> None:
+		self.__removed_pieces_positions_list = removed_pieces_positions_list
 
 	@property
 	def player_who_does_the_move(self) -> int:
@@ -62,8 +53,7 @@ class Move:
 	def get_move_dict(self) -> dict:
 		move_dict = {}
 		move_dict['type'] = self.__type
-		move_dict['moinhos'] = self.__moinhos
-
+	
 		if self.__final_position is not None:
 			move_dict['final_position'] = self.__final_position.matrix_position
 		else:
@@ -74,38 +64,31 @@ class Move:
 		else:
 			move_dict['start_position'] = (0, 0)
 
-		if self.__removed_pieces_positions != []:
-			print(self.__removed_pieces_positions)
-			try:
-				move_dict['removed_pieces_positions_list'] = [position.matrix_position for position in self.__removed_pieces_positions]
-			except:
-				move_dict['removed_pieces_positions_list'] = []
-		else:
-			move_dict['removed_pieces_positions_list'] = [(0, 0)]
+		move_dict['removed_pieces_positions_list'] = self.__removed_pieces_positions_list
 
 		move_dict['player_who_does_the_move'] = self.__player_who_does_the_move
 		move_dict["match_status"] = self.__match_status
 
+		print(move_dict)
 		return move_dict
 
 	def set_move_none(self):
 		self.__type = None
-		self.__moinhos = None
 		self.__final_position = None
 		self.__start_position = None
-		self.__removed_pieces_positions = []
+		self.__removed_pieces_positions_list = []
 		self.__player_who_does_the_move = None
 		self.__match_status = None
+  
+		print(self.removed_pieces_positions_list)
 
-	def set_move(self, type_of_move: str, player_who_does_the_move: int, moinhos: int = 0,
+	def set_move(self, type_of_move: str, player_who_does_the_move: int,
 				final_position: tuple[int, int] = None, start_position: tuple[int, int] = None,
-				removed_piece_position: tuple[int, int] = None, match_status: str = "next") -> None:
+				removed_pieces_positions_list: list[tuple[int, int]] = [], match_status: str = "next") -> None:
 		self.__type = type_of_move
-		self.__moinhos = moinhos
 		self.__final_position = final_position
 		self.__start_position = start_position
-		if removed_piece_position is not None:
-			self.__removed_pieces_positions.append(removed_piece_position)
+		self.__removed_pieces_positions_list = removed_pieces_positions_list
 		self.__player_who_does_the_move = player_who_does_the_move
 		self.__match_status = match_status
 
@@ -113,15 +96,14 @@ class Move:
 	def rebuild_remote_move(move_dict: dict, position_matrix: list[AbstractPosition]) -> 'Move':
 		move = Move()
 		move.type = move_dict['type']
-		move.moinhos = move_dict['moinhos']
 		move.final_position = position_matrix[move_dict['final_position'][0]][move_dict['final_position'][1]]
 		move.start_position = position_matrix[move_dict['start_position'][0]][move_dict['start_position'][1]]
-  
+
 		move.removed_pieces_positions = []
 		for position in move_dict['removed_pieces_positions_list']:
 			removed_piece_position = position_matrix[position[0]][position[1]]
 			move.removed_pieces_positions.append(removed_piece_position)
-   
+
 		move.player_who_does_the_move = move_dict['player_who_does_the_move']
 		move.__match_status = move_dict["match_status"]
 
