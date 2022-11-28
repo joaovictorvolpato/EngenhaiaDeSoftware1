@@ -281,64 +281,65 @@ class Board:
 			pass
 
 	def clicked_position(self, line:int, column:int) -> None:
-		print(f"Clicked position: {line}, {column}")
-		game_phase: str = self.__game_phase
-		position : AbstractPosition = self.__position_matrix[line][column]
-		occupied: bool = position.is_occupied
-		moinhos: int = self.__move.moinhos
-		if game_phase == "placing" and not occupied and not moinhos:
-			self.__selected_position = position
-			self.place_piece()
-
-		if game_phase == "moving" and occupied and not moinhos:
-			if self.__selected_piece == None:
-				self.__selected_piece = position.piece
-			else:
+		is_turn = self.__local_player.turn
+		if not is_turn:
+			self.__player_interface.notify_player("Sorry, but is not your turn.")
+		else:
+			game_phase: str = self.__game_phase
+			position : AbstractPosition = self.__position_matrix[line][column]
+			occupied: bool = position.is_occupied
+			moinhos: int = self.__move.moinhos
+			if game_phase == "placing" and not occupied and not moinhos:
 				self.__selected_position = position
-				self.move_piece()
+				self.place_piece()
 
-		if moinhos:
-			self.__selected_piece = position.piece
-			self.remove_piece()
-			self.__move.moinhos -= 1
-			self.__player_interface.notify_player(f"You can remove more {moinhos} pieces.")
+			if game_phase == "moving" and not moinhos:
+				if self.__selected_piece == None and occupied:
+					if position.piece.owner_player.player_id == self.__local_player.player_id:
+						self.__selected_piece = position.piece
+						self.__player_interface.notify_player("Click on the position you want to move your piece to.")
+					else:
+						self.__player_interface.notify_player("You can't move a piece from your opponent.")
+				elif not occupied:
+					self.__player_interface.notify_player("You must select a piece to move.")
+				else:
+					self.__selected_position = position
+					self.move_piece()
+
+			if moinhos:
+				self.__selected_piece = position.piece
+				self.remove_piece()
+				self.__move.moinhos -= 1
+				self.__player_interface.notify_player(f"You can remove more {moinhos} pieces.")
 
 	# Só entra aqui em colocacao de peca LOCAL
 	def place_piece(self) -> None: # Atualizar modelagem
-		is_turn = self.__local_player.turn
-		if not is_turn:
-			self.__player_interface.notify_player("Sorry, but is not your turn.")
-		else:
-			self.__move.set_move_none()
-			self.__move.set_move("place_piece", self.__local_player.player_id, final_position = self.__selected_position)
-			piece_to_place = Piece(self.__local_player)
-			self.execute_place_piece(piece_to_place)
-			if self.__local_player.pieces_in_hand == 0:
-				self.set_game_phase("moving")
+		self.__move.set_move_none()
+		self.__move.set_move("place_piece", self.__local_player.player_id, final_position = self.__selected_position)
+		piece_to_place = Piece(self.__local_player)
+		self.execute_place_piece(piece_to_place)
+		if self.__local_player.pieces_in_hand == 0:
+			self.set_game_phase("moving")
 
-			self.evaluate_moinho()
+		self.evaluate_moinho()
 
 	# Só entra aqui em movimentacao de peca LOCAL
 	def move_piece(self) -> None:
-		is_turn = self.__local_player.turn
-		if not is_turn:
-			self.__player_interface.notify_player("Sorry, but is not your turn.")
-		else:
-			piece_to_move = self.__selected_piece
-			piece_owner = piece_to_move.owner_player
+		piece_to_move = self.__selected_piece
+		piece_owner = piece_to_move.owner_player
 
-			if piece_owner != self.__local_player:
-				self.__player_interface.notify_player("You can't move a opponent piece.")
+		if piece_owner != self.__local_player:
+			self.__player_interface.notify_player("You can't move a opponent piece.")
+		else:
+			self.__move.set_move_none()
+			if not self.__selected_position.is_occupied:
+				if (self.__selected_position in piece_to_move.position.neighborhood) or piece_owner.can_do_fly(): # Alterar modelagem
+					self.__move.set_move("move_piece", self.__local_player.player_id, final_position = self.__selected_position, 
+										start_position = self.__selected_piece.position)
+					self.execute_move_piece()
+					self.evaluate_moinho()
 			else:
-				self.__move.set_move_none()
-				if not self.__selected_position.is_occupied:
-					if (self.__selected_position in piece_to_move.position.neighborhood) or piece_owner.can_do_fly(): # Alterar modelagem
-						self.__move.set_move("move_piece", self.__local_player.player_id, final_position = self.__selected_position, 
-											start_position = self.__selected_piece.position)
-						self.execute_move_piece()
-						self.evaluate_moinho()
-				else:
-					self.__player_interface.notify_player("You're clicking on a occupied position.")
+				self.__player_interface.notify_player("You're clicking on a occupied position.")
 
 	# Só entra aqui em retirada de peca feita pelo player LOCAL
 	def remove_piece(self, num_of_moinhos: int) -> None: # ALTERAR MODELAGEM
@@ -365,6 +366,8 @@ class Board:
 				
 				if num_of_moinhos == 1:
 					self.__player_interface.send_move(self.__move)
+					self.__selected_piece = None
+					self.__selected_position = None
 					self.evaluate_winner()
 					self.finish_turn()
 
@@ -464,8 +467,12 @@ class Board:
 			piece_put_on_position.in_moinho: bool = False
 			self.__move.moinho: int = num_of_moinhos
 			self.__player_interface.send_move(self.__move)
-		
+			self.__selected_piece = None
+			self.__selected_position = None
+
 		elif num_of_moinhos > 0:
+			self.__selected_piece = None
+			self.__selected_position = None
 			self.__player_interface.notify_player(f"You have done {num_of_moinhos} moinho(s). Remove a opponent piece.")
 
 	def get_num_of_moinhos(self, selected_position: AbstractPosition) -> int: # Change argument's name in modelling
