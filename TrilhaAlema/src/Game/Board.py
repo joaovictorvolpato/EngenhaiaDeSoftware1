@@ -404,7 +404,6 @@ class Board:
 				self.__game.move.set_move("accept_draw", self.__local_player.player_id, match_status="finished")
 				move_dict = self.__game.move.get_move_dict()
 				self.__player_interface.send_move(move_dict)
-				self.set_winner(self.__local_player)
 				self.end_game()
 			else:
 				self.__game.move.set_move("decline_draw", self.__local_player.player_id)
@@ -451,7 +450,7 @@ class Board:
 		destiny_position = self.__selected_position
 		origin_position = piece_to_move.position
 		self.__selected_piece.in_moinho = False
-		
+
 		origin_position.remove_piece()
 		destiny_position.place_piece(piece_to_move)
 
