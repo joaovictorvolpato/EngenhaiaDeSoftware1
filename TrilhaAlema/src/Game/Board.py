@@ -366,11 +366,27 @@ class Board:
 
 			else:
 				self.__player_interface.notify_player("You can't remove a piece that's part of a moinho.")
+				if self.all_pieces_in_moinho(self.__remote_player):
+					self.__moinhos = 0
+					return True
+
 				return False
 
 		else:
 			self.__player_interface.notify_player("You can't remove your own piece.")
 			return False
+
+	def all_pieces_in_moinho(self, player: AbstractPlayer) -> bool:
+		all_pieces_in_moinho = True
+		for line in self.__position_matrix:
+			for position in line:
+				if position != None:
+					if position.is_occupied:
+						if position.piece.owner_player == player:
+							if not position.piece.in_moinho:
+								all_pieces_in_moinho = False
+								break
+		return all_pieces_in_moinho
 
 	def execute_received_move(self) -> None:
 		move_type = self.__game.move.type
