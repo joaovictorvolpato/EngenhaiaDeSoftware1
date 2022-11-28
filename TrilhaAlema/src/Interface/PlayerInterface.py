@@ -18,7 +18,7 @@ class PlayerInterface(DogPlayerInterface):
         self.__interface_game_board = None
         self.__window.resizable(False, False)
         self.__menubar, self.__menu_file = self.__create_menu()
-        self.__dog_server_interface: DogActor = self.__connect_to_dog()
+        self.__dog_server_interface: DogActor = None
 
     @property
     def game(self):
@@ -43,6 +43,10 @@ class PlayerInterface(DogPlayerInterface):
     @property
     def interface_game_board(self) -> InterfaceGameBoard:
         return self.__interface_game_board
+    
+    @interface_game_board.setter
+    def interface_game_board(self, interface_game_board: InterfaceGameBoard) -> None:
+        self.__interface_game_board = interface_game_board
 
     @property
     def dog_server_interface(self) -> DogActor:
@@ -79,7 +83,7 @@ class PlayerInterface(DogPlayerInterface):
     def __add_menu_commands(self, menu_file: Menu) -> None:
         menu_file.add_command(label='Start Match', command=self.start_match)
 
-    def __connect_to_dog(self) -> DogActor:
+    def connect_to_dog(self) -> DogActor:
         player_name = simpledialog.askstring(title="Player identification", prompt="What is your name? Please, write at most 10 characters.")
         self.__game.local_player.name = player_name
         dog_server_interface = DogActor()
@@ -106,6 +110,8 @@ class PlayerInterface(DogPlayerInterface):
         remote_player.player_id = 2
         remote_player.turn = False
         remote_player.team = "AVAI"
+        
+        self.draw_team_images(local_player, remote_player) 
 
     def receive_start(self, start_status) -> None:
         #Notifies the player that the match has started
@@ -123,6 +129,23 @@ class PlayerInterface(DogPlayerInterface):
         remote_player.player_id = 1
         remote_player.turn = True
         remote_player.team = "VASCO"
+        
+        self.draw_team_images(local_player, remote_player)
+
+    def draw_team_images(self, local_player, remote_player) -> None:
+        local_player_image = None
+        if local_player.team == "VASCO":
+            local_player_image = GameImageHandler.VASCO_piece_image
+        elif local_player.team == "AVAI":
+            local_player_image = GameImageHandler.AVAI_piece_image
+
+        remote_player_image = None
+        if remote_player.team == "VASCO":
+            remote_player_image = GameImageHandler.VASCO_piece_image
+        elif remote_player.team == "AVAI":
+            remote_player_image = GameImageHandler.AVAI_piece_image
+        
+        self.__interface_game_board.canvas.draw_team_images(local_player_image, remote_player_image)
 
     def receive_withdrawal_notification(self) -> None:
         self.notify_player("Your opponent has withdrawn from the match.")

@@ -9,8 +9,9 @@ class Game:
     def __init__(self) -> None:
         self.__player_interface = PlayerInterface(self)
         self.__local_player, self.__remote_player = self.__create_players()
-        self.__board: Board = Board(self.__local_player, self.__remote_player, self.__player_interface)
+        self.__board: Board = Board(self.__local_player, self.__remote_player, self.__player_interface, self)
         self.__player_interface.interface_game_board = InterfaceGameBoard(self.__board)
+        self.__player_interface.dog_server_interface = self.__player_interface.connect_to_dog()
         self.__move: Move = Move()
 
     @property
