@@ -108,32 +108,38 @@ class PlayerInterface(DogPlayerInterface):
         local_player.player_id = 1
         local_player.turn = True
         local_player.team = "VASCO"
-        
+
         #Setting remote player up
         remote_player = self.game.remote_player
         remote_player.player_id = 2
         remote_player.turn = False
         remote_player.team = "AVAI"
-        
-        self.draw_team_images(local_player, remote_player) 
+
+        #Updates the interface and game phase
+        self.__game.board.game_phase = "placing"
+        self.update_interface_image()
+        self.draw_team_images(local_player, remote_player)
 
     def receive_start(self, start_status) -> None:
         #Notifies the player that the match has started
         message = start_status.get_message()   
         messagebox.showinfo(message=message)
-        
+
         #Setting local player up
         local_player = self.game.local_player
         local_player.player_id = 2
         local_player.turn = False
         local_player.team = "AVAI"
-        
+
         #Setting remote player up
         remote_player = self.game.remote_player
         remote_player.player_id = 1
         remote_player.turn = True
         remote_player.team = "VASCO"
-        
+
+        #Updates the interface and game phase
+        self.__game.board.game_phase = "placing"
+        self.update_interface_image()
         self.draw_team_images(local_player, remote_player)
 
     def draw_team_images(self, local_player, remote_player) -> None:
