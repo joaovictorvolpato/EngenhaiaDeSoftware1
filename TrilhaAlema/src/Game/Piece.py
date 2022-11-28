@@ -12,7 +12,6 @@ class Piece():
 		self.__in_moinho: bool = False
 		self.__move: AbstractMove = None
 
-	# GETTERS AND SETTERS
 	@property
 	def owner_player(self) -> AbstractPlayer:
 		return self.__owner_player

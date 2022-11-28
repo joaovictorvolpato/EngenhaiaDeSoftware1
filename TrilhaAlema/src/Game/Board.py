@@ -278,19 +278,24 @@ class Board:
 			if game_phase == "placing" and not occupied and not self.__moinhos:
 				self.__selected_position = position
 				self.place_piece()
-    
+
 			elif game_phase == "moving" and not self.__moinhos:
 				if self.__selected_piece == None and occupied:
 					if position.piece.owner_player.player_id == self.__local_player.player_id:
 						self.__selected_piece = position.piece
+						if self.__selected_piece.owner_player.can_do_fly():
+							self.__player_interface.notify_player("You can move your piece to any position.")
 						self.__player_interface.notify_player("Click on the position you want to move your piece to.")
 					else:
 						self.__player_interface.notify_player("You can't move a piece from your opponent.")
-				elif not occupied:
-					self.__player_interface.notify_player("You must select a piece to move.")
+				elif self.__selected_piece != None:
+						if not occupied:
+							self.__selected_position = position
+							self.move_piece()
+						else:
+							self.__player_interface.notify_player("You can't move a piece to a position that is already occupied.")
 				else:
-					self.__selected_position = position
-					self.move_piece()
+					self.__player_interface.notify_player("You must select a piece to move.")
 
 			elif moinhos > 0:
 				piece_to_remove = position.piece
@@ -312,18 +317,14 @@ class Board:
 		piece_to_move = self.__selected_piece
 		piece_owner = piece_to_move.owner_player
 
-		if piece_owner != self.__local_player:
-			self.__player_interface.notify_player("You can't move a opponent piece.")
+		self.__game.move.set_move_none()
+		if (self.__selected_position in piece_to_move.position.neighborhood) or piece_owner.can_do_fly(): # Alterar modelagem
+			self.__game.move.set_move("move_piece", self.__local_player.player_id, final_position = self.__selected_position, 
+								start_position = self.__selected_piece.position)
+			self.execute_move_piece()
+			self.evaluate_moinho()
 		else:
-			self.__game.move.set_move_none()
-			if not self.__selected_position.is_occupied:
-				if (self.__selected_position in piece_to_move.position.neighborhood) or piece_owner.can_do_fly(): # Alterar modelagem
-					self.__game.move.set_move("move_piece", self.__local_player.player_id, final_position = self.__selected_position, 
-										start_position = self.__selected_piece.position)
-					self.execute_move_piece()
-					self.evaluate_moinho()
-			else:
-				self.__player_interface.notify_player("You're clicking on a occupied position.")
+			self.__player_interface.notify_player("You can't move a piece to a position that is not adjacent to its current position.")
 
 	def remove_piece(self, num_of_moinhos: int, piece_to_remove: AbstractPiece) -> bool: # ALTERAR MODELAGEM
 		if piece_to_remove.position.is_occupied == False:
@@ -447,8 +448,8 @@ class Board:
 
 	def execute_move_piece(self) -> None: # Alterar modelagem
 		piece_to_move = self.__selected_piece
-		destiny_position = self.__selected_position
 		origin_position = piece_to_move.position
+		destiny_position = self.__selected_position
 		self.__selected_piece.in_moinho = False
 
 		origin_position.remove_piece()
