@@ -2,15 +2,13 @@ from abc import ABC, abstractmethod
 from tkinter import Tk, Menu, FALSE
 from Dog.dog_actor import DogActor
 from Game.Move import Move
-from Interface.InterfaceUpdater import InterfaceUpdater
 from Game.Player import Player
-from Game.Game import Game
-from Interface.InterfaceGameBoard import InterfaceGameBoard
+from Abstractions.AbstractGame import AbstractGame
 
 class AbstractPlayerInterface(ABC):
     @property
     @abstractmethod
-    def game(self) -> Game:
+    def game(self) -> AbstractGame:
         pass
     
     @property
@@ -20,7 +18,7 @@ class AbstractPlayerInterface(ABC):
 
     @property
     @abstractmethod
-    def interface_game_board(self) -> InterfaceGameBoard:
+    def interface_game_board(self) -> None:
         pass
 
     @property

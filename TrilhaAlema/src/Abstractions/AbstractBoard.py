@@ -3,12 +3,11 @@ from Abstractions.AbstractPiece import AbstractPiece
 from Abstractions.AbstractPlayer import AbstractPlayer
 from Abstractions.AbstractPosition import AbstractPosition
 from Abstractions.AbstractMove import AbstractMove
-from Abstractions.AbstractPlayerInterface import AbstractPlayerInterface
 
 class AbstractBoard(ABC):
     @property
     @abstractmethod
-    def player_interface(self) -> AbstractPlayerInterface:
+    def player_interface(self) -> None:
         pass
 
     @property
