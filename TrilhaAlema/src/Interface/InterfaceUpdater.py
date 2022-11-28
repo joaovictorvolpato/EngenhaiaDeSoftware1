@@ -1,17 +1,11 @@
-# from Game.Position import Position
-# from Game.Piece import Piece
-from Abstractions.AbstractBoard import AbstractBoard
 from Abstractions.AbstractPlayerInterface import AbstractPlayerInterface 
-from Interface.PositionButton import PositionButton
 
 class InterfaceUpdater:
 	@staticmethod
 	def update_interface_image(player_interface: AbstractPlayerInterface):
-		board = player_interface.board
-    
+		board = player_interface.game.board
 		(positions_to_update, pieces_in_local_player_hand_to_uptdade, pieces_in_remote_player_hand_to_update, 
    		pieces_that_local_player_captured, pieces_that_remote_player_captured) = board.get_interface_changes(board)
-
 		InterfaceUpdater.display_pieces_on_positions(player_interface, positions_to_update)
 		InterfaceUpdater.display_pieces_in_local_player_hand(player_interface, pieces_in_local_player_hand_to_uptdade)
 		InterfaceUpdater.display_pieces_in_remote_player_hand(player_interface, pieces_in_remote_player_hand_to_update)
@@ -25,10 +19,15 @@ class InterfaceUpdater:
 		positions_buttons_list = player_interface.interface_game_board.position_buttons_list
 		for position_index, position in enumerate(positions_to_update):
 			occupied, owner_id = position
+			position_id = position_index + 1
+			position_button = positions_buttons_list[position_id]
 			if occupied:
-				position_id = position_index + 1
-				position_button = positions_buttons_list[position_id]
-				
+				owner = player_interface.game.get_player_from_id(owner_id)
+				if position_button.piece_drawn == False:
+					position_button.draw_piece_on_position(owner.team)
+			else:
+				if position_button.piece_drawn == True:
+					position_button.erase_piece_from_position()
 
 	@staticmethod
 	def display_pieces_in_local_player_hand(player_interface: AbstractPlayerInterface, pieces_in_local_player_hand: int):
