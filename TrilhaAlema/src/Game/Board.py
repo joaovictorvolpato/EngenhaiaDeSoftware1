@@ -333,7 +333,6 @@ class Board:
 
 		if piece_to_remove.owner_player == self.__remote_player:
 			in_moinho = piece_to_remove.in_moinho
-			print("MOINHO????", in_moinho)
 			can_remove: bool = False
 			if not in_moinho:
 				can_remove = True
@@ -355,9 +354,6 @@ class Board:
 				if num_of_moinhos == 1 or self.__remote_player.pieces_on_board == 0:
 					move_dict = self.__game.move.get_move_dict()
 					self.__player_interface.send_move(move_dict)
-					self.__selected_position = None
-					self.__selected_piece = None
-					self.__removed_pieces_positions = []
 					self.finish_turn()
 					self.__player_interface.update_interface_image()
 
@@ -369,9 +365,6 @@ class Board:
 					self.__moinhos = 0
 					move_dict = self.__game.move.get_move_dict()
 					self.__player_interface.send_move(move_dict)
-					self.__selected_position = None
-					self.__selected_piece = None
-					self.__removed_pieces_positions = []
 					self.finish_turn()
 					self.__player_interface.update_interface_image()
 					return False
@@ -508,8 +501,6 @@ class Board:
 			piece_put_on_position.in_moinho: bool = False
 			move_dict = self.__game.move.get_move_dict()
 			self.__player_interface.send_move(move_dict)
-			self.__selected_position = None
-			self.__selected_piece = None
 			self.evaluate_winner()
 			self.__player_interface.update_interface_image()
 
