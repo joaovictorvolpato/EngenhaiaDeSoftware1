@@ -5,7 +5,6 @@ from Abstractions.AbstractPlayer import AbstractPlayer
 from Abstractions.AbstractPosition import AbstractPosition
 from Abstractions.AbstractBoard import AbstractBoard
 from Abstractions.AbstractPlayerInterface import AbstractPlayerInterface
-from Abstractions.AbstractInterfaceUpdater import AbstractInterfaceUpdater
 from Game.Connection import Connection
 from Game.Move import Move
 from Game.Piece import Piece
