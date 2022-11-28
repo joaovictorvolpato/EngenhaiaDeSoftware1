@@ -296,7 +296,6 @@ class Board:
 							self.__player_interface.notify_player("You can't move a piece to a position that is already occupied.")
 				else:
 					self.__player_interface.notify_player("You must select a piece to move.")
-					self.__selected_piece = None
 
 			elif moinhos > 0:
 				piece_to_remove = position.piece
@@ -453,6 +452,8 @@ class Board:
 		self.evaluate_winner()
 		self.__player_interface.notify_player("IT'S YOUR TURN.")
 		self.finish_turn()
+		self.__selected_piece = None
+		self.__selected_position = None
 		self.__player_interface.update_interface_image()
 
 	def set_draw(self) -> None:
