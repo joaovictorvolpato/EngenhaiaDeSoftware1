@@ -50,3 +50,8 @@ class AbstractMove(ABC):
 				start_position: tuple[int, int] = None,
                 removed_piece_position: tuple[int, int] = None) -> None:
         pass
+
+    @staticmethod
+    @abstractmethod
+    def rebuild_remote_move(self, move_dict: dict) -> None:
+        pass

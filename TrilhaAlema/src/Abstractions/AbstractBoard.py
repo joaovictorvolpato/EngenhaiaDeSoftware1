@@ -62,7 +62,7 @@ class AbstractBoard(ABC):
         pass
 
     @abstractmethod
-    def set_board_position_matrix(self) -> list:
+    def set_board_position_matrix(self) -> list[AbstractPosition]:
         pass
 
     @abstractmethod

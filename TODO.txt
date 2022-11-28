@@ -28,7 +28,7 @@ Código:
             - OK!
 
         * Move
-            - Verificar o que é necessário para o send_move (e parte do DOG, tornar objeto Move em dicionário);
+            - Verificar o que é necessário para o send_move (e parte do DOG, tornar objeto Move em dicionário); OK!
 
         * Piece
             - OK!
@@ -42,10 +42,10 @@ Código:
     2. Interface
         * PlayerInterface
             - Criar método notify_player(str) para notificar algo ao player;
-            - start_match();
-            - start_game();
-            - receive_start();
-            - send_move();
+            - start_match(); OK!
+            - start_game(); OK!
+            - receive_start(); OK!
+            - send_move(); OK!
             - receive_move();
         
         * BoardCanvas
@@ -53,4 +53,4 @@ Código:
             OK!
         
         * InterfaceUpdater
-            - TODOS os métodos
+            - TODOS os métodos OK!
