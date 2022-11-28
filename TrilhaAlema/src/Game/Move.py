@@ -71,12 +71,14 @@ class Move:
 			move_dict['start_position'] = (0, 0)
 
 		if self.__removed_pieces_positions != []:
+			print(self.__removed_pieces_positions)
 			move_dict['removed_pieces_positions_list'] = [position.matrix_position for position in self.__removed_pieces_positions]
 		else:
 			move_dict['removed_pieces_positions_list'] = [(0, 0)]
-  
+
 		move_dict['player_who_does_the_move'] = self.__player_who_does_the_move
 
+		print(move_dict)
 		return move_dict
 
 	def set_move_none(self):
@@ -94,5 +96,6 @@ class Move:
 		self.__moinhos = moinhos
 		self.__final_position = final_position
 		self.__start_position = start_position
-		self.__removed_pieces_positions.append(removed_piece_position)
+		if removed_piece_position is not None:
+			self.__removed_pieces_positions.append(removed_piece_position)
 		self.__player_who_does_the_move = player_who_does_the_move
