@@ -1,6 +1,6 @@
 
 class Player:
-	def __init__(self, id: int, name: str, turn: bool, style: str) -> None:
+	def __init__(self, id: int, name: str, turn: bool, team: str) -> None:
 		self.__player_id: int = id
 		self.__name: str = name
 		self.__winner: bool = False
@@ -8,7 +8,7 @@ class Player:
 		self.__pieces_on_board: int = 0
 		self.__removed_pieces: int = 0
 		self.__turn: bool = turn
-		self.__style: str = style
+		self.team: str = team
 
 	@property
 	def player_id(self) -> int:
@@ -49,7 +49,7 @@ class Player:
 	@property
 	def removed_pieces(self) -> int:
 		return self.__removed_pieces
-	
+
 	@removed_pieces.setter
 	def removed_pieces(self, pieces_removed_number: int) -> None:
 		self.__removed_pieces = pieces_removed_number
@@ -64,7 +64,7 @@ class Player:
 
 	@property
 	def style(self) -> str:
-		return self.__style
+		return self.team
 
 	def change_turn(self) -> None:
 		self.__turn = not self.__turn
@@ -77,7 +77,7 @@ class Player:
 		self.__pieces_on_board: int = None
 		self.__removed_pieces: int = None
 		self.__turn: bool = None
-		self.__style: str = None
+		self.team: str = None
 
 	def initialize(self, id: int, name: str, style: str) -> None:
 		self.__init__(self, id, name, style)
