@@ -10,6 +10,7 @@ class Move:
 		self.__start_position: AbstractPosition = None
 		self.__removed_pieces_positions: list[tuple[int, int]] = []
 		self.__player_who_does_the_move: int = None
+		self.__match_status = None
 
 	@property
 	def type(self) -> str:
@@ -77,6 +78,7 @@ class Move:
 			move_dict['removed_pieces_positions_list'] = [(0, 0)]
 
 		move_dict['player_who_does_the_move'] = self.__player_who_does_the_move
+		move_dict["match_status"] = self.__match_status
 
 		print(move_dict)
 		return move_dict
@@ -88,10 +90,11 @@ class Move:
 		self.__start_position = None
 		self.__removed_pieces_positions = []
 		self.__player_who_does_the_move = None
+		self.__match_status = None
 
 	def set_move(self, type_of_move: str, player_who_does_the_move: int, moinhos: int = 0,
 				final_position: tuple[int, int] = None, start_position: tuple[int, int] = None,
-				removed_piece_position: tuple[int, int] = None):
+				removed_piece_position: tuple[int, int] = None, match_status: str = "next") -> None:
 		self.__type = type_of_move
 		self.__moinhos = moinhos
 		self.__final_position = final_position
@@ -99,3 +102,4 @@ class Move:
 		if removed_piece_position is not None:
 			self.__removed_pieces_positions.append(removed_piece_position)
 		self.__player_who_does_the_move = player_who_does_the_move
+		self.__match_status = match_status

@@ -401,7 +401,7 @@ class Board:
 			accepts_draw: bool = self.__player_interface.ask_user_accepts_draw() # MUDAR NOME NA MODELAGEM
 
 			if accepts_draw:
-				self.__move.set_move("accept_draw", self.__local_player.player_id)
+				self.__move.set_move("accept_draw", self.__local_player.player_id, "finished")
 				move_dict = self.__move.get_move_dict()
 				self.__player_interface.send_move(move_dict)
 			else:
@@ -463,12 +463,12 @@ class Board:
 		piece_put_on_position: AbstractPiece = self.__selected_position.piece
   
 		if num_of_moinhos == 0:
-			self.evaluate_winner()
 			self.finish_turn()
 			piece_put_on_position.in_moinho: bool = False
 			self.__move.moinho: int = num_of_moinhos
 			move_dict = self.__move.get_move_dict()
 			self.__player_interface.send_move(move_dict)
+			self.evaluate_winner()
 			self.__selected_piece = None
 			self.__selected_position = None
 
