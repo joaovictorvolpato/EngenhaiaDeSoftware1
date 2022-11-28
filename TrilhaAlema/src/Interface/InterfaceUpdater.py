@@ -67,6 +67,6 @@ class InterfaceUpdater:
 		game_phase = player_interface.game.board.game_phase
 
 		if game_phase == "placing":
-			board_canvas.game_phase_text = "Place your pieces on the board!"
+			board_canvas.game_phase_text = "You must select a position to place a piece!"
 		elif game_phase == "moving":
-			board_canvas.game_phase_text = "Move your pieces across the board!"
+			board_canvas.game_phase_text = "You must select a piece to move!"
