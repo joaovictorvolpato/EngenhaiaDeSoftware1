@@ -275,7 +275,7 @@ class Board:
 			self.__move.set_move("propose_draw", self.__local_player.player_id)
 			self.__player_interface.send_move(self.__move)
 			self.finish_turn()
-			self.__player_interface.update_interface_image()
+			#self.__player_interface.update_interface_image()
 		else:
 			pass
 
@@ -429,8 +429,6 @@ class Board:
 		owner_player_of_piece.increment_pieces_on_board() # Alterar modelagem
 
 		self.__selected_position.place_piece(piece_put)
-
-		self.__player_interface.update_interface_image()
 	
 	# Só entra aqui em movimentação
 	def execute_move_piece(self) -> None: # Alterar modelagem
@@ -441,7 +439,7 @@ class Board:
 		origin_position.remove_piece()
 		destiny_position.place_piece(piece_to_move)
 
-		self.__player_interface.update_interface_image()
+		#self.__player_interface.update_interface_image()
 
 	# Só entra aqui em remoção de peca
 	def execute_remove_piece(self, position_to_remove_piece: AbstractPosition, player_who_removed_piece: AbstractPlayer) -> None: # Alterar modelagem
@@ -453,7 +451,7 @@ class Board:
 		player_who_removed_piece.increment_removed_pieces()
 		position_to_remove_piece.remove_piece()
 
-		self.__player_interface.update_interface_image()
+		#self.__player_interface.update_interface_image()
 
 	def evaluate_moinho(self) -> None:
 		num_of_moinhos: int = self.get_num_of_moinhos(self.__selected_position)
@@ -480,7 +478,7 @@ class Board:
   
 		moinhos_count = 0
 		for connection in position_connections:
-			positions_in_connection = connection.positions
+			positions_in_connection = connection.positions_list
 
 			same_player = 0
 			for position in positions_in_connection:
@@ -523,15 +521,16 @@ class Board:
 		blocked_pieces_count: int = 0
 		player_pieces_number: int = player.pieces_on_board
 
-		for position in self.__position_matrix:
-			if (position is not None) and (position.player_on_pos == player):
-				position_neighborhood: list[AbstractPosition] = position.neighborhood
-				occupied_neighbors = 0
-				for neighbor in position_neighborhood:
-					if neighbor.is_occupied:
-						occupied_neighbors += 1
-				if occupied_neighbors == len(position_neighborhood):
-					blocked_pieces_count += 1
+		for line in self.__position_matrix:
+			for position in line:
+				if (position is not None) and (position.player_on_pos == player):
+					position_neighborhood: list[AbstractPosition] = position.neighborhood
+					occupied_neighbors = 0
+					for neighbor in position_neighborhood:
+						if neighbor.is_occupied:
+							occupied_neighbors += 1
+					if occupied_neighbors == len(position_neighborhood):
+						blocked_pieces_count += 1
 		
 		is_player_blocked = (player_pieces_number == blocked_pieces_count)
 		return is_player_blocked
