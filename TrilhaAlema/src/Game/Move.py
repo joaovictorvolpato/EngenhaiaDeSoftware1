@@ -69,7 +69,6 @@ class Move:
 		move_dict['player_who_does_the_move'] = self.__player_who_does_the_move
 		move_dict["match_status"] = self.__match_status
 
-		print(move_dict)
 		return move_dict
 
 	def set_move_none(self):
@@ -80,8 +79,6 @@ class Move:
 		self.__player_who_does_the_move = None
 		self.__match_status = None
   
-		print(self.removed_pieces_positions_list)
-
 	def set_move(self, type_of_move: str, player_who_does_the_move: int,
 				final_position: tuple[int, int] = None, start_position: tuple[int, int] = None,
 				removed_pieces_positions_list: list[tuple[int, int]] = [], match_status: str = "next") -> None:

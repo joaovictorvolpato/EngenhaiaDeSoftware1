@@ -293,7 +293,6 @@ class Board:
 					self.move_piece()
 
 			if moinhos > 0:
-				print("moinhos remaining",self.__moinhos)
 				piece_to_remove = position.piece
 				piece_was_removed = self.remove_piece(self.__moinhos, piece_to_remove)
 				if piece_was_removed:
@@ -343,7 +342,6 @@ class Board:
 				move_type = self.__game.move.type
 				if move_type == "place_piece" or move_type == "place_piece_and_remove_piece":
 					self.__removed_pieces_positions.append(list(piece_to_remove.position.matrix_position))
-					print("appended", piece_to_remove.position.matrix_position)
 					self.__game.move.set_move("place_piece_and_remove_piece", self.__local_player.player_id, final_position=self.__selected_position, 
 										removed_pieces_positions_list = self.__removed_pieces_positions)
 				elif move_type == "move_piece" or move_type == "move_piece_and_remove_piece":
@@ -351,16 +349,15 @@ class Board:
 					self.__game.move.set_move("move_piece_and_remove_piece", self.__local_player.player_id, start_position=self.__selected_piece.position, final_position=self.__selected_position, 
 										removed_pieces_positions_list = self.__removed_pieces_positions)
 
-				if num_of_moinhos == 1:
+				if num_of_moinhos == 1 or self.__remote_player.pieces_on_board == 0:
 					move_dict = self.__game.move.get_move_dict()
 					self.__player_interface.send_move(move_dict)
 					self.__selected_position = None
 					self.__selected_piece = None
 					self.__removed_pieces_positions = []
-					self.evaluate_winner()
 					self.finish_turn()
 					self.__player_interface.update_interface_image()
-				
+
 				return True
 
 			else:
