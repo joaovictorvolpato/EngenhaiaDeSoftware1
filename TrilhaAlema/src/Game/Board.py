@@ -22,6 +22,8 @@ class Board:
 		self.__draw: bool = False
 		self.__game_phase: str = ""
 		self.__game:AbstractGame = game_ref
+		self.__removed_pieces_positions: list = []
+		self.__moinhos: int = 0
 
 	@property
 	def player_interface(self) -> AbstractPlayerInterface:
@@ -252,7 +254,6 @@ class Board:
 		return tuple_with_changes
 
 	def clicked_propose_draw(self) -> None:
-		print("Clicked on propose draw button.")
 		is_turn: bool = self.__local_player.turn
 		if is_turn:
 			# self.propose_draw() RETIRAR DO CODIGO E DA MODELAGEM
@@ -272,12 +273,13 @@ class Board:
 			game_phase: str = self.__game_phase
 			position : AbstractPosition = self.__position_matrix[line][column]
 			occupied: bool = position.is_occupied
-			moinhos: int = self.__game.move.moinhos
-			if game_phase == "placing" and not occupied and not moinhos:
+			moinhos = self.__moinhos
+
+			if game_phase == "placing" and not occupied and not self.__moinhos:
 				self.__selected_position = position
 				self.place_piece()
 
-			if game_phase == "moving" and not moinhos:
+			if game_phase == "moving" and not self.__moinhos:
 				if self.__selected_piece == None and occupied:
 					if position.piece.owner_player.player_id == self.__local_player.player_id:
 						self.__selected_piece = position.piece
@@ -290,19 +292,20 @@ class Board:
 					self.__selected_position = position
 					self.move_piece()
 
-			if moinhos:
-				self.__selected_piece = position.piece
-				self.remove_piece()
-				self.__game.move.moinhos -= 1
-				self.__player_interface.notify_player(f"You can remove more {moinhos} pieces.")
+			if moinhos > 0:
+				print("moinhos remaining",self.__moinhos)
+				piece_to_remove = position.piece
+				piece_was_removed = self.remove_piece(self.__moinhos, piece_to_remove)
+				if piece_was_removed:
+					self.__moinhos -= 1
+				if self.__moinhos > 0:	
+					self.__player_interface.notify_player(f"You can remove more {self.__moinhos} pieces.")
 
 	def place_piece(self) -> None: # Atualizar modelagem
 		self.__game.move.set_move_none()
 		self.__game.move.set_move("place_piece", self.__local_player.player_id, final_position = self.__selected_position)
-		piece_to_place = Piece(self.__local_player)
+		piece_to_place = Piece(self.__local_player, self.__selected_position)
 		self.execute_place_piece(piece_to_place)
-		if self.__local_player.pieces_in_hand == 0:
-			self.set_game_phase("moving")
 
 		self.evaluate_moinho()
 
@@ -323,11 +326,12 @@ class Board:
 			else:
 				self.__player_interface.notify_player("You're clicking on a occupied position.")
 
-	def remove_piece(self, num_of_moinhos: int) -> None: # ALTERAR MODELAGEM
-		piece_to_remove: AbstractPiece = self.__selected_piece
-		piece_owner: AbstractPlayer = piece_to_remove.owner_player
+	def remove_piece(self, num_of_moinhos: int, piece_to_remove: AbstractPiece) -> bool: # ALTERAR MODELAGEM
+		if piece_to_remove.position.is_occupied == False:
+			self.__player_interface.notify_player("Choose a piece to remove.")
+			return False
 
-		if piece_owner == self.__remote_player:
+		if piece_to_remove.owner_player == self.__remote_player:
 			in_moinho = piece_to_remove.in_moinho
 			if in_moinho:
 				can_remove: bool = (self.__remote_player.pieces_on_board == 3)
@@ -335,40 +339,56 @@ class Board:
 				can_remove: bool = True
 
 			if can_remove:
-				self.execute_remove_piece(self.__selected_piece.position, self.__remote_player)	
+				self.execute_remove_piece(piece_to_remove.position, self.__remote_player)	
 				move_type = self.__game.move.type
-				if move_type == "place_piece":
-					self.__game.move.set_move("place_piece_and_remove_piece", self.__local_player.player_id, num_of_moinhos,
-										removed_piece_position = piece_to_remove.position)
-				elif move_type == "move_piece":
-					self.__game.move.set_move("move_piece_and_remove_piece", self.__local_player.player_id, num_of_moinhos,
-										removed_piece_position = piece_to_remove.position)
+				if move_type == "place_piece" or move_type == "place_piece_and_remove_piece":
+					self.__removed_pieces_positions.append(list(piece_to_remove.position.matrix_position))
+					print("appended", piece_to_remove.position.matrix_position)
+					self.__game.move.set_move("place_piece_and_remove_piece", self.__local_player.player_id, final_position=self.__selected_position, 
+										removed_pieces_positions_list = self.__removed_pieces_positions)
+				elif move_type == "move_piece" or move_type == "move_piece_and_remove_piece":
+					self.__removed_pieces_positions.append(list(piece_to_remove.position.matrix_position))
+					self.__game.move.set_move("move_piece_and_remove_piece", self.__local_player.player_id, start_position=self.__selected_piece.position, final_position=self.__selected_position, 
+										removed_pieces_positions_list = self.__removed_pieces_positions)
 
 				if num_of_moinhos == 1:
 					move_dict = self.__game.move.get_move_dict()
 					self.__player_interface.send_move(move_dict)
-					self.__selected_piece = None
 					self.__selected_position = None
+					self.__selected_piece = None
+					self.__removed_pieces_positions = []
 					self.evaluate_winner()
 					self.finish_turn()
+					self.__player_interface.update_interface_image()
+				
+				return True
+
 			else:
 				self.__player_interface.notify_player("You can't remove a piece that's part of a moinho.")
+				return False
+
 		else:
 			self.__player_interface.notify_player("You can't remove your own piece.")
+			return False
 
 	def execute_received_move(self) -> None:
 		move_type = self.__game.move.type
 
 		if move_type == "place_piece":
 			self.__selected_position = self.__game.move.final_position
-			self.execute_place_piece(self.self.__selected_position.piece)
+			piece_to_place = Piece(self.__remote_player, self.__selected_position)
+			self.execute_place_piece(piece_to_place)
 
 		elif move_type == "move_piece":
+			self.__selected_piece = self.__game.move.start_position.piece
+			self.__selected_position = self.__game.move.final_position
 			self.execute_move_piece()
 
 		elif move_type == "place_piece_and_remove_piece":
 			self.__selected_position = self.__game.move.final_position
-			self.execute_place_piece(self.__selected_position.piece)
+			piece_to_place = Piece(self.__remote_player, self.__selected_position)
+			self.execute_place_piece(piece_to_place)
+			self.__player_interface.notify_player("Your opponent has done moinho(s). One or more of your pieces are going to be removed.")
 			for position_to_remove in self.__game.move.removed_pieces_positions:
 				self.execute_remove_piece(position_to_remove, self.__local_player)
 
@@ -376,6 +396,7 @@ class Board:
 			self.__selected_piece = self.__game.move.start_position.piece
 			self.__selected_position = self.__game.move.final_position
 			self.execute_move_piece()
+			self.__player_interface.notify_player("Your opponent has done moinho(s). One or more of your pieces are going to be removed.")
 			for position_to_remove in self.__game.move.removed_pieces_positions:
 				self.execute_remove_piece(position_to_remove, self.__local_player)
 
@@ -392,16 +413,22 @@ class Board:
 				self.__game.move.set_move("decline_draw", self.__local_player.player_id)
 				move_dict = self.__game.move.get_move_dict()
 				self.__player_interface.send_move(move_dict)
+				return
 
 		elif move_type == "accept_draw":
 			self.set_draw()
 
 		elif move_type == "decline_draw":
 			self.restart_move()
+			self.finish_turn()
+			self.__player_interface.notify_player("Your opponent declined the draw. Keep playing.")
+			self.__player_interface.update_interface_image()
+			return
 
 		self.evaluate_winner()
 		self.__player_interface.notify_player("IT'S YOUR TURN.")
 		self.finish_turn()
+		self.__player_interface.update_interface_image()
 
 	def set_draw(self) -> None:
 		self.__draw = True
@@ -415,7 +442,13 @@ class Board:
 		owner_player_of_piece.decrement_pieces_in_hand() # Alterar modelagem
 		owner_player_of_piece.increment_pieces_on_board() # Alterar modelagem
 
-		self.__selected_position.place_piece(self.__selected_piece)
+		self.__selected_position.place_piece(piece)
+
+		if self.__local_player.pieces_in_hand == 0:
+			print("Changing game phase to moving")
+			self.set_game_phase("moving")
+
+		self.__player_interface.update_interface_image()
 
 	def execute_move_piece(self) -> None: # Alterar modelagem
 		piece_to_move = self.__selected_piece
@@ -440,22 +473,20 @@ class Board:
 
 	def evaluate_moinho(self) -> None:
 		num_of_moinhos: int = self.get_num_of_moinhos(self.__selected_position)
-		self.__game.move.moinhos = num_of_moinhos
+		self.__moinhos = num_of_moinhos
 		piece_put_on_position: AbstractPiece = self.__selected_position.piece
 
 		if num_of_moinhos == 0:
 			self.finish_turn()
 			piece_put_on_position.in_moinho: bool = False
-			self.__game.move.moinho: int = num_of_moinhos
 			move_dict = self.__game.move.get_move_dict()
 			self.__player_interface.send_move(move_dict)
-			self.evaluate_winner()
-			self.__selected_piece = None
 			self.__selected_position = None
+			self.__selected_piece = None
+			self.evaluate_winner()
+			self.__player_interface.update_interface_image()
 
 		elif num_of_moinhos > 0:
-			self.__selected_piece = None
-			self.__selected_position = None
 			self.__player_interface.notify_player(f"You have done {num_of_moinhos} moinho(s). Remove a opponent piece.")
 
 	def get_num_of_moinhos(self, selected_position: AbstractPosition) -> int:
@@ -495,7 +526,6 @@ class Board:
 		local_player_blocked: bool = self.verify_blocked(local_player)
 
 		if remote_player_blocked or not remote_player_has_sufficient_pieces: # Alterar diagrama de algoritmo
-			print(remote_player_blocked, remote_player_has_sufficient_pieces)
 			self.set_winner(local_player)
 			self.end_game()
 		elif local_player_blocked or not local_player_has_sufficient_pieces:
