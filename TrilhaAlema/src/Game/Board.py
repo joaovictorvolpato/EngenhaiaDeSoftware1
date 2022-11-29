@@ -429,7 +429,7 @@ class Board:
 			self.__player_interface.notify_player("Your opponent has done moinho(s). One or more of your pieces are going to be removed.")
 			for position_to_remove in self.__game.move.removed_pieces_positions_list:
 				print("POSITION TO REMOVE")
-				print(self.removed_pieces_positions_list)
+				print(self.__game.move.removed_pieces_positions_list)
 				print("!!!!!!!!!!!POSIRIONNNNNNNNNNNNNNNN!!!!!!!!!!!!!!!!!!")
 				self.execute_remove_piece(position_to_remove, self.__local_player)
 
