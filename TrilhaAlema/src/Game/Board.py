@@ -520,7 +520,7 @@ class Board:
 			self.__player_interface.update_interface_image()
 
 		elif num_of_moinhos > 0:
-			self.selected_position.piece.in_moinho = True
+			self.__selected_position.piece.in_moinho = True
 			self.__player_interface.notify_player(f"You have done {num_of_moinhos} moinho(s). Remove a opponent piece.")
 
 	def finish_turn(self) -> None:
