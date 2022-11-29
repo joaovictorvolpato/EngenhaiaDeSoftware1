@@ -99,6 +99,7 @@ class Move:
 
 	@staticmethod
 	def rebuild_remote_move(move_dict: dict, position_matrix: list[AbstractPosition]) -> 'Move':
+		print(move_dict)
 		move = Move()
 		move.type = move_dict['type']
 		move.final_position = position_matrix[move_dict['final_position'][0]][move_dict['final_position'][1]]

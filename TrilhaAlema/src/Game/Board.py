@@ -393,32 +393,37 @@ class Board:
 
 	def execute_received_move(self) -> None:
 		move_type = self.__game.move.type
-
+	
 		if move_type == "place_piece":
 			self.__selected_position = self.__game.move.final_position
 			piece_to_place = Piece(self.__remote_player, self.__selected_position)
 			self.execute_place_piece(piece_to_place)
+			num_of_moinhos = self.__selected_position.get_num_of_moinhos_is_in()
+			if num_of_moinhos > 0:
+				piece_to_place.set_in_moinho_when_piece_changes_pos(True, self.__remote_player)
 
 		elif move_type == "move_piece":
 			print(self.__game.move.start_position.matrix_position)
 			self.__selected_piece = self.__game.move.start_position.piece
 			self.__selected_position = self.__game.move.final_position
 			self.execute_move_piece()
+			num_of_moinhos = self.__selected_position.get_num_of_moinhos_is_in()
+			if num_of_moinhos > 0:
+				piece_to_place.set_in_moinho_when_piece_changes_pos(True, self.__remote_player)
 
 		elif move_type == "place_piece_and_remove_piece":
 			self.__selected_position = self.__game.move.final_position
 			piece_to_place = Piece(self.__remote_player, self.__selected_position)
 			self.execute_place_piece(piece_to_place)
-			self.__player_interface.notify_player("Your opponent has done moinho(s). One or more of your pieces are going to be removed.")
 			num_of_moinhos = self.__selected_position.get_num_of_moinhos_is_in()
 			if num_of_moinhos > 0:
 				piece_to_place.set_in_moinho_when_piece_changes_pos(True, self.__remote_player)
+			self.__player_interface.notify_player("Your opponent has done moinho(s). One or more of your pieces are going to be removed.")
 			for position_to_remove in self.__game.move.removed_pieces_positions:
 				self.execute_remove_piece(position_to_remove, self.__local_player)
 
 		elif move_type == "move_piece_and_remove_piece":
 			print(self.__game.move.start_position.matrix_position)
-			print()
 			self.__selected_piece = self.__game.move.start_position.piece
 			self.__selected_position = self.__game.move.final_position
 			self.execute_move_piece()

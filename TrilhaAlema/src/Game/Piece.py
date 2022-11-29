@@ -59,8 +59,6 @@ class Piece():
 
 		elif moinho and player != None:
 			for connection in position_piece_is_on.connections:
-				print(position_piece_is_on)
-				print(connection)
 				is_moinho = connection.is_moinho(player)
 				if is_moinho:
 					connection.set_positions_in_moinho(True)
