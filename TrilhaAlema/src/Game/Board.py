@@ -338,7 +338,7 @@ class Board:
 			if not in_moinho:
 				can_remove = True
 			else:
-				can_remove = (self.__remote_player.pieces_on_board == 3 and self.game_phase == "moving")
+				can_remove = (self.__remote_player.pieces_on_board == 3)
 
 			if can_remove:
 				self.execute_remove_piece(piece_to_remove.position, self.__remote_player)	
@@ -472,6 +472,7 @@ class Board:
 		self.__player_interface.update_interface_image()
 
 	def execute_move_piece(self) -> None: # Alterar modelagem
+		"""
 		piece_to_move = self.__selected_piece
 		origin_position = piece_to_move.position
 		destiny_position = self.__selected_position
@@ -479,6 +480,12 @@ class Board:
 
 		origin_position.remove_piece()
 		destiny_position.place_piece(piece_to_move)
+
+		self.__player_interface.update_interface_image()
+		"""
+		self.__selected_piece.in_moinho = False
+		self.__selected_piece.position.remove_piece()
+		self.__selected_position.place_piece(self.__selected_piece)
 
 		self.__player_interface.update_interface_image()
 
