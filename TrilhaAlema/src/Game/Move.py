@@ -105,10 +105,10 @@ class Move:
 		move.final_position = position_matrix[move_dict['final_position'][0]][move_dict['final_position'][1]]
 		move.start_position = position_matrix[move_dict['start_position'][0]][move_dict['start_position'][1]]
 
-		move.removed_pieces_positions = []
+		move.removed_pieces_positions_list = []
 		for position in move_dict['removed_pieces_positions_list']:
 			removed_piece_position = position_matrix[position[0]][position[1]]
-			move.removed_pieces_positions.append(removed_piece_position)
+			move.removed_pieces_positions_list.append(removed_piece_position)
 
 		move.player_who_does_the_move = move_dict['player_who_does_the_move']
 		move.__match_status = move_dict["match_status"]
