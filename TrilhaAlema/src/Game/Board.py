@@ -477,18 +477,12 @@ class Board:
 		self.__player_interface.update_interface_image()
 
 	def execute_move_piece(self) -> None: # Alterar modelagem
-		"""
-		piece_to_move = self.__selected_piece
-		origin_position = piece_to_move.position
-		destiny_position = self.__selected_position
 		self.__selected_piece.in_moinho = False
+		for connection in self.__selected_piece.position.connections:
+			for position in connection:
+				if position.piece:
+					position.piece.in_moinho = False
 
-		origin_position.remove_piece()
-		destiny_position.place_piece(piece_to_move)
-
-		self.__player_interface.update_interface_image()
-		"""
-		self.__selected_piece.in_moinho = False
 		self.__selected_piece.position.remove_piece()
 		self.__selected_position.place_piece(self.__selected_piece)
 
