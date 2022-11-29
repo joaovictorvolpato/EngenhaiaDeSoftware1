@@ -423,6 +423,8 @@ class Board:
 				print('!!!!!!!!!!!!!!!!!!!!!')
 				print(piece_to_place)
 				print(piece_to_place.position.matrix_position)
+				print(piece_to_place.position.piece)
+				print(piece_to_place.position.connections)
 				print("!!!!!!!!!!!!!!!!")
 				piece_to_place.set_in_moinho_when_piece_changes_pos(True, self.__remote_player)
 			self.__player_interface.notify_player("Your opponent has done moinho(s). One or more of your pieces are going to be removed.")
