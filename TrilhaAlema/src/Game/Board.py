@@ -479,7 +479,7 @@ class Board:
 	def execute_move_piece(self) -> None: # Alterar modelagem
 		self.__selected_piece.in_moinho = False
 		for connection in self.__selected_piece.position.connections:
-			for position in connection:
+			for position in connection.positions_list:
 				if position.piece:
 					position.piece.in_moinho = False
 
