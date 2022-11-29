@@ -240,7 +240,7 @@ class Board:
 						occupied_positions_list.append((position.is_occupied, 0))
 
 		return occupied_positions_list
-	
+
 	def get_interface_changes(self) -> tuple[list[tuple[bool, int]], int, int, int, int]:
 		positions_to_update = self.verify_occupied_positions_in_matrix()
 		pieces_in_local_player_hand_to_uptdade = self.__local_player.pieces_in_hand
@@ -448,6 +448,7 @@ class Board:
 		self.finish_turn()
 		self.__selected_piece = None
 		self.__selected_position = None
+		self.__removed_pieces_positions = []
 		self.__player_interface.update_interface_image()
 
 	def set_draw(self) -> None:
