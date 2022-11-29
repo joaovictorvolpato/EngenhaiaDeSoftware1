@@ -82,3 +82,16 @@ class Position:
 
 	def set_is_occupied(self) -> None:
 		self.__is_occupied = True
+
+	def get_num_of_moinhos_is_in(self) -> int:
+		position_connections: list[AbstractConnection] = self.connections
+		player_on_selected_position: AbstractPlayer = self.player_on_pos
+
+		moinhos_count = 0
+		for connection in position_connections:
+			is_moinho = connection.is_moinho(player_on_selected_position)
+			if is_moinho:
+				connection.is_moinho = True
+				moinhos_count += 1
+
+		return moinhos_count

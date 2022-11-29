@@ -2,7 +2,6 @@ from Abstractions.AbstractMove import AbstractMove
 from Abstractions.AbstractPlayer import AbstractPlayer
 from Abstractions.AbstractPosition import AbstractPosition
 
-
 class Piece():
 	def __init__(self, owner_player: AbstractPlayer, position: AbstractPosition) -> None:
 		self.__owner_player: AbstractPlayer = owner_player
@@ -41,8 +40,28 @@ class Piece():
 		return self.__in_moinho
 
 	@in_moinho.setter
-	def in_moinho(self, in_moinho_value: bool):
-		self.__in_moinho = in_moinho_value
+	def in_moinho(self, in_moinho: bool):
+		self.__in_moinho = in_moinho
+
+	def set_in_moinho_when_piece_changes_pos(self, moinho: bool, player: AbstractPlayer = None) -> None:
+		position_piece_is_on = self.__position
+		if not moinho:
+			self.__in_moinho = False
+			owner_player = self.__owner_player
+			self.__owner_player = 0
+			for connection in position_piece_is_on.connections:
+				for position in connection.positions_list:
+					if position.get_num_of_moinhos_is_in() == 0:
+						position.piece.in_moinho = False
+					else:
+						connection.set_positions_in_moinho(True)
+			self.__owner_player = owner_player
+
+		elif moinho and player != None:
+			for connection in position_piece_is_on.connections:
+				is_moinho = connection.is_moinho(player)
+				if is_moinho:
+					connection.set_positions_in_moinho(True)
 
 	@property
 	def move(self) -> AbstractMove:

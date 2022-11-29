@@ -316,14 +316,13 @@ class Board:
 	def move_piece(self) -> None:
 		piece_to_move = self.__selected_piece
 		piece_owner = piece_to_move.owner_player
+		destiny_position = self.__selected_position
 		print("PIECE POSITION: ", piece_to_move.position.matrix_position)
 		print("DESTINY POSITION: ", self.__selected_position.matrix_position)
 		self.__game.move.set_move_none()
-		self.__game.move.original_selected_piece_position = self.__selected_piece.position
-		self.__game.move.original_selected_position = self.__selected_position
 		if (self.__selected_position in piece_to_move.position.neighborhood) or piece_owner.can_do_fly(): # Alterar modelagem
-			self.__game.move.set_move("move_piece", self.__local_player.player_id, final_position = self.__game.move.original_selected_position, 
-								start_position = self.__game.move.original_selected_piece_position)
+			self.__game.move.set_move("move_piece", self.__local_player.player_id, final_position = destiny_position, 
+								start_position = piece_to_move.position)
 			self.execute_move_piece()
 			self.evaluate_moinho()
 		else:
@@ -336,6 +335,7 @@ class Board:
 
 		if piece_to_remove.owner_player == self.__remote_player:
 			in_moinho = piece_to_remove.in_moinho
+   
 			can_remove: bool = False
 			if not in_moinho:
 				can_remove = True
@@ -351,7 +351,7 @@ class Board:
 										removed_pieces_positions_list = self.__removed_pieces_positions)
 				elif move_type == "move_piece" or move_type == "move_piece_and_remove_piece":
 					self.__removed_pieces_positions.append(list(piece_to_remove.position.matrix_position))
-					self.__game.move.set_move("move_piece_and_remove_piece", self.__local_player.player_id, start_position=self.__game.move.original_selected_piece_position, final_position=self.__game.move.original_selected_position, 
+					self.__game.move.set_move("move_piece_and_remove_piece", self.__local_player.player_id, start_position=self.__game.move.start_position, final_position=self.__game.move.final_position, 
 										removed_pieces_positions_list = self.__removed_pieces_positions)
 
 				if num_of_moinhos == 1 or self.__remote_player.pieces_on_board == 0:
@@ -362,7 +362,7 @@ class Board:
 
 				return True
 
-			else:
+			else: #Can't remove
 				self.__player_interface.notify_player("You can't remove a piece that's part of a moinho.")
 				if self.all_pieces_in_moinho(self.__remote_player):
 					self.__moinhos = 0
@@ -374,7 +374,7 @@ class Board:
 
 				return False
 
-		else:
+		else: #Isn't local player's piece
 			self.__player_interface.notify_player("You can't remove your own piece.")
 			return False
 
@@ -409,7 +409,9 @@ class Board:
 			piece_to_place = Piece(self.__remote_player, self.__selected_position)
 			self.execute_place_piece(piece_to_place)
 			self.__player_interface.notify_player("Your opponent has done moinho(s). One or more of your pieces are going to be removed.")
-			num_of_moinhos = self.get_num_of_moinhos(self.__selected_position)
+			num_of_moinhos = self.__selected_position.get_num_of_moinhos_is_in()
+			if num_of_moinhos > 0:
+				piece_to_place.set_in_moinho_when_piece_changes_pos(True, self.__remote_player)
 			for position_to_remove in self.__game.move.removed_pieces_positions:
 				self.execute_remove_piece(position_to_remove, self.__local_player)
 
@@ -420,7 +422,9 @@ class Board:
 			self.__selected_position = self.__game.move.final_position
 			self.execute_move_piece()
 			self.__player_interface.notify_player("Your opponent has done moinho(s). One or more of your pieces are going to be removed.")
-			num_of_moinhos = self.get_num_of_moinhos(self.__selected_position)
+			num_of_moinhos = self.__selected_position.get_num_of_moinhos_is_in()
+			if num_of_moinhos > 0:
+				self.__selected_piece.set_in_moinho_when_piece_changes_pos(True, self.__remote_player)
 			for position_to_remove in self.__game.move.removed_pieces_positions:
 				self.execute_remove_piece(position_to_remove, self.__local_player)
 
@@ -477,21 +481,9 @@ class Board:
 		self.__player_interface.update_interface_image()
 
 	def execute_move_piece(self) -> None: # Alterar modelagem
-		"""
-		piece_to_move = self.__selected_piece
-		origin_position = piece_to_move.position
-		destiny_position = self.__selected_position
-		self.__selected_piece.in_moinho = False
-
-		origin_position.remove_piece()
-		destiny_position.place_piece(piece_to_move)
-
-		self.__player_interface.update_interface_image()
-		"""
-		self.__selected_piece.in_moinho = False
+		self.__selected_piece.set_in_moinho_when_piece_changes_pos(False)
 		self.__selected_piece.position.remove_piece()
 		self.__selected_position.place_piece(self.__selected_piece)
-
 		self.__selected_piece.position = self.__selected_position
 
 		self.__player_interface.update_interface_image()
@@ -508,43 +500,21 @@ class Board:
 		self.__player_interface.update_interface_image()
 
 	def evaluate_moinho(self) -> None:
-		num_of_moinhos: int = self.get_num_of_moinhos(self.__selected_position)
+		num_of_moinhos: int = self.__selected_position.get_num_of_moinhos_is_in()
 		self.__moinhos = num_of_moinhos
 		piece_put_on_position: AbstractPiece = self.__selected_position.piece
 
 		if num_of_moinhos == 0:
 			self.finish_turn()
-			piece_put_on_position.in_moinho: bool = False
+			#piece_put_on_position.in_moinho: bool = False #teST IF CAN REMOVE THIS LINE
 			move_dict = self.__game.move.get_move_dict()
 			self.__player_interface.send_move(move_dict)
 			self.evaluate_winner()
 			self.__player_interface.update_interface_image()
 
 		elif num_of_moinhos > 0:
+			self.selected_position.piece.in_moinho = True
 			self.__player_interface.notify_player(f"You have done {num_of_moinhos} moinho(s). Remove a opponent piece.")
-
-	def get_num_of_moinhos(self, selected_position: AbstractPosition) -> int:
-		position_connections: list[AbstractConnection] = selected_position.connections
-		player_on_selected_position: AbstractPlayer = selected_position.player_on_pos
-
-		moinhos_count = 0
-		for connection in position_connections:
-			positions_in_connection = connection.positions_list
-
-			same_player = 0
-			for position in positions_in_connection:
-				if position.player_on_pos == player_on_selected_position:
-					same_player += 1
-
-			if same_player == 3:
-				for position in positions_in_connection:
-					print(position.matrix_position)
-					position.piece.in_moinho = True
-					print(position.piece)
-					print("IN MOINHO: ", position.piece.in_moinho)
-				moinhos_count += 1
-
-		return moinhos_count
 
 	def finish_turn(self) -> None:
 		self.__local_player.change_turn()

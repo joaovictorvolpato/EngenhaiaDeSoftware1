@@ -1,11 +1,10 @@
 from Abstractions.AbstractPosition import AbstractPosition
-
+from Abstractions.AbstractPlayer import AbstractPlayer
 
 class Connection():
 	def __init__(self, id: int, positions: list[AbstractPosition]):
 		self.__id = id
 		self.__positions_list = positions
-		self.__is_moinho = False
 
 	@property
 	def id(self) -> int:
@@ -15,16 +14,14 @@ class Connection():
 	def positions_list(self) -> list[AbstractPosition]:
 		return self.__positions_list
 
-	@property
-	def is_moinho(self) -> bool:
-		return self.__is_moinho
+	def is_moinho(self, player: AbstractPlayer) -> bool:
+		pieces_owned_by_player = 0
+		for position in self.__positions_in_connection:
+			if position.player_on_pos == player:
+				pieces_owned_by_player += 1
+    
+		return pieces_owned_by_player == 3
 
-	@is_moinho.setter
-	def is_moinho(self, moinho: bool) -> None:
-		self.__is_moinho = moinho
-
-	def set_is_moinho(self) -> None:
-		self.__is_moinho = True
-	
-	def set_is_not_moinho(self) -> None:
-		self.__is_moinho = False
+	def set_positions_in_moinho(self, is_moinho: bool) -> None:
+		for position in self.__positions_list:
+			position.piece.in_moinho = is_moinho
