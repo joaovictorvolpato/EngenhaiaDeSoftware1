@@ -592,6 +592,8 @@ class Board:
 						blocked_pieces_count += 1
 
 		is_player_blocked = (player_pieces_number == blocked_pieces_count)
+		if is_player_blocked:
+			print('WIN BY BLOCK.')
 		return is_player_blocked
 
 	def set_winner(self, winner_player: AbstractPlayer) -> None:
