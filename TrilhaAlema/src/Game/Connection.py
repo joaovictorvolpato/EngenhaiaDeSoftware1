@@ -14,7 +14,7 @@ class Connection():
 	def positions_list(self) -> list[AbstractPosition]:
 		return self.__positions_list
 
-	def is_moinho(self, player: AbstractPlayer) -> bool:
+	def is_moinho(self, player: AbstractPlayer):
 		pieces_owned_by_player = 0
 		for position in self.__positions_list:
 			if position.player_on_pos == player:
