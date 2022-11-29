@@ -16,7 +16,7 @@ class Connection():
 
 	def is_moinho(self, player: AbstractPlayer) -> bool:
 		pieces_owned_by_player = 0
-		for position in self.__positions_in_connection:
+		for position in self.__positions_list:
 			if position.player_on_pos == player:
 				pieces_owned_by_player += 1
     
