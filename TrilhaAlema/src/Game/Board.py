@@ -1,4 +1,3 @@
-from Abstractions.AbstractConnection import AbstractConnection
 from Abstractions.AbstractMove import AbstractMove
 from Abstractions.AbstractPiece import AbstractPiece
 from Abstractions.AbstractPlayer import AbstractPlayer

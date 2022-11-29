@@ -20,8 +20,10 @@ class Connection():
 			if position.player_on_pos == player:
 				pieces_owned_by_player += 1
 
-		return pieces_owned_by_player == 3
+		moinho_occured = pieces_owned_by_player == 3
 
-	def set_positions_in_moinho(self, is_moinho: bool) -> None:
+		return moinho_occured
+
+	def set_positions_in_moinho(self, moinho: bool) -> None:
 		for position in self.__positions_list:
-			position.piece.in_moinho = is_moinho
+			position.piece.in_moinho = moinho

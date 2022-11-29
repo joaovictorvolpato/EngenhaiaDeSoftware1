@@ -12,11 +12,6 @@ class AbstractConnection(ABC):
     def positions_list(self) -> list:
         pass
 
-    @property
-    @abstractmethod
-    def is_moinho(self) -> bool:
-        pass
-
     @abstractmethod
     def set_is_moinho(self) -> None:
         pass
