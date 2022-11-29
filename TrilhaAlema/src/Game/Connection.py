@@ -20,10 +20,7 @@ class Connection():
 			if position.player_on_pos == player:
 				pieces_owned_by_player += 1
 
-		if pieces_owned_by_player > 3:
-			return True
-		else:
-			False
+		return pieces_owned_by_player == 3
 
 	def set_positions_in_moinho(self, is_moinho: bool) -> None:
 		for position in self.__positions_list:
