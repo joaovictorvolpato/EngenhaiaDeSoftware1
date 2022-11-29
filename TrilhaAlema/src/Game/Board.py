@@ -319,9 +319,11 @@ class Board:
 		print("PIECE POSITION: ", piece_to_move.position.matrix_position)
 		print("DESTINY POSITION: ", self.__selected_position.matrix_position)
 		self.__game.move.set_move_none()
+		self.__game.move.original_selected_piece_position = self.__selected_piece.position
+		self.__game.move.original_selected_position = self.__selected_position
 		if (self.__selected_position in piece_to_move.position.neighborhood) or piece_owner.can_do_fly(): # Alterar modelagem
-			self.__game.move.set_move("move_piece", self.__local_player.player_id, final_position = self.__selected_position, 
-								start_position = self.__selected_piece.position)
+			self.__game.move.set_move("move_piece", self.__local_player.player_id, final_position = self.__game.move.original_selected_position, 
+								start_position = self.__game.move.original_selected_piece_position)
 			self.execute_move_piece()
 			self.evaluate_moinho()
 		else:
@@ -349,7 +351,7 @@ class Board:
 										removed_pieces_positions_list = self.__removed_pieces_positions)
 				elif move_type == "move_piece" or move_type == "move_piece_and_remove_piece":
 					self.__removed_pieces_positions.append(list(piece_to_remove.position.matrix_position))
-					self.__game.move.set_move("move_piece_and_remove_piece", self.__local_player.player_id, start_position=self.__selected_piece.position, final_position=self.__selected_position, 
+					self.__game.move.set_move("move_piece_and_remove_piece", self.__local_player.player_id, start_position=self.__game.move.original_selected_piece_position, final_position=self.__game.move.original_selected_position, 
 										removed_pieces_positions_list = self.__removed_pieces_positions)
 
 				if num_of_moinhos == 1 or self.__remote_player.pieces_on_board == 0:
@@ -491,7 +493,6 @@ class Board:
 		self.__selected_position.place_piece(self.__selected_piece)
 
 		self.__selected_piece.position = self.__selected_position
-		self.__selected_position.piece = self.__selected_piece
 
 		self.__player_interface.update_interface_image()
 

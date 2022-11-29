@@ -9,6 +9,8 @@ class Move:
 		self.__removed_pieces_positions_list: list[tuple[int, int]] = []
 		self.__player_who_does_the_move: int = None
 		self.__match_status = None
+		self.__original_selected_piece_position: AbstractPosition = None
+		self.__original_selected_position :AbstractPosition = None
 
 	@property
 	def type(self) -> str:
@@ -49,6 +51,22 @@ class Move:
 	@player_who_does_the_move.setter
 	def player_who_does_the_move(self, player_who_does_the_move: int) -> None:
 		self.__player_who_does_the_move = player_who_does_the_move
+
+	@property
+	def original_selected_piece_position(self) -> AbstractPiece:
+		return self.__original_selected_piece_position
+	
+	@original_selected_piece_position.setter
+	def original_selected_piece_position(self, original_selected_piece_position: AbstractPiece) -> None:
+		self.__original_selected_piece_position = original_selected_piece_position
+
+	@property
+	def original_selected_position(self) -> AbstractPosition:
+		return self.__original_selected_position
+
+	@original_selected_position.setter
+	def original_selected_position(self, original_selected_position: AbstractPosition) -> None:
+		self.__original_selected_position = original_selected_position
 
 	def get_move_dict(self) -> dict:
 		move_dict = {}
