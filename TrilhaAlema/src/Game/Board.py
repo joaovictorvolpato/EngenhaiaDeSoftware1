@@ -426,7 +426,7 @@ class Board:
 				print("!!!!!!!!!!!!!!!!")
 				piece_to_place.set_in_moinho_when_piece_changes_pos(True, self.__remote_player)
 			self.__player_interface.notify_player("Your opponent has done moinho(s). One or more of your pieces are going to be removed.")
-			for position_to_remove in self.__game.move.removed_pieces_positions:
+			for position_to_remove in self.__game.move.removed_pieces_positions_list:
 				self.execute_remove_piece(position_to_remove, self.__local_player)
 
 		elif move_type == "move_piece_and_remove_piece":
@@ -438,7 +438,7 @@ class Board:
 			num_of_moinhos = self.__selected_position.get_num_of_moinhos_is_in()
 			if num_of_moinhos > 0:
 				self.__selected_piece.set_in_moinho_when_piece_changes_pos(True, self.__remote_player)
-			for position_to_remove in self.__game.move.removed_pieces_positions:
+			for position_to_remove in self.__game.move.removed_pieces_positions_list:
 				self.execute_remove_piece(position_to_remove, self.__local_player)
 
 		elif move_type == "propose_draw":
