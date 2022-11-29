@@ -300,9 +300,10 @@ class Board:
 			elif moinhos > 0:
 				piece_to_remove = position.piece
 				piece_was_removed = self.remove_piece(self.__moinhos, piece_to_remove)
+				self.evaluate_winner()
 				if piece_was_removed:
 					self.__moinhos -= 1
-				if self.__moinhos > 0:	
+				if self.__moinhos > 0:
 					self.__player_interface.notify_player(f"You can remove more {self.__moinhos} pieces.")
 
 	def place_piece(self) -> None: # Atualizar modelagem
