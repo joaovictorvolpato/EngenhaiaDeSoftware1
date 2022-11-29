@@ -91,7 +91,7 @@ class Position:
 		for connection in position_connections:
 			is_moinho = connection.is_moinho(player_on_selected_position)
 			if is_moinho:
-				connection.is_moinho = True
+				#connection.is_moinho = True
 				moinhos_count += 1
 
 		return moinhos_count

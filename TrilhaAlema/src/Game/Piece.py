@@ -63,8 +63,8 @@ class Piece():
 
 		elif moinho and player != None:
 			for connection in self.__position.connections:
-				_is_moinho = connection.is_moinho(player)
-				if _is_moinho:
+				is_moinho = connection.is_moinho(player)
+				if is_moinho:
 					connection.set_positions_in_moinho(True)
 
 	@property
