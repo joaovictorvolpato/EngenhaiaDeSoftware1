@@ -393,6 +393,9 @@ class Board:
 
 	def execute_received_move(self) -> None:
 		move_type = self.__game.move.type
+		print("MOVEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE")
+		print(self.__game.move.removed_pieces_positions_list)
+		print("LISTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT")
 	
 		if move_type == "place_piece":
 			self.__selected_position = self.__game.move.final_position
@@ -417,6 +420,10 @@ class Board:
 			self.execute_place_piece(piece_to_place)
 			num_of_moinhos = self.__selected_position.get_num_of_moinhos_is_in()
 			if num_of_moinhos > 0:
+				print('!!!!!!!!!!!!!!!!!!!!!')
+				print(piece_to_place)
+				print(piece_to_place.position.matrix_position)
+				print("!!!!!!!!!!!!!!!!")
 				piece_to_place.set_in_moinho_when_piece_changes_pos(True, self.__remote_player)
 			self.__player_interface.notify_player("Your opponent has done moinho(s). One or more of your pieces are going to be removed.")
 			for position_to_remove in self.__game.move.removed_pieces_positions:
