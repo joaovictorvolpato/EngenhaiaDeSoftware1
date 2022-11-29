@@ -86,7 +86,7 @@ class Move:
 		self.__removed_pieces_positions_list = []
 		self.__player_who_does_the_move = None
 		self.__match_status = None
-  
+
 	def set_move(self, type_of_move: str, player_who_does_the_move: int,
 				final_position: tuple[int, int] = None, start_position: tuple[int, int] = None,
 				removed_pieces_positions_list: list[tuple[int, int]] = [], match_status: str = "next") -> None:
