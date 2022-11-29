@@ -316,7 +316,8 @@ class Board:
 	def move_piece(self) -> None:
 		piece_to_move = self.__selected_piece
 		piece_owner = piece_to_move.owner_player
-
+		print("PIECE POSITION: ", piece_to_move.position.matrix_position)
+		print("DESTINY POSITION: ", self.__selected_position.matrix_position)
 		self.__game.move.set_move_none()
 		if (self.__selected_position in piece_to_move.position.neighborhood) or piece_owner.can_do_fly(): # Alterar modelagem
 			self.__game.move.set_move("move_piece", self.__local_player.player_id, final_position = self.__selected_position, 
