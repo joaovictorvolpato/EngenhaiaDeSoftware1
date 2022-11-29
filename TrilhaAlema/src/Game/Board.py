@@ -482,6 +482,7 @@ class Board:
 		self.__player_interface.update_interface_image()
 
 	def execute_move_piece(self) -> None: # Alterar modelagem
+		print(self.__selected_piece, self.__selected_piece.position, "!!!!!!!!!!")
 		self.__selected_piece.set_in_moinho_when_piece_changes_pos(False)
 		self.__selected_piece.position.remove_piece()
 		self.__selected_position.place_piece(self.__selected_piece)
