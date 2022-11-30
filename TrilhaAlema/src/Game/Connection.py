@@ -17,7 +17,7 @@ class Connection():
 	def is_moinho(self, player: AbstractPlayer):
 		pieces_owned_by_player = 0
 		for position in self.__positions_list:
-			if position.player_on_pos == player:
+			if position.player_on_pos == player and player != None:
 				pieces_owned_by_player += 1
 
 		moinho_occured = pieces_owned_by_player == 3
@@ -27,3 +27,4 @@ class Connection():
 	def set_positions_in_moinho(self, moinho: bool) -> None:
 		for position in self.__positions_list:
 			position.piece.in_moinho = moinho
+			print(f"positions in moinho: {position.matrix_position}")

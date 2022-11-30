@@ -43,7 +43,7 @@ class Piece():
 	def in_moinho(self, in_moinho: bool):
 		self.__in_moinho = in_moinho
 
-	def set_in_moinho_when_piece_changes_pos(self, moinho: bool, player: AbstractPlayer = None) -> None:
+	def set_in_moinho_when_piece_changes_pos(self, moinho: bool, player: AbstractPlayer = None, opponent: AbstractPlayer = None) -> None:
 		print("IN CLASSSSSSSSSSSSSSSSSSSSSSSSSSSSSS")
 		print(self.__position)
 		print(self.__position.connections)
@@ -51,21 +51,24 @@ class Piece():
 
 		if not moinho:
 			self.__in_moinho = False
-			owner_player = self.__owner_player
-			self.__owner_player = 0
 			for connection in self.__position.connections:
 				for position in connection.positions_list:
-					if position.get_num_of_moinhos_is_in() == 0:
-						position.piece.in_moinho = False
-					else:
+					num_of_moinhos = position.get_num_of_moinhos_is_in()
+					if num_of_moinhos == 0:
+						if position.piece != None:
+							position.piece.in_moinho = False
+					elif num_of_moinhos > 0 and (self.__position not in connection.positions_list) and connection.is_moinho(opponent):
+						print(position.matrix_position)
+						print(position.get_num_of_moinhos_is_in())
+						print([position.matrix_position for position in connection.positions_list])
 						connection.set_positions_in_moinho(True)
-			self.__owner_player = owner_player
 
 		elif moinho and player != None:
 			for connection in self.__position.connections:
 				is_moinho = connection.is_moinho(player)
 				if is_moinho:
 					connection.set_positions_in_moinho(True)
+
 
 	@property
 	def move(self) -> AbstractMove:

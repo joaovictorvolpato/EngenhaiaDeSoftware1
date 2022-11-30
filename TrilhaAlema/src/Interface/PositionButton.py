@@ -42,8 +42,8 @@ class PositionButton(Button):
         self.board.clicked_position(line, column)
 
     def draw_piece_on_position(self, team: str) -> None:
-        if team == "FIGUEIRENSE":
-            self.config(image = GameImageHandler.FIGUEIRENSE_piece_image)
+        if team == "VASCO":
+            self.config(image = GameImageHandler.VASCO_piece_image)
         elif team == "AVAI":
             self.config(image = GameImageHandler.AVAI_piece_image)
 

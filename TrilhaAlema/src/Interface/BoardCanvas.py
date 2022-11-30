@@ -91,7 +91,7 @@ class BoardCanvas(Canvas):
     def __write_player_texts(self) -> tuple:
         local_player_text = self.__write_on_canvas(1007.0, 105.0, anchor="nw", text="You", fill="#000000", font=("Inter", 32 * -1))
         remote_player_text = self.__write_on_canvas(1238.0, 104.0, anchor="nw", text="Opponent", fill="#000000", font=("Inter", 32 * -1))
-        
+
         return local_player_text, remote_player_text
 
     def __write_players_pieces_in_hand(self) -> tuple:

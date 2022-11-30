@@ -30,7 +30,7 @@ class Position:
 	@property
 	def is_occupied(self) -> bool:
 		return self.__is_occupied
-	
+
 	@is_occupied.setter
 	def is_occupied(self, occupied) -> None:
 		self.__is_occupied = occupied
@@ -91,7 +91,19 @@ class Position:
 		for connection in position_connections:
 			is_moinho = connection.is_moinho(player_on_selected_position)
 			if is_moinho:
-				#connection.is_moinho = True
+				print("Connection of moinho", [postion.matrix_position for postion in connection.positions_list])
 				moinhos_count += 1
 
 		return moinhos_count
+
+	def is_blocked(self, player) -> bool:
+		if (self.__player_on_pos == player):
+			position_neighborhood: list[AbstractPosition] = self.__neighborhood
+			occupied_neighbors = 0
+			for neighbor in position_neighborhood:
+				if neighbor.is_occupied:
+					occupied_neighbors += 1
+			if occupied_neighbors == len(position_neighborhood):
+				return True
+
+		return False
