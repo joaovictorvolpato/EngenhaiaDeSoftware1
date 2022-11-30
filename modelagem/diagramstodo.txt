@@ -4,24 +4,24 @@ Todos os diagramas - se foi corrigido - se foi revisado
 
 NAO CORRIGIDA NEM REVISADA
 
-        SEQUENCIA
+        SEQUÊNCIA
 
-INTERAÇAO COM POSIÇAO - CORRIGIDO(volpato) - NAO REVISADO
-COLOCAR PECA - CORRIGIDO (volpato) - NAO REVISADO
-MOVER PECA - CORRIGIDO(volpato) - NAO REVISADO
+INTERAÇAO COM POSIÇAO - CORRIGIDO (volpato) - NAO REVISADO
+COLOCAR PECA - CORRIGIDO (Volpato) - NAO REVISADO
+MOVER PECA - CORRIGIDO (Volpato) - NAO REVISADO
 RETIRAR PECA - NAO CORRIGIDO - NAO REVISADO
-EFETUAR COL PECA - NAO CORRIGIDO - NAO REVISADO
+EFETUAR COL PECA - CORRIGIDO (Bonomo) - NAO REVISADO
 EFETUAR MOV PECA - NAO CORRIGIDO -NAO REVISADO
 EFETUAR RETIRADA - NAO CORRIGIDO -NAO REVISADO
-receb notific abandono - NAO CORRIGIDO -NAO REVISADO * acretido que nao houve alterações
-receb jogada - NAO CORRIGIDO -NAO REVISADO * acredito que nao houve alterações
+receb notific abandono - CORRIGIDO (Bonomo) - NAO REVISADO
+receb jogada - CORRIGIDO (Bonomo) -NAO REVISADO
 rece inicio - NAO CORRIGIDO -NAO REVISADO * acredito que nao houve alterações
-propor empate - NAO CORRIGIDO -NAO REVISADO
-Inicar partida - NAO CORRIGIDO -NAO REVISADO
-Iniciar programa - NAO CORRIGIDO -NAO REVISADO
-avaliar moinho - NAO CORRIGIDO -NAO REVISADO
-avaliar vencedor - NAO CORRIGIDO -NAO REVISADO
-atualizar interface - NAO CORRIGIDO -NAO REVISADO
+propor empate - CORRIGIDO (Bonomo) - NAO REVISADO
+Inicar partida - NAO CORRIGIDO - NAO REVISADO
+Iniciar programa - NAO CORRIGIDO - NAO REVISADO
+avaliar moinho - NAO CORRIGIDO - NAO REVISADO
+avaliar vencedor - NAO CORRIGIDO - NAO REVISADO
+atualizar interface - NAO CORRIGIDO - NAO REVISADO
 
 
         ATIVIDADES

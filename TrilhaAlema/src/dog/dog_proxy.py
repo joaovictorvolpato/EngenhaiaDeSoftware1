@@ -2,8 +2,8 @@ from distutils.command.config import config
 import json
 from urllib.parse import urldefrag
 import requests
-from dog.start_status import StartStatus
-
+from Dog.start_status import StartStatus
+from Config.Path import Path
 
 class DogProxy:
     def __init__(self):
@@ -27,7 +27,8 @@ class DogProxy:
         if self.player_name == "":
             self.player_name = "player" + str(self.player_id)
         try:
-            config_file = open("config/game.id", "r")
+            config_file_path = Path.relative_to_config("game.id")
+            config_file = open(config_file_path, "r")
             self.game_id = config_file.read()
         except FileNotFoundError:
             self.status = 0
@@ -130,4 +131,4 @@ class DogProxy:
                             self.move_order = int(move_player_order)
                             self.dog_actor.receive_move(move_dictionary)
                             if move_dictionary["match_status"] == "finished":
-                                self.status = 2
+                                self.status = 2 #   connected without match
