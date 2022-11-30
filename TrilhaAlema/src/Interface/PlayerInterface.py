@@ -111,6 +111,8 @@ class PlayerInterface(DogPlayerInterface):
 
         #Setting remote player up
         remote_player = self.game.remote_player
+        remote_player.name = start_status.get_players()[1][0]
+        self.__interface_game_board.canvas.remote_player_text = remote_player.name
         remote_player.player_id = 2
         remote_player.turn = False
         remote_player.team = "AVAI"
@@ -133,6 +135,8 @@ class PlayerInterface(DogPlayerInterface):
 
         #Setting remote player up
         remote_player = self.game.remote_player
+        remote_player.name = start_status.get_players()[1][0]
+        self.__interface_game_board.canvas.remote_player_text = remote_player.name
         remote_player.player_id = 1
         remote_player.turn = True
         remote_player.team = "FIGUEIRENSE"
