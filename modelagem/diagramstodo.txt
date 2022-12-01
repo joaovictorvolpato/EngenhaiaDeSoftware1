@@ -106,7 +106,7 @@ CORRIGIDO - NAO REVISADO
 
 Diagrama_Trilha_Alema - CORRIGIDO (Bonomo) - NAO REVISADO
 
-DOG_diagram - NAO CORRIGIDO - NAO REVISADO
+DOG_diagram - CORRIGIDO (Bonomo) - NAO REVISADO
 
 Graphical_Interface_diagram - NAO CORRIGIDO - NAO REVISADO
 
