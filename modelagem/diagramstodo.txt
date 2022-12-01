@@ -104,11 +104,11 @@ CORRIGIDO (Volpato) - REVISADO (Bonomo) (Rodrigo)
 - DIAGRAMA DE CLASSES
 
 
-Diagrama_Trilha_Alema - CORRIGIDO (Bonomo) - NAO REVISADO
+Diagrama_Trilha_Alema - CORRIGIDO (Bonomo) - REVISADO (Rodrigo)
 
-DOG_diagram - CORRIGIDO (Bonomo) - NAO REVISADO
+DOG_diagram - CORRIGIDO (Bonomo) - REVISADO (Rodrigo)
 
-Graphical_Interface_diagram - NAO CORRIGIDO - NAO REVISADO
+Graphical_Interface_diagram - CORRIGIDO (RODRIGO) - REVISADO (Bonomo)  
 
 
 
