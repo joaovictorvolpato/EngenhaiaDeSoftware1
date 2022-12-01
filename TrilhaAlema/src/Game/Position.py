@@ -3,7 +3,6 @@ from Abstractions.AbstractPiece import AbstractPiece
 from Abstractions.AbstractPlayer import AbstractPlayer
 from Abstractions.AbstractPosition import AbstractPosition
 
-
 class Position:
 	def __init__(self, matrix: tuple, neighborhood: list[AbstractPosition] = [], connections: list[AbstractConnection] = []):
 		self.__matrix_position: tuple = matrix
@@ -67,7 +66,7 @@ class Position:
 	def connections(self, connections: list[AbstractConnection]) -> None:
 		self.__connections = connections
 
-	def place_piece(self, piece_put: AbstractPiece) -> None: # Arrumar parametros na modelagem
+	def place_piece(self, piece_put: AbstractPiece) -> None:
 		self.__piece = piece_put
 		self.set_is_occupied()
 		self.__player_on_pos = piece_put.owner_player
@@ -91,7 +90,6 @@ class Position:
 		for connection in position_connections:
 			is_moinho = connection.is_moinho(player_on_selected_position)
 			if is_moinho:
-				print("Connection of moinho", [postion.matrix_position for postion in connection.positions_list])
 				moinhos_count += 1
 
 		return moinhos_count

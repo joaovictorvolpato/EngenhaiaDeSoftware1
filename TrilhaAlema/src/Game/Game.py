@@ -63,4 +63,4 @@ class Game:
             elif self.__remote_player.player_id == player_id:
                 return self.__remote_player
         except ValueError:
-            print("Invalid player id")
+            pass

@@ -27,4 +27,3 @@ class Connection():
 	def set_positions_in_moinho(self, moinho: bool) -> None:
 		for position in self.__positions_list:
 			position.piece.in_moinho = moinho
-			print(f"positions in moinho: {position.matrix_position}")

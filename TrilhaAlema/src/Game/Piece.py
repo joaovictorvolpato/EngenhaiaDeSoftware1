@@ -44,11 +44,6 @@ class Piece():
 		self.__in_moinho = in_moinho
 
 	def set_in_moinho_when_piece_changes_pos(self, moinho: bool, player: AbstractPlayer = None, opponent: AbstractPlayer = None) -> None:
-		print("IN CLASSSSSSSSSSSSSSSSSSSSSSSSSSSSSS")
-		print(self.__position)
-		print(self.__position.connections)
-		print("IN CLASSSSSSSSSSSSSSSSSSSSSSSSSSSSSS")
-
 		if not moinho:
 			self.__in_moinho = False
 			for connection in self.__position.connections:
@@ -58,9 +53,6 @@ class Piece():
 						if position.piece != None:
 							position.piece.in_moinho = False
 					elif num_of_moinhos > 0 and (self.__position not in connection.positions_list) and connection.is_moinho(opponent):
-						print(position.matrix_position)
-						print(position.get_num_of_moinhos_is_in())
-						print([position.matrix_position for position in connection.positions_list])
 						connection.set_positions_in_moinho(True)
 
 		elif moinho and player != None:

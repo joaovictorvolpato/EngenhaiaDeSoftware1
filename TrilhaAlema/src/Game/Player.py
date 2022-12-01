@@ -1,4 +1,3 @@
-
 class Player:
 	def __init__(self, id: int, name: str, turn: bool, team: str) -> None:
 		self.__player_id: int = id
@@ -92,7 +91,7 @@ class Player:
 	def decrement_pieces_on_board(self) -> None:
 		self.__pieces_on_board -= 1
 
-	def decrement_pieces_in_hand(self) -> None: # Alterar modelagem
+	def decrement_pieces_in_hand(self) -> None:
 		self.__pieces_in_hand -= 1
 
 	def increment_removed_pieces(self) -> None:
@@ -104,6 +103,5 @@ class Player:
 
 	def verify_sufficient_pieces_number(self) -> bool:
 		pieces_number = self.__pieces_on_board + self.__pieces_in_hand
-		if pieces_number <= 2:
-			print('WIN BY INSUFFICIENTE PIECES.')
+
 		return (pieces_number > 2)
