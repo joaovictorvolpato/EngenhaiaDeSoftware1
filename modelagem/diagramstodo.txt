@@ -48,11 +48,21 @@ atualizar interface - NAO CORRIGIDO -NAO REVISADO
 
 CORRIGIDO mas não REVISADO
 
-        VISAO GERAL DA INTERAÇAO
+
+       VISAO GERAL DA INTERAÇAO
 
 CORRIGIDO mas não REVISADO
+
+
+	 DIAGRAMA DE CLASSES
+
+Diagrama_Trilha_Alema - CORRIGIDO (Bonomo) - NAO REVISADO
+DOG_diagram - NAO CORRIGIDO - NAO REVISADO
+Graphical_Interface_diagram - NAO CORRIGIDO - NAO REVISADO
+
 
         MAQ DE ESTADOS
 
 
         ALGORITMOS
+
