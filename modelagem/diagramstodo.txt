@@ -116,11 +116,11 @@ Graphical_Interface_diagram - NAO CORRIGIDO - NAO REVISADO
 - MAQUINA DE ESTADOS
 
 
-Player - NAO CORRIGIDO - NAO REVISADO
+Player - EXCLUIDO (Bonomo) (Rodrigo)
 
-Piece - NAO CORRIGIDO - NAO REVISADO
+Piece - CORRIGIDO (Bonomo) - REVISADO (Rodrigo)
 
-Move - NAO CORRIGIDO - NAO REVISADO
+Move - CORRIGIDO (Bonomo) - REVISADO (Rodrigo)
 
 
 
