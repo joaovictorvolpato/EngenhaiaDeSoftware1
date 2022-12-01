@@ -130,7 +130,7 @@ Move - NAO CORRIGIDO - NAO REVISADO
 
 Position get_num_of_moinhos_is_in() - CORRIGIDO (Bonomo) - NAO REVISADO
 
-Board verify_blocked() - NAO CORRIGIDO - NAO REVISADO
+Board verify_blocked() - CORRIGIDO (Bonomo) - NAO REVISADO
 
 Board evaluate_winner() - CORRIGIDO (Bonomo) - NAO REVISADO
 
