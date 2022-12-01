@@ -132,17 +132,17 @@ Board get_num_of_moinhos() - NAO CORRIGIDO - NAO REVISADO
 
 Board verify_blocked() - NAO CORRIGIDO - NAO REVISADO
 
-Board evaluate_winner() - NAO CORRIGIDO - NAO REVISADO
+Board evaluate_winner() - CORRIGIDO (Bonomo) - NAO REVISADO
 
-Board finish_turn() - NAO CORRIGIDO - NAO REVISADO
+Board finish_turn() - CORRIGIDO (Bonomo) - NAO REVISADO
 
-Player can_do_fly() - NAO CORRIGIDO - NAO REVISADO
+Player can_do_fly() - CORRIGIDO (Bonomo) - NAO REVISADO
 
-Player change_turn() - NAO CORRIGIDO - NAO REVISADO
+Player change_turn() - CORRIGIDO (Bonomo) - NAO REVISADO
 
-Player verify_sufficient_pieces_number() - NAO CORRIGIDO - NAO REVISADO
+Player verify_sufficient_pieces_number() - CORRIGIDO (Bonomo) - NAO REVISADO
 
-Piece get_piece_in_moinho() - NAO CORRIGIDO - NAO REVISADO
+Piece get_piece_in_moinho() - EXCLUIDO (Bonomo)
 
 
 
