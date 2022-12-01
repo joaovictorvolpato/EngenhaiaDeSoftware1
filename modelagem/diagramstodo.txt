@@ -1,68 +1,148 @@
 Todos os diagramas - se foi corrigido - se foi revisado
 
-        ESPECIFICAO DE REQUISITOS
 
-NAO CORRIGIDA NEM REVISADA
+- ESPECIFICAO DE REQUISITOS
 
-        SEQUÊNCIA
+
+NAO CORRIGIDO - NAO REVISADO
+
+
+
+
+- SEQUENCIA
+
 
 INTERAÇAO COM POSIÇAO - CORRIGIDO (Volpato) - NAO REVISADO
+
 COLOCAR PECA - CORRIGIDO (Volpato) - NAO REVISADO
+
 MOVER PECA - CORRIGIDO (Volpato) - NAO REVISADO
+
 RETIRAR PECA - NAO CORRIGIDO - NAO REVISADO
+
 EFETUAR COL PECA - CORRIGIDO (Bonomo) - NAO REVISADO
+
 EFETUAR MOV PECA - NAO CORRIGIDO -NAO REVISADO
+
 EFETUAR RETIRADA - NAO CORRIGIDO -NAO REVISADO
+
 receb notific abandono - CORRIGIDO (Bonomo) - NAO REVISADO
+
 receb jogada - CORRIGIDO (Bonomo) -NAO REVISADO
+
 rece inicio - NAO CORRIGIDO -NAO REVISADO * acredito que nao houve alterações
+
 propor empate - CORRIGIDO (Bonomo) - NAO REVISADO
+
 Inicar partida - NAO CORRIGIDO - NAO REVISADO
+
 Iniciar programa - NAO CORRIGIDO - NAO REVISADO
+
 avaliar moinho - NAO CORRIGIDO - NAO REVISADO
+
 avaliar vencedor - CORRIGIDO (Bonomo) - NAO REVISADO
+
 atualizar interface - NAO CORRIGIDO - NAO REVISADO
 
 
-        ATIVIDADES
+
+
+- ATIVIDADES
+
 
 INTERAÇAO COM POSIÇAO - NAO CORRIGIDO - NAO REVISADO
+
 COLOCAR PECA - NAO CORRIGIDO- NAO REVISADO
+
 MOVER PECA - NAO CORRIGIDO - NAO REVISADO
+
 RETIRAR PECA - NAO CORRIGIDO - NAO REVISADO
+
 EFETUAR COL PECA - NAO CORRIGIDO - NAO REVISADO
+
 EFETUAR MOV PECA - NAO CORRIGIDO -NAO REVISADO
+
 EFETUAR RETIRADA - NAO CORRIGIDO -NAO REVISADO
+
 receb notific abandono - NAO CORRIGIDO -NAO REVISADO * acretido que nao houve alterações
+
 receb jogada - NAO CORRIGIDO -NAO REVISADO * acredito que nao houve alterações
+
 rece inicio - NAO CORRIGIDO -NAO REVISADO * acredito que nao houve alterações
+
 propor empate - NAO CORRIGIDO -NAO REVISADO
+
 Inicar partida - NAO CORRIGIDO -NAO REVISADO
+
 Iniciar programa - NAO CORRIGIDO -NAO REVISADO
+
 avaliar moinho - NAO CORRIGIDO -NAO REVISADO
+
 avaliar vencedor - NAO CORRIGIDO -NAO REVISADO
+
 atualizar interface - NAO CORRIGIDO -NAO REVISADO
 
 
-        CASOS DE USO
-
-CORRIGIDO mas não REVISADO
 
 
-       VISAO GERAL DA INTERAÇAO
-
-CORRIGIDO mas não REVISADO
+- CASOS DE USO
 
 
-	 DIAGRAMA DE CLASSES
+CORRIGIDO - NAO REVISADO
+
+
+
+
+- VISAO GERAL DA INTERAÇAO
+
+
+CORRIGIDO - NAO REVISADO
+
+
+
+
+- DIAGRAMA DE CLASSES
+
 
 Diagrama_Trilha_Alema - CORRIGIDO (Bonomo) - NAO REVISADO
+
 DOG_diagram - NAO CORRIGIDO - NAO REVISADO
+
 Graphical_Interface_diagram - NAO CORRIGIDO - NAO REVISADO
 
 
-        MAQ DE ESTADOS
 
 
-        ALGORITMOS
+- MAQUINA DE ESTADOS
+
+
+Player - NAO CORRIGIDO - NAO REVISADO
+
+Piece - NAO CORRIGIDO - NAO REVISADO
+
+Move - NAO CORRIGIDO - NAO REVISADO
+
+
+
+
+- ALGORITMOS
+
+
+Board get_num_of_moinhos() - NAO CORRIGIDO - NAO REVISADO
+
+Board verify_blocked() - NAO CORRIGIDO - NAO REVISADO
+
+Board evaluate_winner() - NAO CORRIGIDO - NAO REVISADO
+
+Board finish_turn() - NAO CORRIGIDO - NAO REVISADO
+
+Player can_do_fly() - NAO CORRIGIDO - NAO REVISADO
+
+Player change_turn() - NAO CORRIGIDO - NAO REVISADO
+
+Player verify_sufficient_pieces_number() - NAO CORRIGIDO - NAO REVISADO
+
+Piece get_piece_in_moinho() - NAO CORRIGIDO - NAO REVISADO
+
+
 
