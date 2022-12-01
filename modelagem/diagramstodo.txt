@@ -88,7 +88,7 @@ atualizar interface - NAO CORRIGIDO -NAO REVISADO
 - CASOS DE USO
 
 
-CORRIGIDO - NAO REVISADO
+CORRIGIDO (Volpato) - REVISADO (Bonomo) (Rodrigo)
 
 
 
@@ -96,7 +96,7 @@ CORRIGIDO - NAO REVISADO
 - VISAO GERAL DA INTERAÇAO
 
 
-CORRIGIDO - NAO REVISADO
+CORRIGIDO (Volpato) - REVISADO (Bonomo) (Rodrigo)
 
 
 
