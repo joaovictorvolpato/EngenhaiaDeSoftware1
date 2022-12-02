@@ -34,7 +34,7 @@ rece inicio - CORRIGIDO (Bonomo) - NAO REVISADO
 
 propor empate - CORRIGIDO (Bonomo) - NAO REVISADO
 
-Inicar partida - NAO CORRIGIDO - NAO REVISADO
+Inicar partida - CORRIGIDO (Bonomo) - NAO REVISADO
 
 Iniciar programa - NAO CORRIGIDO - NAO REVISADO
 
