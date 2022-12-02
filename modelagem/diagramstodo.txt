@@ -1,12 +1,6 @@
 Todos os diagramas - se foi corrigido - se foi revisado
 
 
-- ESPECIFICAO DE REQUISITOS
-
-
-NAO CORRIGIDO - NAO REVISADO
-
-
 
 
 - SEQUENCIA
@@ -48,7 +42,9 @@ avaliar vencedor - CORRIGIDO (Bonomo) - NAO REVISADO
 
 atualizar interface - NAO CORRIGIDO - NAO REVISADO
 
-* Adicionar notas para diagramas de algoritmos*
+* Adicionar notas para diagramas de algoritmos - FEITO (Bonomo) - NAO REVISADO
+
+
 
 
 - ATIVIDADES
@@ -89,22 +85,6 @@ atualizar interface - NAO CORRIGIDO -NAO REVISADO
 
 
 
-- CASOS DE USO
-
-
-CORRIGIDO (Volpato) - REVISADO (Bonomo) (Rodrigo)
-
-
-
-
-- VISAO GERAL DA INTERAÇAO
-
-
-CORRIGIDO (Volpato) - REVISADO (Bonomo) (Rodrigo)
-
-
-
-
 - DIAGRAMA DE CLASSES
 
 
@@ -112,19 +92,7 @@ Diagrama_Trilha_Alema - CORRIGIDO (Bonomo) - REVISADO (Rodrigo)
 
 DOG_diagram - CORRIGIDO (Bonomo) - REVISADO (Rodrigo)
 
-Graphical_Interface_diagram - CORRIGIDO (RODRIGO) - REVISADO (Bonomo)  
-
-
-
-
-- MAQUINA DE ESTADOS
-
-
-Player - EXCLUIDO (Bonomo) (Rodrigo)
-
-Piece - CORRIGIDO (Bonomo) - REVISADO (Rodrigo)
-
-Move - CORRIGIDO (Bonomo) - REVISADO (Rodrigo)
+Graphical_Interface_diagram - CORRIGIDO (Rodrigo) - REVISADO (Bonomo)  
 
 
 
@@ -148,5 +116,5 @@ Player verify_sufficient_pieces_number() - CORRIGIDO (Bonomo) - NAO REVISADO
 
 Piece get_piece_in_moinho() - EXCLUIDO (Bonomo)
 
-* Adicionar notas para diagramas de sequencia *
+* Adicionar notas para diagramas de sequencia - FEITO (Bonomo) - NAO REVISADO
 
