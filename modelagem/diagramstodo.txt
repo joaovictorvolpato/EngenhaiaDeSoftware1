@@ -36,15 +36,19 @@ propor empate - CORRIGIDO (Bonomo) - NAO REVISADO
 
 Inicar partida - CORRIGIDO (Bonomo) - NAO REVISADO
 
-Iniciar programa - NAO CORRIGIDO - NAO REVISADO
+Iniciar programa - CORRIGIDO (Volpato) - NAO REVISADO
 
-avaliar moinho - NAO CORRIGIDO - NAO REVISADO
+avaliar moinho - CORRIGIDO (Volpato) - NAO REVISADO
+
+relacao peca moinho - CRIADO (Volpato) - NAO REVISADO
+
+relacao conexao moinho - CRIADO (Volpato) - NAO REVISADO
 
 avaliar vencedor - CORRIGIDO (Bonomo) - NAO REVISADO
 
 atualizar interface - NAO CORRIGIDO - NAO REVISADO
 
-
+* Adicionar notas para diagramas de algoritmos*
 
 
 - ATIVIDADES
@@ -144,5 +148,5 @@ Player verify_sufficient_pieces_number() - CORRIGIDO (Bonomo) - NAO REVISADO
 
 Piece get_piece_in_moinho() - EXCLUIDO (Bonomo)
 
-
+* Adicionar notas para diagramas de sequencia *
 
