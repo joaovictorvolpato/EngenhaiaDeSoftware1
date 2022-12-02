@@ -50,37 +50,37 @@ atualizar interface - NAO CORRIGIDO - NAO REVISADO
 - ATIVIDADES
 
 
-INTERAÇAO COM POSIÇAO - NAO CORRIGIDO - NAO REVISADO
+INTERAÇAO COM POSIÇAO - CORRIGIDO (Bonomo) - NAO REVISADO
 
-COLOCAR PECA - NAO CORRIGIDO- NAO REVISADO
+COLOCAR PECA - CORRIGIDO (Bonomo) - NAO REVISADO
 
-MOVER PECA - NAO CORRIGIDO - NAO REVISADO
+MOVER PECA - CORRIGIDO (Bonomo) - NAO REVISADO
 
-RETIRAR PECA - NAO CORRIGIDO - NAO REVISADO
+RETIRAR PECA - CORRIGIDO (Bonomo) - NAO REVISADO
 
-EFETUAR COL PECA - NAO CORRIGIDO - NAO REVISADO
+EFETUAR COL PECA - CORRIGIDO (Bonomo) - NAO REVISADO
 
-EFETUAR MOV PECA - NAO CORRIGIDO -NAO REVISADO
+EFETUAR MOV PECA - CORRIGIDO (Bonomo) - NAO REVISADO
 
-EFETUAR RETIRADA - NAO CORRIGIDO -NAO REVISADO
+EFETUAR RETIRADA - CORRIGIDO (Bonomo) - NAO REVISADO
 
-receb notific abandono - NAO CORRIGIDO -NAO REVISADO * acretido que nao houve alterações
+receb notific abandono (Bonomo) - CORRIGIDO - NAO REVISADO
 
-receb jogada - NAO CORRIGIDO -NAO REVISADO * acredito que nao houve alterações
+receb jogada - CORRIGIDO (Bonomo) - NAO REVISADO
 
-rece inicio - NAO CORRIGIDO -NAO REVISADO * acredito que nao houve alterações
+rece inicio - CORRIGIDO (Bonomo) - NAO REVISADO
 
-propor empate - NAO CORRIGIDO -NAO REVISADO
+propor empate - CORRIGIDO (Bonomo) - NAO REVISADO
 
-Inicar partida - NAO CORRIGIDO -NAO REVISADO
+Inicar partida - CORRIGIDO (Bonomo) - NAO REVISADO
 
-Iniciar programa - NAO CORRIGIDO -NAO REVISADO
+Iniciar programa - CORRIGIDO (Bonomo) - NAO REVISADO
 
-avaliar moinho - NAO CORRIGIDO -NAO REVISADO
+avaliar moinho - CORRIGIDO (Bonomo) - NAO REVISADO
 
-avaliar vencedor - NAO CORRIGIDO -NAO REVISADO
+avaliar vencedor - CORRIGIDO (Bonomo) - NAO REVISADO
 
-atualizar interface - NAO CORRIGIDO -NAO REVISADO
+atualizar interface - NAO CORRIGIDO - NAO REVISADO
 
 
 
@@ -114,7 +114,6 @@ Player change_turn() - CORRIGIDO (Bonomo) - NAO REVISADO
 
 Player verify_sufficient_pieces_number() - CORRIGIDO (Bonomo) - NAO REVISADO
 
-Piece get_piece_in_moinho() - EXCLUIDO (Bonomo)
 
 * Adicionar notas para diagramas de sequencia - FEITO (Bonomo) - NAO REVISADO
 

@@ -1,0 +1,31 @@
+FOLLOW THE STEP BY STEP:
+
+
+1. Create and activate a virtual environment:
+
+    cd src
+    python3 -m venv venv
+
+
+- WINDOWNS
+
+    venv\Scripts\activate or cd venv\Scripts\activate
+
+
+- LINUX
+
+    source venv/bin/activate/
+
+-------------------------------------------------------
+
+2. Install requirements:
+
+    cd src
+    pip3 install -r requirements.txt
+
+-------------------------------------------------------
+
+3. Run the game:
+
+    cd src
+    python3 main.py
