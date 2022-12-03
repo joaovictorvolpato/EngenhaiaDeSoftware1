@@ -6,9 +6,9 @@ Todos os diagramas - se foi corrigido - se foi revisado
 - SEQUENCIA
 
 
-INTERAÇAO COM POSIÇAO - CORRIGIDO (Volpato) - NAO REVISADO
+INTERAÇAO COM POSIÇAO - CORRIGIDO (Volpato) - REVISADO (Rodrigo)
 
-COLOCAR PECA - CORRIGIDO (Volpato) - NAO REVISADO
+COLOCAR PECA - CORRIGIDO (Volpato) - REVISADO (Rodrigo)
 
 MOVER PECA - CORRIGIDO (Volpato) - NAO REVISADO
 
@@ -28,9 +28,9 @@ rece inicio - CORRIGIDO (Bonomo) - NAO REVISADO
 
 propor empate - CORRIGIDO (Bonomo) - NAO REVISADO
 
-Inicar partida - CORRIGIDO (Bonomo) - NAO REVISADO
+Inicar partida - CORRIGIDO (Bonomo) - REVISADO (Rodrigo)
 
-Iniciar programa - CORRIGIDO (Volpato) - NAO REVISADO
+Iniciar programa - CORRIGIDO (Volpato) - REVISADO (Rodrigo)
 
 avaliar moinho - CORRIGIDO (Volpato) - NAO REVISADO
 
@@ -40,20 +40,18 @@ relacao conexao moinho - CRIADO (Volpato) - NAO REVISADO
 
 avaliar vencedor - CORRIGIDO (Bonomo) - NAO REVISADO
 
-atualizar interface - CORRIGIDO (Volpato) - NAO REVISADO
+atualizar interface - CORRIGIDO (Volpato) - REVISADO (Rodrigo)
 
 * Adicionar notas para diagramas de algoritmos - FEITO (Bonomo) - NAO REVISADO
-
-
 
 
 - ATIVIDADES
 
 
-INTERAÇAO COM POSIÇAO - FEITO (volpato) - NAO REVISADO
+INTERAÇAO COM POSIÇAO - FEITO (volpato) - REVISADO (Rodrigo)
 
-COLOCAR PECA -  CORRIGIDO (Volpato) - NAO REVISADO
- 
+COLOCAR PECA -  CORRIGIDO (Volpato) - REVISADO (Rodrigo)
+
 MOVER PECA - CORRIGIDO (Volpato) - NAO REVISADO
 
 RETIRAR PECA - CORRIGIDO (Volpato) - NAO REVISADO
@@ -72,15 +70,15 @@ rece inicio - CORRIGIDO (Bonomo) - NAO REVISADO
 
 propor empate - CORRIGIDO (Bonomo) - NAO REVISADO
 
-Inicar partida - CORRIGIDO (Bonomo) - NAO REVISADO
+Inicar partida - CORRIGIDO (Bonomo) - REVISADO
 
-Iniciar programa - CORRIGIDO (Bonomo) - NAO REVISADO
+Iniciar programa - CORRIGIDO (Bonomo) - REVISADO (Rodrigo)
 
 avaliar moinho - CORRIGIDO (Bonomo) - NAO REVISADO
 
 avaliar vencedor - CORRIGIDO (Bonomo) - NAO REVISADO
 
-atualizar interface - FEITO (volpato) - NAO REVISADO
+atualizar interface - FEITO (volpato) - REVISADO (Rodrigo)
 
 
 
@@ -102,7 +100,7 @@ Graphical_Interface_diagram - CORRIGIDO (Rodrigo) - REVISADO (Bonomo)
 
 Position get_num_of_moinhos_is_in() - CORRIGIDO (Bonomo) - NAO REVISADO
 
-Board verify_blocked() - CORRIGIDO (Bonomo) - NAO REVISADO
+Board verify_blocked() - CORRIGIDO (Bonomo) - REVISADO (Rodrigo)
 
 Board evaluate_winner() - CORRIGIDO (Bonomo) - NAO REVISADO
 
@@ -115,5 +113,5 @@ Player change_turn() - CORRIGIDO (Bonomo) - NAO REVISADO
 Player verify_sufficient_pieces_number() - CORRIGIDO (Bonomo) - NAO REVISADO
 
 
-* Adicionar notas para diagramas de sequencia - FEITO (Bonomo) - NAO REVISADO
+* Adicionar notas para diagramas de sequencia - FEITO (Bonomo) - REVISADO
 
