@@ -323,7 +323,7 @@ class Board:
 		piece_owner = piece_to_move.owner_player
 		destiny_position = self.__selected_position
 		self.__game.move.set_move_none()
-		if piece_to_move.position.is_blocked(piece_owner):
+		if piece_to_move.position.is_blocked(piece_owner) and not piece_owner.can_do_fly():
 			self.__selected_piece = None
 			self.__player_interface.notify_player("This piece is blocked. Choose another one.")
 		elif (destiny_position in piece_to_move.position.neighborhood) or piece_owner.can_do_fly():
