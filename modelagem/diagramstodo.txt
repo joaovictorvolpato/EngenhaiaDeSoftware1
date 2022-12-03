@@ -40,7 +40,7 @@ relacao conexao moinho - CRIADO (Volpato) - NAO REVISADO
 
 avaliar vencedor - CORRIGIDO (Bonomo) - NAO REVISADO
 
-atualizar interface - NAO CORRIGIDO - NAO REVISADO
+atualizar interface - CORRIGIDO (Volpato) - NAO REVISADO
 
 * Adicionar notas para diagramas de algoritmos - FEITO (Bonomo) - NAO REVISADO
 
@@ -50,19 +50,19 @@ atualizar interface - NAO CORRIGIDO - NAO REVISADO
 - ATIVIDADES
 
 
-INTERAÇAO COM POSIÇAO - CORRIGIDO (Bonomo) - NAO REVISADO
+INTERAÇAO COM POSIÇAO - FEITO (volpato) - NAO REVISADO
 
-COLOCAR PECA - CORRIGIDO (Bonomo) - NAO REVISADO
+COLOCAR PECA -  CORRIGIDO (Volpato) - NAO REVISADO
+ 
+MOVER PECA - CORRIGIDO (Volpato) - NAO REVISADO
 
-MOVER PECA - CORRIGIDO (Bonomo) - NAO REVISADO
+RETIRAR PECA - CORRIGIDO (Volpato) - NAO REVISADO
 
-RETIRAR PECA - CORRIGIDO (Bonomo) - NAO REVISADO
+EFETUAR COL PECA - CORRIGIDO (Volpato) - NAO REVISADO
 
-EFETUAR COL PECA - CORRIGIDO (Bonomo) - NAO REVISADO
+EFETUAR MOV PECA - CORRIGIDO (Volpato) - NAO REVISADO
 
-EFETUAR MOV PECA - CORRIGIDO (Bonomo) - NAO REVISADO
-
-EFETUAR RETIRADA - CORRIGIDO (Bonomo) - NAO REVISADO
+EFETUAR RETIRADA - CORRIGIDO (Volpato) - NAO REVISADO
 
 receb notific abandono (Bonomo) - CORRIGIDO - NAO REVISADO
 
@@ -80,7 +80,7 @@ avaliar moinho - CORRIGIDO (Bonomo) - NAO REVISADO
 
 avaliar vencedor - CORRIGIDO (Bonomo) - NAO REVISADO
 
-atualizar interface - NAO CORRIGIDO - NAO REVISADO
+atualizar interface - FEITO (volpato) - NAO REVISADO
 
 
 
