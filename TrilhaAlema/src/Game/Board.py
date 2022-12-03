@@ -255,7 +255,6 @@ class Board:
 	def clicked_propose_draw(self) -> None:
 		is_turn: bool = self.__local_player.turn
 		if is_turn:
-			# self.propose_draw() RETIRAR DO CODIGO E DA MODELAGEM
 			self.__game.move.set_move("propose_draw", self.__local_player.player_id)
 			move_dict = self.__game.move.get_move_dict()
 			self.__player_interface.send_move(move_dict)
