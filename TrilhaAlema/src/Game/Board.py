@@ -275,9 +275,12 @@ class Board:
 			occupied: bool = position.is_occupied
 			moinhos = self.__moinhos
 
-			if game_phase == "placing" and not occupied and not self.__moinhos:
-				self.__selected_position = position
-				self.place_piece()
+			if game_phase == "placing" and not self.__moinhos:
+				if not occupied:
+					self.__selected_position = position
+					self.place_piece()
+				else:
+					self.__player_interface.notify_player("Sorry, but this position is already occupied.")
 
 			elif game_phase == "moving" and not self.__moinhos:
 				if self.__selected_piece == None and occupied:
