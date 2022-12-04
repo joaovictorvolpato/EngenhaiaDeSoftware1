@@ -45,3 +45,10 @@ NOTAS da entrega 3:
 Modelagem: 5,0<br>
 Apresentações: 7,0<br>
 FINAL: 6,0<br>
+
+---
+
+ENTREGA 4
+
+Links dos vídeos referentes à entrega 4: <br>
+João Victor Volpato: https://youtu.be/Fkgbcg-NaPI <br>
