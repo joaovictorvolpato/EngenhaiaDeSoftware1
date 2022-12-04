@@ -51,4 +51,5 @@ FINAL: 6,0<br>
 ENTREGA 4
 
 Links dos vídeos referentes à entrega 4: <br>
+João Paulo Bonomo: https://youtu.be/q-Kpmv-Xefw <br>
 João Victor Volpato: https://youtu.be/Fkgbcg-NaPI <br>
